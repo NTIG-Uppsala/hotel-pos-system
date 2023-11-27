@@ -36,6 +36,14 @@ Build the project to distribute to end user:
 dotnet publish
 ```
 
+## Run tests
+
+Navigate to the `src` folder and run:
+
+```shell
+dotnet test
+```
+
 ## Format Code
 
 This project uses an [.editorconfig](./.editorconfig) file that defines the project's code style.
