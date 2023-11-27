@@ -9,3 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: dotnet format --verify-no-changes ./src/HotelPosSystem.sln
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: dotnet test ./src/HotelPosSystem.sln
