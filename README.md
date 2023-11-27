@@ -10,7 +10,7 @@ git clone https://github.com/NTIG-Uppsala/hotel-pos-system
 
 ## Run
 
-Before runing the project, navigate to the `src/HotelPosSystem` directory:
+Before running the project, navigate to the `src/HotelPosSystem` directory:
 
 ```shell
 cd src/HotelPosSystem
