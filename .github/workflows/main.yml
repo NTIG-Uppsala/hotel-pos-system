@@ -8,4 +8,4 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: action/checkout@v4
-      - run: dotnet format --verify-no-changes
+      - run: dotnet format --verify-no-changes ./src/HotelPosSystem.sln
