@@ -1,0 +1,11 @@
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  format:
+    runs-on: windows-latest
+    steps:
+      - uses: action/checkout@v4
+      - run: dotnet format --verify-no-changes
