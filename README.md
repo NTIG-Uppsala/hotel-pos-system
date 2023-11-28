@@ -58,7 +58,7 @@ dotnet format
 
 Commits can be prevented if formatting is incorrect or tests fail. 
 
-Create a file named `pre-commit` in the `.git/hooks` directory with the following content:
+To do this, create a file named `pre-commit` in the `.git/hooks` directory with the following content:
 
 ```shell
 #!/bin/sh
