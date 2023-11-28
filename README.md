@@ -53,3 +53,29 @@ To fix the project's formatting, navigate to the `src` directory and run:
 ```shell
 dotnet format
 ```
+
+## Pre-commit hook
+
+Commits can be prevented if formatting is incorrect or tests fail. 
+
+Create a file named `pre-commit` in the `.git/hooks` directory with the following content:
+
+```shell
+#!/bin/sh
+
+set -e
+
+if ! dotnet format --verify-no-changes ./src/HotelPosSystem.sln
+then
+    echo -e "\nCommit aborted because code formatting is incorrect. Please run 'dotnet format'."
+    exit 1
+fi
+
+if ! dotnet test ./src/HotelPosSystem.sln
+then
+    echo -e "\nCommit aborted because tests failed."
+    exit 1
+fi
+```
+
+The `.git` folder may be hidden by default.
