@@ -17,25 +17,16 @@ namespace HotelPosSystem {
             };
             layoutPanel.Controls.Add(_occupiedRoomsText);
 
-            Button incrementButton = new() {
-                Name = "incrementButton",
-                Text = "+"
-            };
-            incrementButton.Click += OnIncrementButtonClicked;
+            Button incrementButton =
+                CreateButton("incrementButton", "+", OnIncrementButtonClicked);
             layoutPanel.Controls.Add(incrementButton);
 
-            Button decrementButton = new() {
-                Name = "decrementButton",
-                Text = "-"
-            };
-            decrementButton.Click += OnDecrementButtonClicked;
+            Button decrementButton =
+                CreateButton("decrementButton", "-", OnDecrementButtonClicked);
             layoutPanel.Controls.Add(decrementButton);
 
-            Button resetButton = new() {
-                Name = "resetButton",
-                Text = "Reset"
-            };
-            resetButton.Click += OnResetButtonClicked;
+            Button resetButton =
+                CreateButton("resetButton", "Reset", OnResetButtonClicked);
             layoutPanel.Controls.Add(resetButton);
 
             UpdateOccupiedRoomsText();
@@ -62,6 +53,15 @@ namespace HotelPosSystem {
         private void UpdateOccupiedRoomsText() {
             string newText = $"Occupied rooms: {_occupiedRooms}";
             _occupiedRoomsText.Text = newText;
+        }
+
+        private Button CreateButton(string name, string text, EventHandler? onClicked) {
+            Button button = new() {
+                Name = name,
+                Text = text
+            };
+            button.Click += onClicked;
+            return button;
         }
     }
 }
