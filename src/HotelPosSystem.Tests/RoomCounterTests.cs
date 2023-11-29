@@ -7,6 +7,11 @@ namespace HotelPosSystem.Tests {
         private readonly UIA3Automation _automation;
         private readonly ProgramFixture _fixture;
 
+        private const string IncrementButtonAutomationId = "incrementButton";
+        private const string DecrementButtonAutomationId = "decrementButton";
+        private const string ResetButtonAutomationId = "resetButton";
+        private const string OccupiedRoomsTextAutomationId = "occupiedRoomsText";
+
         public RoomCounterTests(ProgramFixture fixture) {
             _automation = new UIA3Automation();
             _fixture = fixture;
@@ -15,43 +20,43 @@ namespace HotelPosSystem.Tests {
         [Fact]
         public void ShouldIncrementNumber() {
             SetCounter(0);
-            Button incrementButton = GetElement("incrementButton").AsButton();
+            Button incrementButton = GetElement(IncrementButtonAutomationId).AsButton();
             incrementButton.Click();
-            Label occupiedRoomsText = GetElement("occupiedRoomsText").AsLabel();
+            Label occupiedRoomsText = GetElement(OccupiedRoomsTextAutomationId).AsLabel();
             Assert.Equal("Occupied rooms: 1", occupiedRoomsText.Text);
         }
 
         [Fact]
         public void ShouldDecrementNumberWhenCounterPositive() {
             SetCounter(2);
-            Button decrementButton = GetElement("decrementButton").AsButton();
+            Button decrementButton = GetElement(DecrementButtonAutomationId).AsButton();
             decrementButton.Click();
-            Label occupiedRoomsText = GetElement("occupiedRoomsText").AsLabel();
+            Label occupiedRoomsText = GetElement(OccupiedRoomsTextAutomationId).AsLabel();
             Assert.Equal("Occupied rooms: 1", occupiedRoomsText.Text);
         }
 
         [Fact]
         public void ShouldNotDecrementNumberWhenCounterZero() {
             SetCounter(0);
-            Button decrementButton = GetElement("decrementButton").AsButton();
+            Button decrementButton = GetElement(DecrementButtonAutomationId).AsButton();
             decrementButton.Click();
-            Label occupiedRoomsText = GetElement("occupiedRoomsText").AsLabel();
+            Label occupiedRoomsText = GetElement(OccupiedRoomsTextAutomationId).AsLabel();
             Assert.Equal("Occupied rooms: 0", occupiedRoomsText.Text);
         }
 
         [Fact]
         public void ShouldSetCounterToZero() {
             SetCounter(2);
-            Button resetButton = GetElement("resetButton").AsButton();
+            Button resetButton = GetElement(ResetButtonAutomationId).AsButton();
             resetButton.Click();
-            Label occupiedRoomsText = GetElement("occupiedRoomsText").AsLabel();
+            Label occupiedRoomsText = GetElement(OccupiedRoomsTextAutomationId).AsLabel();
             Assert.Equal("Occupied rooms: 0", occupiedRoomsText.Text);
         }
 
         private void SetCounter(int value) {
-            Button resetButton = GetElement("resetButton").AsButton();
+            Button resetButton = GetElement(ResetButtonAutomationId).AsButton();
             resetButton.Click();
-            Button incrementButton = GetElement("incrementButton").AsButton();
+            Button incrementButton = GetElement(IncrementButtonAutomationId).AsButton();
             for (int i = 0; i < value; i++) {
                 incrementButton.Click();
             }
