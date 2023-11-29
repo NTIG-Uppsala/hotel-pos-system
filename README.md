@@ -1,4 +1,4 @@
-# Hotel POS System
+# Hotel point of sale system
 
 ## Clone
 
@@ -7,6 +7,10 @@ Clone the repository:
 ```shell
 git clone https://github.com/NTIG-Uppsala/hotel-pos-system
 ```
+
+## Install .NET SDK
+
+Make sure you have the .NET 8 SDK installed. You can get it from [here](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
 
 ## Run
 
@@ -44,7 +48,9 @@ Navigate to the `src` folder and run:
 dotnet build -c Release ; dotnet test
 ```
 
-## Format Code
+**Do not interact with your computer while the tests are running. Doing so might cause the tests to fail unexpectedly.**
+
+## Format code
 
 This project uses an [.editorconfig](./.editorconfig) file that defines the project's code style.
 
@@ -85,5 +91,7 @@ then
     exit 1
 fi
 ```
+
+**The tests might fail unexpectedly if you interact with your computer while the pre-commit hook is running.**
 
 The `.git` folder may be hidden by default.
