@@ -8,6 +8,10 @@ Clone the repository:
 git clone https://github.com/NTIG-Uppsala/hotel-pos-system
 ```
 
+## Install .NET SDK
+
+Make sure you have the .NET SDK installed. You can get it from [here](https://dotnet.microsoft.com/en-us/download).
+
 ## Run
 
 Before running the project, navigate to the `src/HotelPosSystem` directory:
