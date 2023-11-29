@@ -10,7 +10,7 @@ git clone https://github.com/NTIG-Uppsala/hotel-pos-system
 
 ## Install .NET SDK
 
-Make sure you have the .NET SDK installed. You can get it from [here](https://dotnet.microsoft.com/en-us/download).
+Make sure you have the .NET 8 SDK installed. You can get it from [here](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
 
 ## Run
 
