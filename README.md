@@ -1,4 +1,4 @@
-# Hotel POS System
+# Hotel POS system
 
 ## Clone
 
@@ -44,7 +44,7 @@ Navigate to the `src` folder and run:
 dotnet build -c Release ; dotnet test
 ```
 
-## Format Code
+## Format code
 
 This project uses an [.editorconfig](./.editorconfig) file that defines the project's code style.
 
