@@ -48,6 +48,8 @@ Navigate to the `src` folder and run:
 dotnet build -c Release ; dotnet test
 ```
 
+**Do not interact with your computer while the tests are running. Doing so might cause the tests to fail unexpectedly.**
+
 ## Format code
 
 This project uses an [.editorconfig](./.editorconfig) file that defines the project's code style.
@@ -89,5 +91,7 @@ then
     exit 1
 fi
 ```
+
+**The tests might fail unexpectedly if you interact with your computer while the pre-commit hook is running.**
 
 The `.git` folder may be hidden by default.
