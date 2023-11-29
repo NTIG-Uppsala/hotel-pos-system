@@ -67,13 +67,19 @@ set -e
 
 readonly SOLUTION_PATH="./src/HotelPosSystem.sln"
 
+if ! dotnet build -c Release $SOLUTION_PATH
+then
+    echo -e "\nCommit aborted because build failed."
+    exit 1
+fi
+
 if ! dotnet format --verify-no-changes $SOLUTION_PATH
 then
     echo -e "\nCommit aborted because code formatting is incorrect. Please run 'dotnet format'."
     exit 1
 fi
 
-if ! (dotnet build -c Release $SOLUTION_PATH && dotnet test $SOLUTION_PATH)
+if ! dotnet test $SOLUTION_PATH
 then
     echo -e "\nCommit aborted because tests failed."
     exit 1
