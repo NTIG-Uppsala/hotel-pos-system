@@ -13,4 +13,5 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      - run: dotnet build -c Release ./src/HotelPosSystem.sln
       - run: dotnet test ./src/HotelPosSystem.sln
