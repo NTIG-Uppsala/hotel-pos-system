@@ -41,7 +41,7 @@ dotnet publish
 Navigate to the `src` folder and run:
 
 ```shell
-dotnet test
+dotnet build -c Release ; dotnet test
 ```
 
 ## Format Code
@@ -65,13 +65,15 @@ To do this, create a file named `pre-commit` in the `.git/hooks` directory with 
 
 set -e
 
-if ! dotnet format --verify-no-changes ./src/HotelPosSystem.sln
+readonly SOLUTION_PATH="./src/HotelPosSystem.sln"
+
+if ! dotnet format --verify-no-changes $SOLUTION_PATH
 then
     echo -e "\nCommit aborted because code formatting is incorrect. Please run 'dotnet format'."
     exit 1
 fi
 
-if ! dotnet test ./src/HotelPosSystem.sln
+if ! (dotnet build -c Release $SOLUTION_PATH && dotnet test $SOLUTION_PATH)
 then
     echo -e "\nCommit aborted because tests failed."
     exit 1
