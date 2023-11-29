@@ -21,8 +21,10 @@ namespace HotelPosSystem.Tests {
         public void ShouldIncrementNumber() {
             SetCounter(0);
             Button incrementButton = GetElement(IncrementButtonAutomationId).AsButton();
-            incrementButton.Click();
             Label occupiedRoomsText = GetElement(OccupiedRoomsTextAutomationId).AsLabel();
+
+            incrementButton.Click();
+
             Assert.Equal("Occupied rooms: 1", occupiedRoomsText.Text);
         }
 
@@ -30,8 +32,10 @@ namespace HotelPosSystem.Tests {
         public void ShouldDecrementNumberWhenCounterPositive() {
             SetCounter(2);
             Button decrementButton = GetElement(DecrementButtonAutomationId).AsButton();
-            decrementButton.Click();
             Label occupiedRoomsText = GetElement(OccupiedRoomsTextAutomationId).AsLabel();
+
+            decrementButton.Click();
+
             Assert.Equal("Occupied rooms: 1", occupiedRoomsText.Text);
         }
 
@@ -39,8 +43,10 @@ namespace HotelPosSystem.Tests {
         public void ShouldNotDecrementNumberWhenCounterZero() {
             SetCounter(0);
             Button decrementButton = GetElement(DecrementButtonAutomationId).AsButton();
-            decrementButton.Click();
             Label occupiedRoomsText = GetElement(OccupiedRoomsTextAutomationId).AsLabel();
+
+            decrementButton.Click();
+
             Assert.Equal("Occupied rooms: 0", occupiedRoomsText.Text);
         }
 
@@ -48,8 +54,10 @@ namespace HotelPosSystem.Tests {
         public void ShouldSetCounterToZero() {
             SetCounter(2);
             Button resetButton = GetElement(ResetButtonAutomationId).AsButton();
-            resetButton.Click();
             Label occupiedRoomsText = GetElement(OccupiedRoomsTextAutomationId).AsLabel();
+
+            resetButton.Click();
+
             Assert.Equal("Occupied rooms: 0", occupiedRoomsText.Text);
         }
 
