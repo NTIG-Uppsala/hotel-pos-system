@@ -1,4 +1,4 @@
-# Hotel POS system
+# Hotel point of sale system
 
 ## Clone
 
