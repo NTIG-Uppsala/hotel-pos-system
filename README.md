@@ -1,5 +1,17 @@
 # Hotel point of sale system
 
+## Releases
+
+Releases can be found [here](https://github.com/NTIG-Uppsala/hotel-pos-system/releases).
+
+### Version numbers
+
+Releases are given a version number based on [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
+
+### Changelog
+
+There is a changelog for this project [here](./CHANGELOG.md). Its format is based on [keep a changelog 1.1.0](https://keepachangelog.com/en/1.1.0/).
+
 ## Clone
 
 Clone the repository:
@@ -95,3 +107,4 @@ fi
 **The tests might fail unexpectedly if you interact with your computer while the pre-commit hook is running.**
 
 The `.git` folder may be hidden by default.
+
