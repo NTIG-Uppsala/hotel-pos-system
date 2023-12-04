@@ -1,8 +1,14 @@
 # Hotel point of sale system
 
-## Changelog
+## Releases
 
-The [changelog](./CHANGELOG.md) format is based on [keep a changelog](https://keepachangelog.com/en/1.1.0/). 
+### Version numbers
+
+Releases are given a version number based on [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
+
+### Changelog
+
+The [changelog](./CHANGELOG.md) format is based on [keep a changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Clone
 
