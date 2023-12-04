@@ -8,7 +8,7 @@ Releases are given a version number based on [Semantic Versioning 2.0.0](https:/
 
 ### Changelog
 
-The [changelog](./CHANGELOG.md) format is based on [keep a changelog](https://keepachangelog.com/en/1.1.0/).
+The [changelog](./CHANGELOG.md) format is based on [keep a changelog 1.1.0](https://keepachangelog.com/en/1.1.0/).
 
 ## Clone
 
