@@ -60,6 +60,7 @@ namespace HotelPosSystem {
                 Name = name,
                 Text = text
             };
+            button.UseCompatibleTextRendering = true;
             button.Click += onClicked;
             return button;
         }
