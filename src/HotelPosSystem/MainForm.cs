@@ -55,7 +55,7 @@ namespace HotelPosSystem {
             _occupiedRoomsText.Text = newText;
         }
 
-        private Button CreateButton(string name, string text, EventHandler? onClicked) {
+        private static Button CreateButton(string name, string text, EventHandler? onClicked) {
             Button button = new() {
                 Name = name,
                 Text = text
