@@ -2,6 +2,8 @@
 
 ## Releases
 
+Releases can be found [here](https://github.com/NTIG-Uppsala/hotel-pos-system/releases).
+
 ### Version numbers
 
 Releases are given a version number based on [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
