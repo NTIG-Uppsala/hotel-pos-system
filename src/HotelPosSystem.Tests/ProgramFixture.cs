@@ -6,7 +6,7 @@ namespace HotelPosSystem.Tests {
 
         public ProgramFixture() {
             string srcDirectoryPath = "../../../../";
-            string executablePath = "HotelPosSystem/bin/Release/net8.0-windows/HotelPosSystem.exe";
+            string executablePath = "HotelPosSystem/bin/Release/net8.0-windows/win-x64/HotelPosSystem.exe";
             string path = Path.Combine(srcDirectoryPath, executablePath);
             Application = Application.Launch(path);
         }
