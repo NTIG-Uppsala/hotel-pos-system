@@ -1,5 +1,9 @@
 # Hotel point of sale system
 
+## Changelog
+
+The [changelog](./CHANGELOG.md) format is based on [keep a changelog](https://keepachangelog.com/en/1.1.0/). 
+
 ## Clone
 
 Clone the repository:
@@ -95,3 +99,4 @@ fi
 **The tests might fail unexpectedly if you interact with your computer while the pre-commit hook is running.**
 
 The `.git` folder may be hidden by default.
+
