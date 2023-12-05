@@ -1,4 +1,3 @@
-
 namespace HotelPosSystem {
     public partial class MainForm : Form {
         private uint _occupiedRooms = 0;
@@ -6,31 +5,48 @@ namespace HotelPosSystem {
 
         public MainForm() {
             InitializeComponent();
-            FlowLayoutPanel layoutPanel = new() {
+
+            using HotelDbContext databaseContext = new();
+
+            RoomType roomType = databaseContext.RoomTypes.First();
+
+            FlowLayoutPanel verticalLayoutPanel = new() {
+                FlowDirection = FlowDirection.TopDown,
+                AutoSize = true
+            };
+
+            Label roomTypeHeading = new() {
+                Text = roomType.Name,
+                Font = new Font(Font.FontFamily, 14)
+            };
+            verticalLayoutPanel.Controls.Add(roomTypeHeading);
+
+            FlowLayoutPanel horizontalLayoutPanel = new() {
                 FlowDirection = FlowDirection.LeftToRight,
                 AutoSize = true
             };
+            verticalLayoutPanel.Controls.Add(horizontalLayoutPanel);
 
             _occupiedRoomsText = new Label() {
                 Name = "occupiedRoomsText",
                 AutoSize = true
             };
-            layoutPanel.Controls.Add(_occupiedRoomsText);
+            horizontalLayoutPanel.Controls.Add(_occupiedRoomsText);
 
             Button incrementButton =
                 CreateButton("incrementButton", "+", OnIncrementButtonClicked);
-            layoutPanel.Controls.Add(incrementButton);
+            horizontalLayoutPanel.Controls.Add(incrementButton);
 
             Button decrementButton =
                 CreateButton("decrementButton", "-", OnDecrementButtonClicked);
-            layoutPanel.Controls.Add(decrementButton);
+            horizontalLayoutPanel.Controls.Add(decrementButton);
 
             Button resetButton =
                 CreateButton("resetButton", "Reset", OnResetButtonClicked);
-            layoutPanel.Controls.Add(resetButton);
+            horizontalLayoutPanel.Controls.Add(resetButton);
 
             UpdateOccupiedRoomsText();
-            Controls.Add(layoutPanel);
+            Controls.Add(verticalLayoutPanel);
         }
 
         private void OnIncrementButtonClicked(object? sender, EventArgs e) {
