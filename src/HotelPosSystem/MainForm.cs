@@ -58,9 +58,9 @@ namespace HotelPosSystem {
         private static Button CreateButton(string name, string text, EventHandler? onClicked) {
             Button button = new() {
                 Name = name,
-                Text = text
+                Text = text,
+                UseCompatibleTextRendering = true
             };
-            button.UseCompatibleTextRendering = true;
             button.Click += onClicked;
             return button;
         }
