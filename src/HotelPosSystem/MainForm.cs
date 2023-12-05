@@ -8,7 +8,9 @@ namespace HotelPosSystem {
 
             using HotelDbContext databaseContext = new();
 
-            RoomType roomType = databaseContext.RoomTypes.First();
+            RoomType? roomType = CreateRoomTypeIfEmpty(databaseContext);
+
+            roomType ??= databaseContext.RoomTypes.First();
 
             FlowLayoutPanel verticalLayoutPanel = new() {
                 FlowDirection = FlowDirection.TopDown,
@@ -47,6 +49,18 @@ namespace HotelPosSystem {
 
             UpdateOccupiedRoomsText();
             Controls.Add(verticalLayoutPanel);
+        }
+
+        private RoomType? CreateRoomTypeIfEmpty(HotelDbContext databaseContext) {
+            if (databaseContext.RoomTypes.Count() == 0) {
+                RoomType roomType = new() {
+                    Name = "Room"
+                };
+                databaseContext.Add(roomType);
+                databaseContext.SaveChanges();
+                return roomType;
+            }
+            return null;
         }
 
         private void OnIncrementButtonClicked(object? sender, EventArgs e) {
