@@ -32,7 +32,7 @@ namespace HotelPosSystem {
         }
 
         private RoomType? CreateRoomTypeIfEmpty(HotelDbContext databaseContext, string name) {
-            if (databaseContext.RoomTypes.Count() == 0) {
+            if (!databaseContext.RoomTypes.Any()) {
                 RoomType roomType = new() {
                     Name = name
                 };
