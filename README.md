@@ -36,38 +36,26 @@ dotnet tool install --global dotnet-ef
 
 #### Database update
 
-Run this (in the `src/HotelPosSystem` directory) once when setting up the project and after each [migration](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli):
+Run this once when setting up the project and after each [migration](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli) from the Git repository:
 
 ```shell
-dotnet ef database update
+dotnet ef database update --project ./src/HotelPosSystem/HotelPosSystem.csproj
 ```
 
 ## Run
 
-Before running the project, navigate to the `src/HotelPosSystem` directory:
+Run the following command from the Git repository:
 
 ```shell
-cd src/HotelPosSystem
-```
-
-To run the project:
-
-```shell
-dotnet run
+dotnet run --project ./src/HotelPosSystem/HotelPosSystem.csproj
 ```
 
 ## Publish
 
-Navigate to the project directory:
+To build the project for distribution, run the following command from the Git repository:
 
 ```shell
-cd src/HotelPosSystem
-```
-
-Build the project to distribute to end user:
-
-```shell
-dotnet publish
+dotnet publish ./src/HotelPosSystem/HotelPosSystem.csproj
 ```
 
 ## Run tests
