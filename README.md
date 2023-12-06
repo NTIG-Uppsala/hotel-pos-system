@@ -12,7 +12,9 @@ Releases are given a version number based on [Semantic Versioning 2.0.0](https:/
 
 There is a changelog for this project [here](./CHANGELOG.md). Its format is based on [keep a changelog 1.1.0](https://keepachangelog.com/en/1.1.0/).
 
-## Clone
+## Development setup
+
+### Clone
 
 Clone the repository:
 
@@ -20,50 +22,40 @@ Clone the repository:
 git clone https://github.com/NTIG-Uppsala/hotel-pos-system
 ```
 
-## Install .NET SDK
+### Install .NET SDK
 
 Make sure you have the .NET 8 SDK installed. You can get it from [here](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
 
-## Entity Framework Core
+### Entity Framework Core
 
-Install EF Core:
+#### Installation
 
 ```shell
 dotnet tool install --global dotnet-ef
 ```
 
-Run this (in the `src/HotelPosSystem` directory) once when setting up the project and after each [migration](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli):
+#### Database update
+
+Run this once when setting up the project and after each [migration](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli) from the Git repository:
 
 ```shell
-dotnet ef database update
+dotnet ef database update --project ./src/HotelPosSystem/HotelPosSystem.csproj
 ```
 
 ## Run
 
-Before running the project, navigate to the `src/HotelPosSystem` directory:
+Run the following command from the Git repository:
 
 ```shell
-cd src/HotelPosSystem
-```
-
-To run the project:
-
-```shell
-dotnet run
+dotnet run --project ./src/HotelPosSystem/HotelPosSystem.csproj
 ```
 
 ## Publish
 
-Navigate to the project directory:
+To build the project for distribution, run the following command from the Git repository:
 
 ```shell
-cd src/HotelPosSystem
-```
-
-Build the project to distribute to end user:
-
-```shell
-dotnet publish
+dotnet publish ./src/HotelPosSystem/HotelPosSystem.csproj
 ```
 
 ## Run tests
@@ -122,3 +114,14 @@ fi
 
 The `.git` folder may be hidden by default.
 
+## Change database structure
+
+Remember to add a [migration](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli) after each database structure change.
+
+### Add new table
+
+See [here](https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli#create-the-model)
+
+### Change existing table
+
+See [here](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli#evolving-your-model)
