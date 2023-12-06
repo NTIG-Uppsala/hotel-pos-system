@@ -31,7 +31,7 @@ namespace HotelPosSystem {
             Controls.Add(verticalLayoutPanel);
         }
 
-        private RoomType? CreateRoomTypeIfEmpty(HotelDbContext databaseContext, string name) {
+        private static RoomType? CreateRoomTypeIfEmpty(HotelDbContext databaseContext, string name) {
             if (!databaseContext.RoomTypes.Any()) {
                 RoomType roomType = new() {
                     Name = name
