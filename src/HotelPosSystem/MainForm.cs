@@ -1,14 +1,14 @@
 namespace HotelPosSystem {
     public partial class MainForm : Form {
         private uint _occupiedRooms = 0;
-        private readonly Label _occupiedRoomsText;
+        private readonly Label _roomTypeCounterText;
 
         public MainForm() {
             InitializeComponent();
 
             using HotelDbContext databaseContext = new();
 
-            RoomType? roomType = CreateRoomTypeIfEmpty(databaseContext);
+            RoomType? roomType = CreateRoomTypeIfEmpty(databaseContext, "Single Room");
 
             roomType ??= databaseContext.RoomTypes.First();
 
@@ -17,12 +17,12 @@ namespace HotelPosSystem {
                 AutoSize = true
             };
 
-            Label roomTypeHeading = new() {
-                Text = roomType.Name,
+            Label occupiedRoomsHeading = new() {
+                Text = "Occupied Rooms",
                 Font = new Font(Font.FontFamily, 14),
                 AutoSize = true
             };
-            verticalLayoutPanel.Controls.Add(roomTypeHeading);
+            verticalLayoutPanel.Controls.Add(occupiedRoomsHeading);
 
             FlowLayoutPanel horizontalLayoutPanel = new() {
                 FlowDirection = FlowDirection.LeftToRight,
@@ -30,11 +30,11 @@ namespace HotelPosSystem {
             };
             verticalLayoutPanel.Controls.Add(horizontalLayoutPanel);
 
-            _occupiedRoomsText = new Label() {
-                Name = "occupiedRoomsText",
+            _roomTypeCounterText = new Label() {
+                Name = "roomTypeCounterText",
                 AutoSize = true
             };
-            horizontalLayoutPanel.Controls.Add(_occupiedRoomsText);
+            horizontalLayoutPanel.Controls.Add(_roomTypeCounterText);
 
             Button incrementButton =
                 CreateButton("incrementButton", "+", OnIncrementButtonClicked);
@@ -48,14 +48,14 @@ namespace HotelPosSystem {
                 CreateButton("resetButton", "Reset", OnResetButtonClicked);
             horizontalLayoutPanel.Controls.Add(resetButton);
 
-            UpdateOccupiedRoomsText();
+            UpdateRoomTypeCounterText();
             Controls.Add(verticalLayoutPanel);
         }
 
-        private RoomType? CreateRoomTypeIfEmpty(HotelDbContext databaseContext) {
+        private RoomType? CreateRoomTypeIfEmpty(HotelDbContext databaseContext, string name) {
             if (databaseContext.RoomTypes.Count() == 0) {
                 RoomType roomType = new() {
-                    Name = "Room"
+                    Name = name
                 };
                 databaseContext.Add(roomType);
                 databaseContext.SaveChanges();
@@ -66,24 +66,25 @@ namespace HotelPosSystem {
 
         private void OnIncrementButtonClicked(object? sender, EventArgs e) {
             _occupiedRooms++;
-            UpdateOccupiedRoomsText();
+            UpdateRoomTypeCounterText();
         }
 
         private void OnDecrementButtonClicked(object? sender, EventArgs e) {
             if (_occupiedRooms > 0) {
                 _occupiedRooms--;
-                UpdateOccupiedRoomsText();
+                UpdateRoomTypeCounterText();
             }
         }
 
         private void OnResetButtonClicked(object? sender, EventArgs e) {
             _occupiedRooms = 0;
-            UpdateOccupiedRoomsText();
+            UpdateRoomTypeCounterText();
         }
 
-        private void UpdateOccupiedRoomsText() {
-            string newText = $"Occupied rooms: {_occupiedRooms}";
-            _occupiedRoomsText.Text = newText;
+        private void UpdateRoomTypeCounterText() {
+            using HotelDbContext databaseContext = new();
+            string newText = $"{databaseContext.RoomTypes.First().Name}: {_occupiedRooms}";
+            _roomTypeCounterText.Text = newText;
         }
 
         private static Button CreateButton(string name, string text, EventHandler? onClicked) {
