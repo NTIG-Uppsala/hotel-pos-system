@@ -27,7 +27,6 @@ namespace HotelPosSystem {
 
             FlowLayoutPanel row = CreateCounterRow(0);
             verticalLayoutPanel.Controls.Add(row);
-            UpdateRoomTypeCounterText(0);
 
             Controls.Add(verticalLayoutPanel);
         }
@@ -81,6 +80,7 @@ namespace HotelPosSystem {
                 AutoSize = true
             };
             _roomTypeCounterTexts[index] = counterText;
+            UpdateRoomTypeCounterText(0);
             result.Controls.Add(counterText);
 
             Button incrementButton =
