@@ -12,7 +12,9 @@ Releases are given a version number based on [Semantic Versioning 2.0.0](https:/
 
 There is a changelog for this project [here](./CHANGELOG.md). Its format is based on [keep a changelog 1.1.0](https://keepachangelog.com/en/1.1.0/).
 
-## Clone
+## Development setup
+
+### Clone
 
 Clone the repository:
 
@@ -20,17 +22,19 @@ Clone the repository:
 git clone https://github.com/NTIG-Uppsala/hotel-pos-system
 ```
 
-## Install .NET SDK
+### Install .NET SDK
 
 Make sure you have the .NET 8 SDK installed. You can get it from [here](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
 
-## Entity Framework Core
+### Entity Framework Core
 
-Install EF Core:
+#### Installation
 
 ```shell
 dotnet tool install --global dotnet-ef
 ```
+
+#### Database update
 
 Run this (in the `src/HotelPosSystem` directory) once when setting up the project and after each [migration](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli):
 
