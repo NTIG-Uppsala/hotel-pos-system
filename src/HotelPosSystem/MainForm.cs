@@ -1,16 +1,17 @@
 namespace HotelPosSystem {
     public partial class MainForm : Form {
-        private uint _occupiedRooms = 0;
-        private readonly Label _roomTypeCounterText;
+        private readonly uint[] _occupiedRooms;
+        private readonly Label[] _roomTypeCounterTexts;
 
         public MainForm() {
             InitializeComponent();
 
             using HotelDbContext databaseContext = new();
 
-            RoomType? roomType = CreateRoomTypeIfEmpty(databaseContext, "Single Room");
+            _ = CreateRoomTypeIfEmpty(databaseContext, "Single Room");
 
-            roomType ??= databaseContext.RoomTypes.First();
+            _occupiedRooms = new uint[databaseContext.RoomTypes.Count()];
+            _roomTypeCounterTexts = new Label[_occupiedRooms.Length];
 
             FlowLayoutPanel verticalLayoutPanel = new() {
                 FlowDirection = FlowDirection.TopDown,
@@ -24,31 +25,10 @@ namespace HotelPosSystem {
             };
             verticalLayoutPanel.Controls.Add(occupiedRoomsHeading);
 
-            FlowLayoutPanel horizontalLayoutPanel = new() {
-                FlowDirection = FlowDirection.LeftToRight,
-                AutoSize = true
-            };
-            verticalLayoutPanel.Controls.Add(horizontalLayoutPanel);
+            FlowLayoutPanel row = CreateCounterRow(0);
+            verticalLayoutPanel.Controls.Add(row);
+            UpdateRoomTypeCounterText(0);
 
-            _roomTypeCounterText = new Label() {
-                Name = "roomTypeCounterText",
-                AutoSize = true
-            };
-            horizontalLayoutPanel.Controls.Add(_roomTypeCounterText);
-
-            Button incrementButton =
-                CreateButton("incrementButton", "+", OnIncrementButtonClicked);
-            horizontalLayoutPanel.Controls.Add(incrementButton);
-
-            Button decrementButton =
-                CreateButton("decrementButton", "-", OnDecrementButtonClicked);
-            horizontalLayoutPanel.Controls.Add(decrementButton);
-
-            Button resetButton =
-                CreateButton("resetButton", "Reset", OnResetButtonClicked);
-            horizontalLayoutPanel.Controls.Add(resetButton);
-
-            UpdateRoomTypeCounterText();
             Controls.Add(verticalLayoutPanel);
         }
 
@@ -64,27 +44,61 @@ namespace HotelPosSystem {
             return null;
         }
 
-        private void OnIncrementButtonClicked(object? sender, EventArgs e) {
-            _occupiedRooms++;
-            UpdateRoomTypeCounterText();
+        private void OnIncrementButtonClicked(int index) {
+            _occupiedRooms[index]++;
+            UpdateRoomTypeCounterText(index);
         }
 
-        private void OnDecrementButtonClicked(object? sender, EventArgs e) {
-            if (_occupiedRooms > 0) {
-                _occupiedRooms--;
-                UpdateRoomTypeCounterText();
+        private void OnDecrementButtonClicked(int index) {
+            if (_occupiedRooms[index] > 0) {
+                _occupiedRooms[index]--;
+                UpdateRoomTypeCounterText(index);
             }
         }
 
-        private void OnResetButtonClicked(object? sender, EventArgs e) {
-            _occupiedRooms = 0;
-            UpdateRoomTypeCounterText();
+        private void OnResetButtonClicked(int index) {
+            _occupiedRooms[index] = 0;
+            UpdateRoomTypeCounterText(index);
         }
 
-        private void UpdateRoomTypeCounterText() {
+        private void UpdateRoomTypeCounterText(int index) {
             using HotelDbContext databaseContext = new();
-            string newText = $"{databaseContext.RoomTypes.First().Name}: {_occupiedRooms}";
-            _roomTypeCounterText.Text = newText;
+            RoomType roomType = databaseContext.RoomTypes
+                .OrderBy(roomType => roomType.Id)
+                .ToArray()[index];
+            string newText = $"{roomType.Name}: {_occupiedRooms[index]}";
+            _roomTypeCounterTexts[index].Text = newText;
+        }
+
+        private FlowLayoutPanel CreateCounterRow(int index) {
+            FlowLayoutPanel result = new() {
+                FlowDirection = FlowDirection.LeftToRight,
+                AutoSize = true
+            };
+
+            Label counterText = new() {
+                Name = "roomTypeCounterText",
+                AutoSize = true
+            };
+            _roomTypeCounterTexts[index] = counterText;
+            result.Controls.Add(counterText);
+
+            Button incrementButton =
+                CreateButton("incrementButton", "+",
+                (object? sender, EventArgs eventArgs) => OnIncrementButtonClicked(index));
+            result.Controls.Add(incrementButton);
+
+            Button decrementButton =
+                CreateButton("decrementButton", "-",
+                (object? sender, EventArgs eventArgs) => OnDecrementButtonClicked(index));
+            result.Controls.Add(decrementButton);
+
+            Button resetButton =
+                CreateButton("resetButton", "Reset",
+                (object? sender, EventArgs eventArgs) => OnResetButtonClicked(index));
+            result.Controls.Add(resetButton);
+
+            return result;
         }
 
         private static Button CreateButton(string name, string text, EventHandler? onClicked) {
