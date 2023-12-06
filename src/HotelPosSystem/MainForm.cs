@@ -83,15 +83,15 @@ namespace HotelPosSystem {
             UpdateRoomTypeCounterText(0);
             result.Controls.Add(counterText);
 
+            Button decrementButton =
+              CreateButton("decrementButton", "-",
+              (object? sender, EventArgs eventArgs) => OnDecrementButtonClicked(index));
+            result.Controls.Add(decrementButton);
+
             Button incrementButton =
                 CreateButton("incrementButton", "+",
                 (object? sender, EventArgs eventArgs) => OnIncrementButtonClicked(index));
             result.Controls.Add(incrementButton);
-
-            Button decrementButton =
-                CreateButton("decrementButton", "-",
-                (object? sender, EventArgs eventArgs) => OnDecrementButtonClicked(index));
-            result.Controls.Add(decrementButton);
 
             Button resetButton =
                 CreateButton("resetButton", "Reset",
