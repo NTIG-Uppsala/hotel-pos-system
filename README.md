@@ -114,3 +114,14 @@ fi
 
 The `.git` folder may be hidden by default.
 
+## Change database structure
+
+Remember to add a [migration](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli) after each database structure change.
+
+### Add new table
+
+See [here](https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli#create-the-model)
+
+### Change existing table
+
+See [here](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli#evolving-your-model)
