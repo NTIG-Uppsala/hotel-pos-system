@@ -19,7 +19,8 @@ namespace HotelPosSystem {
 
             Label roomTypeHeading = new() {
                 Text = roomType.Name,
-                Font = new Font(Font.FontFamily, 14)
+                Font = new Font(Font.FontFamily, 14),
+                AutoSize = true
             };
             verticalLayoutPanel.Controls.Add(roomTypeHeading);
 
