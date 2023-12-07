@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace HotelPosSystem {
     public partial class MainForm : Form {
         private readonly uint[] _occupiedRooms;
@@ -7,6 +9,7 @@ namespace HotelPosSystem {
             InitializeComponent();
 
             using HotelDbContext databaseContext = new();
+            databaseContext.Database.Migrate();
 
             CreateRoomTypesIfEmpty(databaseContext, "Single Room", "Double Room");
 
