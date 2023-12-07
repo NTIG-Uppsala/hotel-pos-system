@@ -26,20 +26,10 @@ git clone https://github.com/NTIG-Uppsala/hotel-pos-system
 
 Make sure you have the .NET 8 SDK installed. You can get it from [here](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
 
-### Entity Framework Core
-
-#### Installation
+### Entity Framework Core installation
 
 ```shell
 dotnet tool install --global dotnet-ef
-```
-
-#### Database update
-
-Run this once when setting up the project and after each [migration](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli) from the Git repository:
-
-```shell
-dotnet ef database update --project ./src/HotelPosSystem/HotelPosSystem.csproj
 ```
 
 ## Run
