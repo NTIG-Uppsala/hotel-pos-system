@@ -8,7 +8,7 @@ namespace HotelPosSystem {
 
             using HotelDbContext databaseContext = new();
 
-            _ = CreateRoomTypeIfEmpty(databaseContext, "Single Room");
+            CreateRoomTypesIfEmpty(databaseContext, "Single Room", "Double Room");
 
             _occupiedRooms = new uint[databaseContext.RoomTypes.Count()];
             _roomTypeCounterTexts = new Label[_occupiedRooms.Length];
@@ -24,23 +24,25 @@ namespace HotelPosSystem {
                 AutoSize = true
             };
             verticalLayoutPanel.Controls.Add(occupiedRoomsHeading);
-
-            FlowLayoutPanel row = CreateCounterRow(0);
-            verticalLayoutPanel.Controls.Add(row);
+            RoomType[] roomTypes = databaseContext.RoomTypes.ToArray();
+            for (int i = 0; i < roomTypes.Length; i++) {
+                FlowLayoutPanel row = CreateCounterRow(i);
+                verticalLayoutPanel.Controls.Add(row);
+            }
 
             Controls.Add(verticalLayoutPanel);
         }
 
-        private static RoomType? CreateRoomTypeIfEmpty(HotelDbContext databaseContext, string name) {
+        private static void CreateRoomTypesIfEmpty(HotelDbContext databaseContext, params string[] names) {
             if (!databaseContext.RoomTypes.Any()) {
-                RoomType roomType = new() {
-                    Name = name
-                };
-                databaseContext.Add(roomType);
+                foreach (string name in names) {
+                    RoomType roomType = new() {
+                        Name = name
+                    };
+                    databaseContext.Add(roomType);
+                }
                 databaseContext.SaveChanges();
-                return roomType;
             }
-            return null;
         }
 
         private void OnIncrementButtonClicked(int index) {
@@ -61,18 +63,17 @@ namespace HotelPosSystem {
         }
 
         private void UpdateRoomTypeCounterText(int index) {
-            using HotelDbContext databaseContext = new();
-            RoomType roomType = databaseContext.RoomTypes
-                .OrderBy(roomType => roomType.Id)
-                .ToArray()[index];
+            RoomType roomType = GetRoomType(index);
             string newText = $"{roomType.Name}: {_occupiedRooms[index]}";
             _roomTypeCounterTexts[index].Text = newText;
         }
 
         private FlowLayoutPanel CreateCounterRow(int index) {
+            RoomType roomType = GetRoomType(index);
             FlowLayoutPanel result = new() {
                 FlowDirection = FlowDirection.LeftToRight,
-                AutoSize = true
+                AutoSize = true,
+                Name = $"{roomType.Name} Row"
             };
 
             Label counterText = new() {
@@ -80,7 +81,7 @@ namespace HotelPosSystem {
                 AutoSize = true
             };
             _roomTypeCounterTexts[index] = counterText;
-            UpdateRoomTypeCounterText(0);
+            UpdateRoomTypeCounterText(index);
             result.Controls.Add(counterText);
 
             Button decrementButton =
@@ -99,6 +100,13 @@ namespace HotelPosSystem {
             result.Controls.Add(resetButton);
 
             return result;
+        }
+
+        private static RoomType GetRoomType(int index) {
+            using HotelDbContext databaseContext = new();
+            return databaseContext.RoomTypes
+                .OrderBy(roomType => roomType.Id)
+                .ToArray()[index];
         }
 
         private static Button CreateButton(string name, string text, EventHandler? onClicked) {
