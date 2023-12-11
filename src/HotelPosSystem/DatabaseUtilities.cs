@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HotelPosSystem.Entities;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelPosSystem {
     internal static class DatabaseUtilities {

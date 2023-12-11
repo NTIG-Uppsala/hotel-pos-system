@@ -1,3 +1,5 @@
+using HotelPosSystem.Entities;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelPosSystem {
