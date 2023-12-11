@@ -1,6 +1,6 @@
 # Hotel point of sale system
 
-A program that can keep track of occupied rooms in a hotel.
+A program for Windows that can keep track of occupied rooms in a hotel.
 
 ## Releases
 
