@@ -1,7 +1,5 @@
 using HotelPosSystem.Entities;
 
-using Microsoft.EntityFrameworkCore;
-
 namespace HotelPosSystem {
     public partial class MainForm : Form {
         private readonly uint[] _occupiedRooms;

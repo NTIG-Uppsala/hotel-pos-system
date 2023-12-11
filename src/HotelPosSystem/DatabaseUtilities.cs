@@ -14,7 +14,8 @@ namespace HotelPosSystem {
                 foreach (string name in names) {
                     RoomType roomType = new() {
                         Name = name,
-                        Description = string.Empty
+                        Description = string.Empty,
+                        MaxGuests = 255
                     };
                     databaseContext.Add(roomType);
                 }
