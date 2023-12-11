@@ -13,7 +13,8 @@ namespace HotelPosSystem {
             if (!databaseContext.RoomTypes.Any()) {
                 foreach (string name in names) {
                     RoomType roomType = new() {
-                        Name = name
+                        Name = name,
+                        Description = string.Empty
                     };
                     databaseContext.Add(roomType);
                 }
