@@ -1,5 +1,7 @@
 # Hotel point of sale system
 
+A program that can keep track of occupied rooms in a hotel.
+
 ## Releases
 
 Releases can be found [here](https://github.com/NTIG-Uppsala/hotel-pos-system/releases).
