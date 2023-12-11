@@ -4,7 +4,11 @@ A program that can keep track of occupied rooms in a hotel.
 
 ## Releases
 
-Releases can be found [here](https://github.com/NTIG-Uppsala/hotel-pos-system/releases).
+Releases can be found [here](https://github.com/NTIG-Uppsala/hotel-pos-system/releases). Browsers may show a warning when the software is being downloaded.
+
+### Windows Defender warning
+
+Windows may prevent the program from starting. If a warning with the title "Windows protected your PC" or similar appears, click on "More info", then "Run anyway".
 
 ### Version numbers
 
