@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+using HotelPosSystem.Entities;
 
 namespace HotelPosSystem {
     public partial class MainForm : Form {

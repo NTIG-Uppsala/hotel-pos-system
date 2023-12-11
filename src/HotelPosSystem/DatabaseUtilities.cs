@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HotelPosSystem.Entities;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelPosSystem {
     internal static class DatabaseUtilities {
@@ -11,7 +13,9 @@ namespace HotelPosSystem {
             if (!databaseContext.RoomTypes.Any()) {
                 foreach (string name in names) {
                     RoomType roomType = new() {
-                        Name = name
+                        Name = name,
+                        Description = string.Empty,
+                        MaxGuests = 255
                     };
                     databaseContext.Add(roomType);
                 }
