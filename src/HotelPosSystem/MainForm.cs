@@ -9,9 +9,7 @@ namespace HotelPosSystem {
             InitializeComponent();
 
             using HotelDbContext databaseContext = new();
-            databaseContext.Database.Migrate();
-
-            CreateRoomTypesIfEmpty(databaseContext, "Single Room", "Double Room");
+            DatabaseUtilities.SetUpDatabase(databaseContext);
 
             _occupiedRooms = new uint[databaseContext.RoomTypes.Count()];
             _roomTypeCounterTexts = new Label[_occupiedRooms.Length];
@@ -34,18 +32,6 @@ namespace HotelPosSystem {
             }
 
             Controls.Add(verticalLayoutPanel);
-        }
-
-        private static void CreateRoomTypesIfEmpty(HotelDbContext databaseContext, params string[] names) {
-            if (!databaseContext.RoomTypes.Any()) {
-                foreach (string name in names) {
-                    RoomType roomType = new() {
-                        Name = name
-                    };
-                    databaseContext.Add(roomType);
-                }
-                databaseContext.SaveChanges();
-            }
         }
 
         private void OnIncrementButtonClicked(int index) {
