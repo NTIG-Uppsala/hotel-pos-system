@@ -10,9 +10,9 @@ namespace HotelPosSystem {
             if (args.Length > 0) {
                 DatabasePath = args[0];
             } else {
-                Environment.SpecialFolder folder = Environment.SpecialFolder.LocalApplicationData;
-                string path = Environment.GetFolderPath(folder);
-                DatabasePath = Path.Join(path, "hotelPosSystem.db");
+                Environment.SpecialFolder localAppData = Environment.SpecialFolder.LocalApplicationData;
+                string localAppDataPath = Environment.GetFolderPath(localAppData);
+                DatabasePath = Path.Join(localAppDataPath, "hotelPosSystem.db");
             }
 
             // To customize application configuration such as set high DPI settings or default font,
