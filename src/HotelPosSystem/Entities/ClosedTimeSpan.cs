@@ -1,6 +1,4 @@
-﻿using System.Security.Permissions;
-
-namespace HotelPosSystem.Entities {
+﻿namespace HotelPosSystem.Entities {
     internal class ClosedTimeSpan {
         public int Id { get; set; }
         public required Room Room { get; set; }
