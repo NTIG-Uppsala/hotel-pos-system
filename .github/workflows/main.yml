@@ -14,6 +14,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: dotnet tool install --global dotnet-ef
-      - run: dotnet ef database update --project ./src/HotelPosSystem/HotelPosSystem.csproj
       - run: dotnet build -c Release ./src/HotelPosSystem.sln
       - run: dotnet test ./src/HotelPosSystem.sln
