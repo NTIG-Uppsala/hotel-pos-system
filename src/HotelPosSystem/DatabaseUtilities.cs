@@ -28,7 +28,7 @@ namespace HotelPosSystem {
             databaseContext.PriceCategories.AddRange(priceCategories);
 
             Room singleRoom101 = CreateRoom("101", singleRoom, buildings[0], floor: 1, priceCategories[0]);
-            Room doubleRoom201 = CreateRoom("201", doubleRoom, buildings[0], floor: 2, priceCategories[0]);
+            Room doubleRoom201 = CreateRoom("201", doubleRoom, buildings[0], floor: 2, priceCategories[1]);
             Room twinRoom202 = CreateRoom("202", twinRoom, buildings[0], floor: 2, priceCategories[0]);
             databaseContext.Rooms.AddRange(singleRoom101, doubleRoom201, twinRoom202);
 
