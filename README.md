@@ -59,8 +59,10 @@ dotnet publish ./src/HotelPosSystem/HotelPosSystem.csproj
 Navigate to the `src` folder and run:
 
 ```shell
-dotnet build -c Release ; dotnet test
+dotnet build -c Release && dotnet test
 ```
+
+If the above does not work, try running the commands separately.
 
 **Do not interact with your computer while the tests are running. Doing so might cause the tests to fail unexpectedly.**
 
