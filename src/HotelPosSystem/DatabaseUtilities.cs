@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-using HotelPosSystem.Entities;
+﻿using HotelPosSystem.Entities;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -10,10 +8,7 @@ namespace HotelPosSystem {
         private const string DoubleRoomName = "Double Room";
         private const string TwinRoomName = "Twin Room";
 
-        private static HotelDbContext? s_databaseContext;
-
         internal static void SetUpDatabase(HotelDbContext databaseContext) {
-            s_databaseContext = databaseContext;
             databaseContext.Database.Migrate();
 
             if (!AreAllTablesEmpty(databaseContext)) {
