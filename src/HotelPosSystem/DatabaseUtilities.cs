@@ -51,6 +51,7 @@ namespace HotelPosSystem {
             return !(databaseContext.Rooms.Any()
                      || databaseContext.RoomTypes.Any()
                      || databaseContext.Customers.Any()
+                     || databaseContext.Bookings.Any()
                      || databaseContext.Buildings.Any()
                      || databaseContext.ClosedTimeSpans.Any()
                      || databaseContext.PriceCategories.Any());
