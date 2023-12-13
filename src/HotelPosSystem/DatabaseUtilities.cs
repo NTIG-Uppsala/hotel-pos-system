@@ -37,9 +37,9 @@ namespace HotelPosSystem {
             databaseContext.Customers.AddRange(robert, kalle);
 
             Booking robertsBooking = CreateBooking(robert, twinRoom202, new DateOnly(2023, 12, 24), new DateOnly(2024, 1, 3), isPayedFor: false, isCheckedIn: true, "Cleaning crew one hour late");
-            Booking robersSecondBooking = CreateBooking(robert, doubleRoom201, new DateOnly(2023, 12, 27), new DateOnly(2024, 1, 3), isPayedFor: true, isCheckedIn: false);
+            Booking robertsSecondBooking = CreateBooking(robert, doubleRoom201, new DateOnly(2023, 12, 27), new DateOnly(2024, 1, 3), isPayedFor: true, isCheckedIn: false);
             Booking kallesBooking = CreateBooking(kalle, twinRoom202, new DateOnly(2024, 2, 1), new DateOnly(2024, 2, 4), isPayedFor: false, isCheckedIn: false);
-            databaseContext.Bookings.AddRange(robertsBooking, robersSecondBooking, kallesBooking);
+            databaseContext.Bookings.AddRange(robertsBooking, robertsSecondBooking, kallesBooking);
 
             ClosedTimeSpan waterDamage = CreateClosedTimeSpan(singleRoom101, new DateOnly(2023, 12, 20), null, "Water damage");
             databaseContext.ClosedTimeSpans.Add(waterDamage);
