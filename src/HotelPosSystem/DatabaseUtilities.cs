@@ -32,7 +32,7 @@ namespace HotelPosSystem {
             Room twinRoom202 = CreateRoom("202", twinRoom, buildings[0], floor: 2, priceCategories[0]);
             databaseContext.Rooms.AddRange(singleRoom101, doubleRoom201, twinRoom202);
 
-            Customer robert = CreateCustomer("Robert Robertsson", "rober.robertsson@example.com", "070-1740650");
+            Customer robert = CreateCustomer("Robert Robertsson", "robert.robertsson@example.com", "070-1740650");
             Customer kalle = CreateCustomer("Kalle Kallesson", "kalle.kallesson@example.com", "070-1740640");
             databaseContext.Customers.AddRange(robert, kalle);
 
