@@ -53,7 +53,7 @@ namespace HotelPosSystem {
             AddLabel(flowLayoutPanel, "dates" + booking.Id,
                                $"Dates: {startDate} to {endDate}");
 
-            AddCheckBoxAndLabel(flowLayoutPanel, "paidFor" + booking.Id, booking.IsPayedFor, "", "Has paid:");
+            AddCheckBoxAndLabel(flowLayoutPanel, "paidFor" + booking.Id, booking.IsPaidFor, "", "Has paid:");
             AddCheckBoxAndLabel(flowLayoutPanel, "checkedIn" + booking.Id, booking.IsCheckedIn, "", "Has checked in:");
 
             if (booking.Comment is not null) {

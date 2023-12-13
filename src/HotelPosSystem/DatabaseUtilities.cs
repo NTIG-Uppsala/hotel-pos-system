@@ -36,9 +36,9 @@ namespace HotelPosSystem {
             Customer kalle = CreateCustomer("Kalle Kallesson", "kalle.kallesson@example.com", "070-1740640");
             databaseContext.Customers.AddRange(robert, kalle);
 
-            Booking robertsBooking = CreateBooking(robert, twinRoom202, new DateOnly(2023, 12, 24), new DateOnly(2024, 1, 3), isPayedFor: false, isCheckedIn: true, "Cleaning crew one hour late");
-            Booking robersSecondBooking = CreateBooking(robert, doubleRoom201, new DateOnly(2023, 12, 27), new DateOnly(2024, 1, 3), isPayedFor: true, isCheckedIn: false);
-            Booking kallesBooking = CreateBooking(kalle, twinRoom202, new DateOnly(2024, 2, 1), new DateOnly(2024, 2, 4), isPayedFor: false, isCheckedIn: false);
+            Booking robertsBooking = CreateBooking(robert, twinRoom202, new DateOnly(2023, 12, 24), new DateOnly(2024, 1, 3), isPaidFor: false, isCheckedIn: true, "Cleaning crew one hour late");
+            Booking robersSecondBooking = CreateBooking(robert, doubleRoom201, new DateOnly(2023, 12, 27), new DateOnly(2024, 1, 3), isPaidFor: true, isCheckedIn: false);
+            Booking kallesBooking = CreateBooking(kalle, twinRoom202, new DateOnly(2024, 2, 1), new DateOnly(2024, 2, 4), isPaidFor: false, isCheckedIn: false);
             databaseContext.Bookings.AddRange(robertsBooking, robersSecondBooking, kallesBooking);
 
             ClosedTimeSpan waterDamage = CreateClosedTimeSpan(singleRoom101, new DateOnly(2023, 12, 20), null, "Water damage");
@@ -122,13 +122,13 @@ namespace HotelPosSystem {
         }
 
         private static Booking CreateBooking(Customer customer, Room room, DateOnly startDate, DateOnly endDate,
-                                             bool isPayedFor, bool isCheckedIn, string? comment = null) {
+                                             bool isPaidFor, bool isCheckedIn, string? comment = null) {
             Booking booking = new() {
                 Customer = customer,
                 Room = room,
                 StartDate = startDate,
                 EndDate = endDate,
-                IsPayedFor = isPayedFor,
+                IsPaidFor = isPaidFor,
                 IsCheckedIn = isCheckedIn,
                 Comment = comment
             };
