@@ -20,6 +20,14 @@ namespace HotelPosSystem {
                 Dock = DockStyle.Fill
             };
 
+            Label bookingListHeading = new() {
+                Text = "Existing bookings",
+                Font = new Font(Font.FontFamily, 18),
+                AutoSize = true,
+                UseCompatibleTextRendering = true
+            };
+            bookingList.Controls.Add(bookingListHeading);
+
             Booking[] test = databaseContext.Bookings.ToArray();
 
             Booking[] bookings = databaseContext.Bookings
@@ -38,7 +46,7 @@ namespace HotelPosSystem {
             FlowLayoutPanel flowLayoutPanel = new() {
                 FlowDirection = FlowDirection.TopDown,
                 AutoSize = true,
-                Margin = new Padding(0, 0, 0, bottom: 40)
+                Margin = new Padding(0, top: 30, 0, 0)
             };
 
             AddLabel(flowLayoutPanel, "customerName" + booking.Id, "Name: " + booking.Customer.FullName);
