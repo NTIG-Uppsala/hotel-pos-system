@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- List of bookings
+
 ### Removed
 
 - Occupied room counters for single and double rooms with reset buttons
