@@ -28,7 +28,6 @@ namespace HotelPosSystem {
             };
             bookingList.Controls.Add(bookingListHeading);
 
-            Booking[] test = databaseContext.Bookings.ToArray();
 
             Booking[] bookings = databaseContext.Bookings
                 .Include(booking => booking.Customer)
