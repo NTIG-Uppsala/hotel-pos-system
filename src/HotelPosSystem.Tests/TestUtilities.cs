@@ -18,5 +18,15 @@ namespace HotelPosSystem.Tests {
         internal static Window GetMainWindow(ProgramFixture fixture, UIA3Automation automation) {
             return fixture.Application.GetMainWindow(automation).AsWindow();
         }
+
+        internal static AutomationElement GetBookingListElement(ProgramFixture fixture, UIA3Automation automation) {
+            const string bookingListAutomationId = "bookingList";
+            return GetElement(bookingListAutomationId, GetMainWindow(fixture, automation), automation);
+        }
+
+        internal static AutomationElement GetAddBookingPanel(ProgramFixture fixture, UIA3Automation automation) {
+            const string addBookingPanelAutomationId = "addBookingPanel";
+            return GetElement(addBookingPanelAutomationId, GetMainWindow(fixture, automation), automation);
+        }
     }
 }
