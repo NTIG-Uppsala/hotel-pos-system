@@ -3,11 +3,11 @@ using FlaUI.Core.Conditions;
 using FlaUI.UIA3;
 
 namespace HotelPosSystem.Tests {
-    public class BookingTests : IDisposable, IClassFixture<ProgramFixture> {
+    public class BookingListTests : IDisposable, IClassFixture<ProgramFixture> {
         private readonly UIA3Automation _automation;
         private readonly ProgramFixture _fixture;
 
-        public BookingTests(ProgramFixture fixture) {
+        public BookingListTests(ProgramFixture fixture) {
             _automation = new UIA3Automation();
             _fixture = fixture;
         }
