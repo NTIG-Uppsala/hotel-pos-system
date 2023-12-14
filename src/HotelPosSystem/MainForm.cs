@@ -73,7 +73,8 @@ namespace HotelPosSystem {
         private static void AddCheckBoxAndLabel(Panel container, string checkBoxName, bool checkBoxState, string labelName, string labelText) {
             FlowLayoutPanel layoutPanel = new() {
                 FlowDirection = FlowDirection.LeftToRight,
-                AutoSize = true
+                AutoSize = true,
+                Margin = Padding.Empty
             };
 
             AddLabel(layoutPanel, labelName, labelText);
