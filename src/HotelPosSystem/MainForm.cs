@@ -97,7 +97,8 @@ namespace HotelPosSystem {
                 Name = name,
                 Checked = isChecked,
                 Enabled = isEnabled,
-                UseCompatibleTextRendering = true
+                UseCompatibleTextRendering = true,
+                AutoSize = true
             };
             container.Controls.Add(checkBox);
         }
