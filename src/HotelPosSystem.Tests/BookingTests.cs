@@ -91,6 +91,12 @@ namespace HotelPosSystem.Tests {
             Assert.Null(commentLabel);
         }
 
+        /// <summary>
+        /// Finds and returns an element with a specific <paramref name="automationId"/> in the <paramref name="parent"/> element
+        /// </summary>
+        /// <param name="automationId">The same as <see cref="System.Windows.Forms.Control.Name"/></param>
+        /// <param name="parent">The element to start the search from</param>
+        /// <returns>The element if found, otherwise <c>null</c></returns>
         private AutomationElement GetElement(string automationId, AutomationElement parent) {
             ConditionFactory conditionFactory = _automation.ConditionFactory;
             return parent.FindFirstDescendant(conditionFactory.ByAutomationId(automationId));
