@@ -32,13 +32,13 @@ namespace HotelPosSystem {
             Room twinRoom202 = CreateRoom("202", twinRoom, buildings[0], floor: 2, priceCategories[0]);
             databaseContext.Rooms.AddRange(singleRoom101, doubleRoom201, twinRoom202);
 
-            Customer robert = CreateCustomer("Robert Robertsson", "rober.robertsson@example.com", "070-1740650");
+            Customer robert = CreateCustomer("Robert Robertsson", "robert.robertsson@example.com", "070-1740650");
             Customer kalle = CreateCustomer("Kalle Kallesson", "kalle.kallesson@example.com", "070-1740640");
             databaseContext.Customers.AddRange(robert, kalle);
 
-            Booking robertsBooking = CreateBooking(robert, twinRoom202, new DateOnly(2023, 12, 24), new DateOnly(2024, 1, 3), isPayedFor: false, isCheckedIn: true, "Cleaning crew one hour late");
-            Booking robertsSecondBooking = CreateBooking(robert, doubleRoom201, new DateOnly(2023, 12, 27), new DateOnly(2024, 1, 3), isPayedFor: true, isCheckedIn: false);
-            Booking kallesBooking = CreateBooking(kalle, twinRoom202, new DateOnly(2024, 2, 1), new DateOnly(2024, 2, 4), isPayedFor: false, isCheckedIn: false);
+            Booking robertsBooking = CreateBooking(robert, twinRoom202, new DateOnly(2023, 12, 24), new DateOnly(2024, 1, 3), isPaidFor: false, isCheckedIn: true, "Cleaning crew one hour late");
+            Booking robertsSecondBooking = CreateBooking(robert, doubleRoom201, new DateOnly(2023, 12, 27), new DateOnly(2024, 1, 3), isPaidFor: true, isCheckedIn: false);
+            Booking kallesBooking = CreateBooking(kalle, twinRoom202, new DateOnly(2024, 2, 1), new DateOnly(2024, 2, 4), isPaidFor: false, isCheckedIn: false);
             databaseContext.Bookings.AddRange(robertsBooking, robertsSecondBooking, kallesBooking);
 
             ClosedTimeSpan waterDamage = CreateClosedTimeSpan(singleRoom101, new DateOnly(2023, 12, 20), null, "Water damage");
@@ -122,13 +122,13 @@ namespace HotelPosSystem {
         }
 
         private static Booking CreateBooking(Customer customer, Room room, DateOnly startDate, DateOnly endDate,
-                                             bool isPayedFor, bool isCheckedIn, string? comment = null) {
+                                             bool isPaidFor, bool isCheckedIn, string? comment = null) {
             Booking booking = new() {
                 Customer = customer,
                 Room = room,
                 StartDate = startDate,
                 EndDate = endDate,
-                IsPayedFor = isPayedFor,
+                IsPaidFor = isPaidFor,
                 IsCheckedIn = isCheckedIn,
                 Comment = comment
             };
