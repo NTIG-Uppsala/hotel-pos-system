@@ -11,6 +11,7 @@ namespace HotelPosSystem {
         internal static void SetUpDatabase(HotelDbContext databaseContext) {
             databaseContext.Database.Migrate();
 
+            // If there is any data in the database, skip adding new data
             if (!AreAllTablesEmpty(databaseContext)) {
                 return;
             }
