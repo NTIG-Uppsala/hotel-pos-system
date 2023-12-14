@@ -7,8 +7,6 @@ namespace HotelPosSystem.Tests {
         private readonly UIA3Automation _automation;
         private readonly ProgramFixture _fixture;
 
-        private const string BookingListAutomationId = "bookingList";
-
         public BookingTests(ProgramFixture fixture) {
             _automation = new UIA3Automation();
             _fixture = fixture;
@@ -16,7 +14,7 @@ namespace HotelPosSystem.Tests {
 
         [Fact]
         public void CustomerNameShouldBePresentInList() {
-            AutomationElement bookingList = GetElement(BookingListAutomationId, GetMainWindow());
+            AutomationElement bookingList = GetBookingListElement();
             Label customerName = GetElement("customerName1", bookingList).AsLabel();
 
             Assert.Contains("Robert Robertsson", customerName.Text);
@@ -24,7 +22,7 @@ namespace HotelPosSystem.Tests {
 
         [Fact]
         public void EmailAdressShouldBePresentInList() {
-            AutomationElement bookingList = GetElement(BookingListAutomationId, GetMainWindow());
+            AutomationElement bookingList = GetBookingListElement();
             Label emailAddress = GetElement("emailAddress2", bookingList).AsLabel();
 
             Assert.Contains("robert.robertsson@example.com", emailAddress.Text);
@@ -32,7 +30,7 @@ namespace HotelPosSystem.Tests {
 
         [Fact]
         public void PhoneNumberShouldBePresentInList() {
-            AutomationElement bookingList = GetElement(BookingListAutomationId, GetMainWindow());
+            AutomationElement bookingList = GetBookingListElement();
             Label phoneNumber = GetElement("phoneNumber3", bookingList).AsLabel();
 
             Assert.Contains("070-1740640", phoneNumber.Text);
@@ -40,7 +38,7 @@ namespace HotelPosSystem.Tests {
 
         [Fact]
         public void RoomNameShouldBePresentInList() {
-            AutomationElement bookingList = GetElement(BookingListAutomationId, GetMainWindow());
+            AutomationElement bookingList = GetBookingListElement();
             Label roomName = GetElement("roomName1", bookingList).AsLabel();
 
             Assert.Contains("202", roomName.Text);
@@ -48,7 +46,7 @@ namespace HotelPosSystem.Tests {
 
         [Fact]
         public void DatesShouldBePresentInList() {
-            AutomationElement bookingList = GetElement(BookingListAutomationId, GetMainWindow());
+            AutomationElement bookingList = GetBookingListElement();
             Label startEndDatesLabel = GetElement("dates2", bookingList).AsLabel();
 
             Assert.Contains("2023-12-27", startEndDatesLabel.Text);
@@ -57,7 +55,7 @@ namespace HotelPosSystem.Tests {
 
         [Fact]
         public void CheckedInStatusShouldBeCorrect() {
-            AutomationElement bookingList = GetElement(BookingListAutomationId, GetMainWindow());
+            AutomationElement bookingList = GetBookingListElement();
             CheckBox checkedInCheckBox = GetElement("checkedIn1", bookingList).AsCheckBox();
             CheckBox notCheckedInCheckBox = GetElement("checkedIn2", bookingList).AsCheckBox();
 
@@ -67,7 +65,7 @@ namespace HotelPosSystem.Tests {
 
         [Fact]
         public void PaidStatusShouldBeCorrect() {
-            AutomationElement bookingList = GetElement(BookingListAutomationId, GetMainWindow());
+            AutomationElement bookingList = GetBookingListElement();
             CheckBox paidCheckBox = GetElement("paidFor2", bookingList).AsCheckBox();
             CheckBox notPaidCheckBox = GetElement("paidFor1", bookingList).AsCheckBox();
 
@@ -77,7 +75,7 @@ namespace HotelPosSystem.Tests {
 
         [Fact]
         public void CommentShouldBePresentInList() {
-            AutomationElement bookingList = GetElement(BookingListAutomationId, GetMainWindow());
+            AutomationElement bookingList = GetBookingListElement();
             Label commentLabel = GetElement("comment1", bookingList).AsLabel();
 
             Assert.Contains("Cleaning crew one hour late", commentLabel.Text);
@@ -85,7 +83,7 @@ namespace HotelPosSystem.Tests {
 
         [Fact]
         public void CommentShouldNotBePresentInList() {
-            AutomationElement bookingList = GetElement(BookingListAutomationId, GetMainWindow());
+            AutomationElement bookingList = GetBookingListElement();
             AutomationElement? commentLabel = GetElement("comment2", bookingList);
 
             Assert.Null(commentLabel);
@@ -100,6 +98,11 @@ namespace HotelPosSystem.Tests {
         private AutomationElement GetElement(string automationId, AutomationElement parent) {
             ConditionFactory conditionFactory = _automation.ConditionFactory;
             return parent.FindFirstDescendant(conditionFactory.ByAutomationId(automationId));
+        }
+
+        private AutomationElement GetBookingListElement() {
+            const string bookingListAutomationId = "bookingList";
+            return GetElement(bookingListAutomationId, GetMainWindow());
         }
 
         private Window GetMainWindow() {
