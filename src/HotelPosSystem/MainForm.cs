@@ -101,15 +101,5 @@ namespace HotelPosSystem {
             };
             container.Controls.Add(checkBox);
         }
-
-        private static Button CreateButton(string name, string text, EventHandler? onClicked) {
-            Button button = new() {
-                Name = name,
-                Text = text,
-                UseCompatibleTextRendering = true
-            };
-            button.Click += onClicked;
-            return button;
-        }
     }
 }
