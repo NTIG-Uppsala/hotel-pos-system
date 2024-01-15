@@ -12,6 +12,16 @@ namespace HotelPosSystem {
             using HotelDbContext databaseContext = new();
             DatabaseUtilities.SetUpDatabase(databaseContext);
 
+            TableLayoutPanel container = new() {
+                RowCount = 1,
+                ColumnCount = 2,
+                Dock = DockStyle.Fill
+            };
+
+            container.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
+            container.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
+            container.RowStyles.Add(new RowStyle(SizeType.Percent, 50f));
+
             FlowLayoutPanel bookingList = new() {
                 Name = "bookingList",
                 FlowDirection = FlowDirection.TopDown,
@@ -19,6 +29,8 @@ namespace HotelPosSystem {
                 WrapContents = false,
                 Dock = DockStyle.Fill
             };
+
+            FlowLayoutPanel bookingForm = CreateBookingForm(databaseContext);
 
             Label bookingListHeading = new() {
                 Text = "Existing bookings",
@@ -38,7 +50,41 @@ namespace HotelPosSystem {
             foreach (Booking booking in bookings) {
                 bookingList.Controls.Add(CreateListItem(booking));
             }
-            Controls.Add(bookingList);
+
+            container.Controls.Add(bookingForm);
+            container.Controls.Add(bookingList);
+            Controls.Add(container);
+        }
+
+        private static FlowLayoutPanel CreateBookingForm(HotelDbContext databaseContext) {
+            FlowLayoutPanel flowLayoutPanel = new() {
+                FlowDirection = FlowDirection.TopDown,
+                AutoSize = true
+            };
+
+            const int width = 300;
+
+            Customer[] customers = databaseContext.Customers
+                .OrderBy(customer => customer.FullName)
+                .ToArray();
+            AddComboBox(flowLayoutPanel, "customer", customers, width);
+
+            AddDatePicker(flowLayoutPanel, "startDate", DateTime.Now);
+            AddDatePicker(flowLayoutPanel, "endDate", DateTime.Now);
+
+            Room[] rooms = databaseContext.Rooms
+                .OrderBy(room => room.Name)
+                .ToArray();
+            AddComboBox(flowLayoutPanel, "room", rooms, width);
+
+            AddTextBox(flowLayoutPanel, "comment", width);
+
+            AddCheckBox(flowLayoutPanel, "paidFor", false, true);
+            AddCheckBox(flowLayoutPanel, "checkIn", false, true);
+
+            AddButton(flowLayoutPanel, "addBooking", "Add Booking", width);
+
+            return flowLayoutPanel;
         }
 
         private static FlowLayoutPanel CreateListItem(Booking booking) {
@@ -102,6 +148,43 @@ namespace HotelPosSystem {
                 AutoSize = true
             };
             container.Controls.Add(checkBox);
+        }
+
+        private static void AddComboBox(Panel container, string name, object[] items, int width) {
+            ComboBox comboBox = new() {
+                Name = name,
+                DataSource = items,
+                Width = width,
+            };
+            container.Controls.Add(comboBox);
+        }
+
+        private static void AddDatePicker(Panel container, string name, DateTime earliestDate) {
+            DateTimePicker datePicker = new() {
+                Name = name,
+                MinDate = earliestDate,
+                Format = DateTimePickerFormat.Short
+            };
+            container.Controls.Add(datePicker);
+        }
+
+        private static void AddTextBox(Panel container, string name, int width) {
+            TextBox textBox = new() {
+                Name = name,
+                Width = width
+            };
+            container.Controls.Add(textBox);
+        }
+
+        private static void AddButton(Panel container, string name, string text, int width) {
+            Button button = new() {
+                Name = name,
+                Text = text,
+                Width = width,
+                UseCompatibleTextRendering = true,
+                AutoSize = true
+            };
+            container.Controls.Add(button);
         }
     }
 }

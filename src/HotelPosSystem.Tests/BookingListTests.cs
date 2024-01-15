@@ -2,6 +2,7 @@
 using FlaUI.UIA3;
 
 namespace HotelPosSystem.Tests {
+    [Collection("Requires Database")]
     public class BookingListTests : IDisposable, IClassFixture<ProgramFixture> {
         private readonly UIA3Automation _automation;
         private readonly ProgramFixture _fixture;
