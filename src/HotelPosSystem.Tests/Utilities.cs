@@ -15,6 +15,11 @@ namespace HotelPosSystem.Tests {
             return parent.FindFirstDescendant(conditionFactory.ByAutomationId(automationId));
         }
 
+        internal static AutomationElement GetBookingListElement(ProgramFixture fixture, UIA3Automation automation) {
+            const string bookingListAutomationId = "bookingList";
+            return GetElement(automation, bookingListAutomationId, GetMainWindow(fixture, automation));
+        }
+
         internal static Window GetMainWindow(ProgramFixture fixture, UIA3Automation automation) {
             return fixture.Application.GetMainWindow(automation).AsWindow();
         }
