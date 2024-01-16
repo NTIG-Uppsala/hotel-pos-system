@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelPosSystem {
     public partial class MainForm : Form {
+        private const int HeadingFontSize = 18;
+        private const int MarginSize = 30;
+
         private static ComboBox? s_customerDropdown;
         private static DateTimePicker? s_startDatePicker;
         private static DateTimePicker? s_endDatePicker;
@@ -41,35 +44,44 @@ namespace HotelPosSystem {
         }
 
         private static FlowLayoutPanel CreateBookingForm(HotelDbContext databaseContext) {
-            FlowLayoutPanel flowLayoutPanel = new() {
+            FlowLayoutPanel bookingForm = new() {
                 Name = "bookingForm",
                 FlowDirection = FlowDirection.TopDown,
                 AutoSize = true
             };
+
+            Label bookingFormHeading = new() {
+                Text = "Create new booking",
+                Font = new Font(DefaultFont.FontFamily, HeadingFontSize),
+                AutoSize = true,
+                Margin = new Padding(0, 0, 0, bottom: MarginSize),
+                UseCompatibleTextRendering = true
+            };
+            bookingForm.Controls.Add(bookingFormHeading);
 
             const int width = 300;
 
             Customer[] customers = databaseContext.Customers
                 .OrderBy(customer => customer.FullName)
                 .ToArray();
-            s_customerDropdown = AddComboBox(flowLayoutPanel, "customer", customers, width);
+            s_customerDropdown = AddComboBox(bookingForm, "customer", customers, width);
 
-            s_startDatePicker = AddDatePicker(flowLayoutPanel, "startDate", DateTime.Now);
-            s_endDatePicker = AddDatePicker(flowLayoutPanel, "endDate", DateTime.Now);
+            s_startDatePicker = AddDatePicker(bookingForm, "startDate", DateTime.Now);
+            s_endDatePicker = AddDatePicker(bookingForm, "endDate", DateTime.Now);
 
             Room[] rooms = databaseContext.Rooms
                 .OrderBy(room => room.Name)
                 .ToArray();
-            s_roomDropdown = AddComboBox(flowLayoutPanel, "room", rooms, width);
+            s_roomDropdown = AddComboBox(bookingForm, "room", rooms, width);
 
-            s_commentTextBox = AddTextBox(flowLayoutPanel, "comment", width);
+            s_commentTextBox = AddTextBox(bookingForm, "comment", width);
 
-            s_paidForCheckBox = AddCheckBox(flowLayoutPanel, "paidFor", false, true);
-            s_checkedInCheckBox = AddCheckBox(flowLayoutPanel, "checkIn", false, true);
+            s_paidForCheckBox = AddCheckBox(bookingForm, "paidFor", false, true);
+            s_checkedInCheckBox = AddCheckBox(bookingForm, "checkIn", false, true);
 
-            AddButton(flowLayoutPanel, "addBooking", "Add Booking", width, (sender, eventArgs) => CreateBooking());
+            AddButton(bookingForm, "addBooking", "Add Booking", width, (sender, eventArgs) => CreateBooking());
 
-            return flowLayoutPanel;
+            return bookingForm;
         }
 
         private static FlowLayoutPanel CreateBookingList(HotelDbContext databaseContext) {
@@ -83,7 +95,7 @@ namespace HotelPosSystem {
 
             Label bookingListHeading = new() {
                 Text = "Existing bookings",
-                Font = new Font(DefaultFont.FontFamily, 18),
+                Font = new Font(DefaultFont.FontFamily, HeadingFontSize),
                 AutoSize = true,
                 UseCompatibleTextRendering = true
             };
@@ -113,7 +125,7 @@ namespace HotelPosSystem {
             FlowLayoutPanel flowLayoutPanel = new() {
                 FlowDirection = FlowDirection.TopDown,
                 AutoSize = true,
-                Margin = new Padding(0, top: 30, 0, 0)
+                Margin = new Padding(0, top: MarginSize, 0, 0)
             };
 
             AddLabel(flowLayoutPanel, "customerName" + booking.Id, "Name: " + booking.Customer.FullName);
