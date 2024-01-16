@@ -14,6 +14,8 @@ namespace HotelPosSystem {
         private static CheckBox? s_paidForCheckBox;
         private static CheckBox? s_checkedInCheckBox;
 
+        private static FlowLayoutPanel? s_bookingList;
+
         public MainForm() {
             InitializeComponent();
 
@@ -31,15 +33,16 @@ namespace HotelPosSystem {
             container.RowStyles.Add(new RowStyle(SizeType.Percent, 50f));
 
             FlowLayoutPanel bookingForm = CreateBookingForm(databaseContext);
-            FlowLayoutPanel bookingList = CreateBookingList(databaseContext);
+            s_bookingList = CreateBookingList(databaseContext);
 
             container.Controls.Add(bookingForm);
-            container.Controls.Add(bookingList);
+            container.Controls.Add(s_bookingList);
             Controls.Add(container);
         }
 
         private static FlowLayoutPanel CreateBookingForm(HotelDbContext databaseContext) {
             FlowLayoutPanel flowLayoutPanel = new() {
+                Name = "bookingForm",
                 FlowDirection = FlowDirection.TopDown,
                 AutoSize = true
             };
@@ -97,6 +100,13 @@ namespace HotelPosSystem {
             }
 
             return bookingList;
+        }
+
+        private static void UpdateBookingList(HotelDbContext databaseContext) {
+            Control? bookingListParent = s_bookingList?.Parent;
+            bookingListParent?.Controls.Remove(s_bookingList);
+            s_bookingList = CreateBookingList(databaseContext);
+            bookingListParent?.Controls.Add(s_bookingList);
         }
 
         private static FlowLayoutPanel CreateListItem(Booking booking) {
@@ -233,6 +243,8 @@ namespace HotelPosSystem {
             databaseContext.Rooms.Attach(room);
             databaseContext.Bookings.Add(booking);
             databaseContext.SaveChanges();
+
+            UpdateBookingList(databaseContext);
         }
     }
 }

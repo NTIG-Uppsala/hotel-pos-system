@@ -12,7 +12,7 @@ namespace HotelPosSystem.Tests {
             _fixture = fixture;
         }
 
-        [Fact(Skip = "Feature not yet implemented")]
+        [Fact(Skip = "FlaUI error when selecting combobox item")]
         public void ShouldAddBooking() {
             AutomationElement bookingList = Utilities.GetBookingListElement(_fixture, _automation);
             AutomationElement bookingForm = GetBookingFormElement();
