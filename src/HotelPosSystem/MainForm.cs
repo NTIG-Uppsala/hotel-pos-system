@@ -6,6 +6,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelPosSystem {
     public partial class MainForm : Form {
+        private static ComboBox? s_customerDropdown;
+        private static DateTimePicker? s_startDatePicker;
+        private static DateTimePicker? s_endDatePicker;
+        private static ComboBox? s_roomDropdown;
+        private static TextBox? s_commentTextBox;
+        private static CheckBox? s_paidForCheckBox;
+        private static CheckBox? s_checkedInCheckBox;
+
         public MainForm() {
             InitializeComponent();
 
@@ -67,22 +75,22 @@ namespace HotelPosSystem {
             Customer[] customers = databaseContext.Customers
                 .OrderBy(customer => customer.FullName)
                 .ToArray();
-            AddComboBox(flowLayoutPanel, "customer", customers, width);
+            s_customerDropdown = AddComboBox(flowLayoutPanel, "customer", customers, width);
 
-            AddDatePicker(flowLayoutPanel, "startDate", DateTime.Now);
-            AddDatePicker(flowLayoutPanel, "endDate", DateTime.Now);
+            s_startDatePicker = AddDatePicker(flowLayoutPanel, "startDate", DateTime.Now);
+            s_endDatePicker = AddDatePicker(flowLayoutPanel, "endDate", DateTime.Now);
 
             Room[] rooms = databaseContext.Rooms
                 .OrderBy(room => room.Name)
                 .ToArray();
-            AddComboBox(flowLayoutPanel, "room", rooms, width);
+            s_roomDropdown = AddComboBox(flowLayoutPanel, "room", rooms, width);
 
-            AddTextBox(flowLayoutPanel, "comment", width);
+            s_commentTextBox = AddTextBox(flowLayoutPanel, "comment", width);
 
-            AddCheckBox(flowLayoutPanel, "paidFor", false, true);
-            AddCheckBox(flowLayoutPanel, "checkIn", false, true);
+            s_paidForCheckBox = AddCheckBox(flowLayoutPanel, "paidFor", false, true);
+            s_checkedInCheckBox = AddCheckBox(flowLayoutPanel, "checkIn", false, true);
 
-            AddButton(flowLayoutPanel, "addBooking", "Add Booking", width);
+            AddButton(flowLayoutPanel, "addBooking", "Add Booking", width, (sender, eventArgs) => CreateBooking());
 
             return flowLayoutPanel;
         }
@@ -139,7 +147,7 @@ namespace HotelPosSystem {
             container.Controls.Add(label);
         }
 
-        private static void AddCheckBox(Panel container, string name, bool isChecked, bool isEnabled) {
+        private static CheckBox AddCheckBox(Panel container, string name, bool isChecked, bool isEnabled) {
             CheckBox checkBox = new() {
                 Name = name,
                 Checked = isChecked,
@@ -148,35 +156,39 @@ namespace HotelPosSystem {
                 AutoSize = true
             };
             container.Controls.Add(checkBox);
+            return checkBox;
         }
 
-        private static void AddComboBox(Panel container, string name, object[] items, int width) {
+        private static ComboBox AddComboBox(Panel container, string name, object[] items, int width) {
             ComboBox comboBox = new() {
                 Name = name,
                 DataSource = items,
                 Width = width,
             };
             container.Controls.Add(comboBox);
+            return comboBox;
         }
 
-        private static void AddDatePicker(Panel container, string name, DateTime earliestDate) {
+        private static DateTimePicker AddDatePicker(Panel container, string name, DateTime earliestDate) {
             DateTimePicker datePicker = new() {
                 Name = name,
                 MinDate = earliestDate,
                 Format = DateTimePickerFormat.Short
             };
             container.Controls.Add(datePicker);
+            return datePicker;
         }
 
-        private static void AddTextBox(Panel container, string name, int width) {
+        private static TextBox AddTextBox(Panel container, string name, int width) {
             TextBox textBox = new() {
                 Name = name,
                 Width = width
             };
             container.Controls.Add(textBox);
+            return textBox;
         }
 
-        private static void AddButton(Panel container, string name, string text, int width) {
+        private static void AddButton(Panel container, string name, string text, int width, EventHandler onClick) {
             Button button = new() {
                 Name = name,
                 Text = text,
@@ -184,7 +196,39 @@ namespace HotelPosSystem {
                 UseCompatibleTextRendering = true,
                 AutoSize = true
             };
+            button.Click += onClick;
             container.Controls.Add(button);
+        }
+
+        private static void CreateBooking() {
+            using HotelDbContext databaseContext = new();
+
+            Customer? customer = s_customerDropdown?.SelectedValue as Customer;
+            DateOnly startDate = DateOnly.FromDateTime(s_startDatePicker?.Value ?? new DateTime());
+            DateOnly endDate = DateOnly.FromDateTime(s_endDatePicker?.Value ?? new DateTime());
+            Room? room = s_roomDropdown?.SelectedValue as Room;
+            string? comment = s_commentTextBox?.Text;
+            bool? paidFor = s_paidForCheckBox?.Checked;
+            bool? checkedIn = s_checkedInCheckBox?.Checked;
+
+            if (customer is null || room is null || paidFor is null || checkedIn is null) {
+                throw new NullReferenceException();
+            }
+
+            Booking booking = new() {
+                Customer = customer,
+                StartDate = startDate,
+                EndDate = endDate,
+                Room = room,
+                Comment = comment,
+                IsPaidFor = paidFor.Value,
+                IsCheckedIn = checkedIn.Value
+            };
+
+            databaseContext.Customers.Attach(customer);
+            databaseContext.Rooms.Attach(room);
+            databaseContext.Bookings.Add(booking);
+            databaseContext.SaveChanges();
         }
     }
 }
