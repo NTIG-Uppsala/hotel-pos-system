@@ -67,20 +67,20 @@ namespace HotelPosSystem {
             Customer[] customers = databaseContext.Customers
                 .OrderBy(customer => customer.FullName)
                 .ToArray();
-            s_customerDropdown = AddComboBox(bookingForm, "customer", customers, width);
+            (s_customerDropdown, _) = AddComboBoxAndLabel(bookingForm, "customer", customers, width, "cutomerLabel", "Customer:");
 
-            s_startDatePicker = AddDatePicker(bookingForm, "startDate", DateTime.Now);
-            s_endDatePicker = AddDatePicker(bookingForm, "endDate", DateTime.Now);
+            (s_startDatePicker, _) = AddDatePickerAndLabel(bookingForm, "startDate", DateTime.Now, "startDateLabel", "Start date:");
+            (s_endDatePicker, _) = AddDatePickerAndLabel(bookingForm, "endDate", DateTime.Now, "endDateLabel", "End date:");
 
             Room[] rooms = databaseContext.Rooms
                 .OrderBy(room => room.Name)
                 .ToArray();
-            s_roomDropdown = AddComboBox(bookingForm, "room", rooms, width);
+            (s_roomDropdown, _) = AddComboBoxAndLabel(bookingForm, "room", rooms, width, "roomLabel", "Room:");
 
-            s_commentTextBox = AddTextBox(bookingForm, "comment", width);
+            (s_commentTextBox, _) = AddTextBoxAndLabel(bookingForm, "comment", width, "commentLabel", "Comment:");
 
-            s_paidForCheckBox = AddCheckBox(bookingForm, "paidFor", false, true);
-            s_checkedInCheckBox = AddCheckBox(bookingForm, "checkIn", false, true);
+            (s_paidForCheckBox, _) = AddCheckBoxAndLabel(bookingForm, "paidFor", false, "paidForLabel", "Paid for:");
+            (s_checkedInCheckBox, _) = AddCheckBoxAndLabel(bookingForm, "checkIn", false, "checkedInLabel", "Checked in:");
 
             AddButton(bookingForm, "addBooking", "Add Booking", width, (sender, eventArgs) => CreateBooking());
 
@@ -153,20 +153,21 @@ namespace HotelPosSystem {
             return flowLayoutPanel;
         }
 
-        private static void AddCheckBoxAndLabel(Panel container, string checkBoxName, bool checkBoxState, string labelName, string labelText) {
+        private static (CheckBox, Label) AddCheckBoxAndLabel(Panel container, string checkBoxName, bool checkBoxState, string labelName, string labelText) {
             FlowLayoutPanel layoutPanel = new() {
                 FlowDirection = FlowDirection.LeftToRight,
                 AutoSize = true,
                 Margin = Padding.Empty
             };
 
-            AddLabel(layoutPanel, labelName, labelText);
-            AddCheckBox(layoutPanel, checkBoxName, checkBoxState, isEnabled: false);
+            Label label = AddLabel(layoutPanel, labelName, labelText);
+            CheckBox checkBox = AddCheckBox(layoutPanel, checkBoxName, checkBoxState, isEnabled: false);
 
             container.Controls.Add(layoutPanel);
+            return (checkBox, label);
         }
 
-        private static void AddLabel(Panel container, string name, string text) {
+        private static Label AddLabel(Panel container, string name, string text) {
             Label label = new() {
                 Name = name,
                 Text = text,
@@ -174,6 +175,7 @@ namespace HotelPosSystem {
                 AutoSize = true
             };
             container.Controls.Add(label);
+            return label;
         }
 
         private static CheckBox AddCheckBox(Panel container, string name, bool isChecked, bool isEnabled) {
@@ -188,6 +190,20 @@ namespace HotelPosSystem {
             return checkBox;
         }
 
+        private static (ComboBox, Label) AddComboBoxAndLabel(Panel container, string comboBoxName, object[] comboBoxItems, int comboBoxWidth, string labelName, string labelText) {
+            FlowLayoutPanel layoutPanel = new() {
+                FlowDirection = FlowDirection.TopDown,
+                AutoSize = true,
+                Margin = Padding.Empty
+            };
+
+            Label label = AddLabel(layoutPanel, labelName, labelText);
+            ComboBox comboBox = AddComboBox(layoutPanel, comboBoxName, comboBoxItems, comboBoxWidth);
+
+            container.Controls.Add(layoutPanel);
+            return (comboBox, label);
+        }
+
         private static ComboBox AddComboBox(Panel container, string name, object[] items, int width) {
             ComboBox comboBox = new() {
                 Name = name,
@@ -198,6 +214,20 @@ namespace HotelPosSystem {
             return comboBox;
         }
 
+        private static (DateTimePicker, Label) AddDatePickerAndLabel(Panel container, string datePickerName, DateTime earliestDate, string labelName, string labelText) {
+            FlowLayoutPanel layoutPanel = new() {
+                FlowDirection = FlowDirection.TopDown,
+                AutoSize = true,
+                Margin = Padding.Empty
+            };
+
+            Label label = AddLabel(layoutPanel, labelName, labelText);
+            DateTimePicker dateTimePicker = AddDatePicker(layoutPanel, datePickerName, earliestDate);
+
+            container.Controls.Add(layoutPanel);
+            return (dateTimePicker, label);
+        }
+
         private static DateTimePicker AddDatePicker(Panel container, string name, DateTime earliestDate) {
             DateTimePicker datePicker = new() {
                 Name = name,
@@ -206,6 +236,20 @@ namespace HotelPosSystem {
             };
             container.Controls.Add(datePicker);
             return datePicker;
+        }
+
+        private static (TextBox, Label) AddTextBoxAndLabel(Panel container, string textBoxName, int textBoxWidth, string labelName, string labelText) {
+            FlowLayoutPanel layoutPanel = new() {
+                FlowDirection = FlowDirection.TopDown,
+                AutoSize = true,
+                Margin = Padding.Empty
+            };
+
+            Label label = AddLabel(layoutPanel, labelName, labelText);
+            TextBox textBox = AddTextBox(layoutPanel, textBoxName, textBoxWidth);
+
+            container.Controls.Add(layoutPanel);
+            return (textBox, label);
         }
 
         private static TextBox AddTextBox(Panel container, string name, int width) {
