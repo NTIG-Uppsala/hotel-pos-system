@@ -30,34 +30,8 @@ namespace HotelPosSystem {
             container.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
             container.RowStyles.Add(new RowStyle(SizeType.Percent, 50f));
 
-            FlowLayoutPanel bookingList = new() {
-                Name = "bookingList",
-                FlowDirection = FlowDirection.TopDown,
-                AutoScroll = true,
-                WrapContents = false,
-                Dock = DockStyle.Fill
-            };
-
             FlowLayoutPanel bookingForm = CreateBookingForm(databaseContext);
-
-            Label bookingListHeading = new() {
-                Text = "Existing bookings",
-                Font = new Font(Font.FontFamily, 18),
-                AutoSize = true,
-                UseCompatibleTextRendering = true
-            };
-            bookingList.Controls.Add(bookingListHeading);
-
-
-            Booking[] bookings = databaseContext.Bookings
-                .Include(booking => booking.Customer)
-                .Include(booking => booking.Room)
-                .OrderBy(booking => booking.StartDate)
-                .ToArray();
-
-            foreach (Booking booking in bookings) {
-                bookingList.Controls.Add(CreateListItem(booking));
-            }
+            FlowLayoutPanel bookingList = CreateBookingList(databaseContext);
 
             container.Controls.Add(bookingForm);
             container.Controls.Add(bookingList);
@@ -93,6 +67,36 @@ namespace HotelPosSystem {
             AddButton(flowLayoutPanel, "addBooking", "Add Booking", width, (sender, eventArgs) => CreateBooking());
 
             return flowLayoutPanel;
+        }
+
+        private static FlowLayoutPanel CreateBookingList(HotelDbContext databaseContext) {
+            FlowLayoutPanel bookingList = new() {
+                Name = "bookingList",
+                FlowDirection = FlowDirection.TopDown,
+                AutoScroll = true,
+                WrapContents = false,
+                Dock = DockStyle.Fill
+            };
+
+            Label bookingListHeading = new() {
+                Text = "Existing bookings",
+                Font = new Font(DefaultFont.FontFamily, 18),
+                AutoSize = true,
+                UseCompatibleTextRendering = true
+            };
+            bookingList.Controls.Add(bookingListHeading);
+
+            Booking[] bookings = databaseContext.Bookings
+                .Include(booking => booking.Customer)
+                .Include(booking => booking.Room)
+                .OrderBy(booking => booking.StartDate)
+                .ToArray();
+
+            foreach (Booking booking in bookings) {
+                bookingList.Controls.Add(CreateListItem(booking));
+            }
+
+            return bookingList;
         }
 
         private static FlowLayoutPanel CreateListItem(Booking booking) {
