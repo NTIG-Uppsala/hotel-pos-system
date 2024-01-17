@@ -25,22 +25,22 @@ namespace HotelPosSystem {
             using HotelDbContext databaseContext = new();
             DatabaseUtilities.SetUpDatabase(databaseContext);
 
-            TableLayoutPanel container = new() {
+            TableLayoutPanel mainContainer = new() {
                 RowCount = 1,
                 ColumnCount = 2,
                 Dock = DockStyle.Fill
             };
 
-            container.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
-            container.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
-            container.RowStyles.Add(new RowStyle(SizeType.Percent, 100f));
+            mainContainer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
+            mainContainer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
+            mainContainer.RowStyles.Add(new RowStyle(SizeType.Percent, 100f));
 
             FlowLayoutPanel bookingForm = CreateBookingForm(databaseContext);
             s_bookingList = CreateBookingList(databaseContext);
 
-            container.Controls.Add(bookingForm);
-            container.Controls.Add(s_bookingList);
-            Controls.Add(container);
+            mainContainer.Controls.Add(bookingForm);
+            mainContainer.Controls.Add(s_bookingList);
+            Controls.Add(mainContainer);
         }
 
         private static FlowLayoutPanel CreateBookingForm(HotelDbContext databaseContext) {
