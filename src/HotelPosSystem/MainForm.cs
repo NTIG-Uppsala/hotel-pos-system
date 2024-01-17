@@ -33,7 +33,7 @@ namespace HotelPosSystem {
 
             container.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
             container.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
-            container.RowStyles.Add(new RowStyle(SizeType.Percent, 50f));
+            container.RowStyles.Add(new RowStyle(SizeType.Percent, 100f));
 
             FlowLayoutPanel bookingForm = CreateBookingForm(databaseContext);
             s_bookingList = CreateBookingList(databaseContext);
