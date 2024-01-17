@@ -81,6 +81,7 @@ namespace HotelPosSystem {
             s_endDatePicker.Margin = new Padding(left: 0, s_endDatePicker.Margin.Top, s_endDatePicker.Margin.Right, s_endDatePicker.Margin.Bottom);
 
             Room[] rooms = databaseContext.Rooms
+                .Include(room => room.Type)
                 .OrderBy(room => room.Name)
                 .ToArray();
             (s_roomDropdown, _) = AddComboBoxAndLabel(bookingForm, "room", rooms, width, "roomLabel", "Room:");
@@ -153,7 +154,7 @@ namespace HotelPosSystem {
             AddLabel(flowLayoutPanel, "customerName" + booking.Id, "Name: " + booking.Customer.FullName);
             AddLabel(flowLayoutPanel, "emailAddress" + booking.Id, "Email address: " + booking.Customer.EmailAdress);
             AddLabel(flowLayoutPanel, "phoneNumber" + booking.Id, "Phone number: " + booking.Customer.PhoneNumber);
-            AddLabel(flowLayoutPanel, "roomName" + booking.Id, "Room: " + booking.Room.Name);
+            AddLabel(flowLayoutPanel, "roomName" + booking.Id, "Room: " + booking.Room);
 
             // "o" date format corresponds to the ISO 8601 standard
             // https://learn.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings
