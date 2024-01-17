@@ -8,5 +8,9 @@
         public required PriceCategory PriceCategory { get; set; }
         public string? Description { get; set; }
         public string? Comment { get; set; }
+
+        public override string ToString() {
+            return Name;
+        }
     }
 }
