@@ -66,7 +66,7 @@ namespace HotelPosSystem {
             Customer[] customers = databaseContext.Customers
                 .OrderBy(customer => customer.FullName)
                 .ToArray();
-            (s_customerDropdown, _) = AddComboBoxAndLabel(bookingForm, "customer", customers, width, "customerLabel", "Customer:");
+            (s_customerDropdown, _) = AddComboBoxWithLabel(bookingForm, "customer", customers, width, "customerLabel", "Customer:");
 
             FlowLayoutPanel dateContainer = new() {
                 FlowDirection = FlowDirection.LeftToRight,
@@ -75,8 +75,8 @@ namespace HotelPosSystem {
                 Margin = new Padding(0)
             };
             bookingForm.Controls.Add(dateContainer);
-            (s_startDatePicker, _) = AddDatePickerAndLabel(dateContainer, "startDate", DateTime.Now, "startDateLabel", "Start date:");
-            (s_endDatePicker, _) = AddDatePickerAndLabel(dateContainer, "endDate", DateTime.Now, "endDateLabel", "End date:");
+            (s_startDatePicker, _) = AddDatePickerWithLabel(dateContainer, "startDate", DateTime.Now, "startDateLabel", "Start date:");
+            (s_endDatePicker, _) = AddDatePickerWithLabel(dateContainer, "endDate", DateTime.Now, "endDateLabel", "End date:");
             s_startDatePicker.Margin = new Padding(s_startDatePicker.Margin.Left, s_startDatePicker.Margin.Top, right: MarginSize, s_startDatePicker.Margin.Bottom);
             s_endDatePicker.Margin = new Padding(left: 0, s_endDatePicker.Margin.Top, s_endDatePicker.Margin.Right, s_endDatePicker.Margin.Bottom);
 
@@ -84,9 +84,9 @@ namespace HotelPosSystem {
                 .Include(room => room.Type)
                 .OrderBy(room => room.Name)
                 .ToArray();
-            (s_roomDropdown, _) = AddComboBoxAndLabel(bookingForm, "room", rooms, width, "roomLabel", "Room:");
+            (s_roomDropdown, _) = AddComboBoxWithLabel(bookingForm, "room", rooms, width, "roomLabel", "Room:");
 
-            (s_commentTextBox, _) = AddTextBoxAndLabel(bookingForm, "comment", width, "commentLabel", "Comment:");
+            (s_commentTextBox, _) = AddTextBoxWithLabel(bookingForm, "comment", width, "commentLabel", "Comment:");
 
             TableLayoutPanel checkBoxContainer = new() {
                 RowCount = 1,
@@ -98,8 +98,8 @@ namespace HotelPosSystem {
             checkBoxContainer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
             checkBoxContainer.RowStyles.Add(new RowStyle(SizeType.Percent, 100f));
             bookingForm.Controls.Add(checkBoxContainer);
-            (s_paidForCheckBox, _) = AddCheckBoxAndLabel(checkBoxContainer, "paidFor", checkBoxState: false, checkBoxEnabled: true, "paidForLabel", "Paid for:");
-            (s_checkedInCheckBox, Label checkedInLabel) = AddCheckBoxAndLabel(checkBoxContainer, "checkedIn", checkBoxState: false, checkBoxEnabled: true, "checkedInLabel", "Checked in:");
+            (s_paidForCheckBox, _) = AddCheckBoxWithLabel(checkBoxContainer, "paidFor", checkBoxState: false, checkBoxEnabled: true, "paidForLabel", "Paid for:");
+            (s_checkedInCheckBox, Label checkedInLabel) = AddCheckBoxWithLabel(checkBoxContainer, "checkedIn", checkBoxState: false, checkBoxEnabled: true, "checkedInLabel", "Checked in:");
             checkedInLabel.Margin = new Padding(left: MarginSize / 2, checkedInLabel.Margin.Top, checkedInLabel.Margin.Right, checkedInLabel.Margin.Bottom);
 
             AddButton(bookingForm, "addBooking", "Add Booking", width, (sender, eventArgs) => CreateBooking());
@@ -163,8 +163,8 @@ namespace HotelPosSystem {
             AddLabel(flowLayoutPanel, "dates" + booking.Id,
                                $"Dates: {startDate} to {endDate}");
 
-            AddCheckBoxAndLabel(flowLayoutPanel, "paidFor" + booking.Id, booking.IsPaidFor, checkBoxEnabled: false, "", "Has paid:");
-            AddCheckBoxAndLabel(flowLayoutPanel, "checkedIn" + booking.Id, booking.IsCheckedIn, checkBoxEnabled: false, "", "Has checked in:");
+            AddCheckBoxWithLabel(flowLayoutPanel, "paidFor" + booking.Id, booking.IsPaidFor, checkBoxEnabled: false, "", "Has paid:");
+            AddCheckBoxWithLabel(flowLayoutPanel, "checkedIn" + booking.Id, booking.IsCheckedIn, checkBoxEnabled: false, "", "Has checked in:");
 
             if (booking.Comment is not null) {
                 AddLabel(flowLayoutPanel, "comment" + booking.Id, "Comment: " + booking.Comment);
@@ -173,7 +173,7 @@ namespace HotelPosSystem {
             return flowLayoutPanel;
         }
 
-        private static (CheckBox, Label) AddCheckBoxAndLabel(Panel container, string checkBoxName, bool checkBoxState, bool checkBoxEnabled, string labelName, string labelText) {
+        private static (CheckBox, Label) AddCheckBoxWithLabel(Panel container, string checkBoxName, bool checkBoxState, bool checkBoxEnabled, string labelName, string labelText) {
             FlowLayoutPanel layoutPanel = new() {
                 FlowDirection = FlowDirection.LeftToRight,
                 AutoSize = true,
@@ -210,7 +210,7 @@ namespace HotelPosSystem {
             return checkBox;
         }
 
-        private static (ComboBox, Label) AddComboBoxAndLabel(Panel container, string comboBoxName, object[] comboBoxItems, int comboBoxWidth, string labelName, string labelText) {
+        private static (ComboBox, Label) AddComboBoxWithLabel(Panel container, string comboBoxName, object[] comboBoxItems, int comboBoxWidth, string labelName, string labelText) {
             FlowLayoutPanel layoutPanel = new() {
                 FlowDirection = FlowDirection.TopDown,
                 AutoSize = true,
@@ -234,7 +234,7 @@ namespace HotelPosSystem {
             return comboBox;
         }
 
-        private static (DateTimePicker, Label) AddDatePickerAndLabel(Panel container, string datePickerName, DateTime earliestDate, string labelName, string labelText) {
+        private static (DateTimePicker, Label) AddDatePickerWithLabel(Panel container, string datePickerName, DateTime earliestDate, string labelName, string labelText) {
             FlowLayoutPanel layoutPanel = new() {
                 FlowDirection = FlowDirection.TopDown,
                 AutoSize = true,
@@ -258,7 +258,7 @@ namespace HotelPosSystem {
             return datePicker;
         }
 
-        private static (TextBox, Label) AddTextBoxAndLabel(Panel container, string textBoxName, int textBoxWidth, string labelName, string labelText) {
+        private static (TextBox, Label) AddTextBoxWithLabel(Panel container, string textBoxName, int textBoxWidth, string labelName, string labelText) {
             FlowLayoutPanel layoutPanel = new() {
                 FlowDirection = FlowDirection.TopDown,
                 AutoSize = true,
