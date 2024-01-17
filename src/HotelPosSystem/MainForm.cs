@@ -62,15 +62,24 @@ namespace HotelPosSystem {
             };
             bookingForm.Controls.Add(bookingFormHeading);
 
-            const int width = 300;
+            const int width = 400 + MarginSize;
 
             Customer[] customers = databaseContext.Customers
                 .OrderBy(customer => customer.FullName)
                 .ToArray();
             (s_customerDropdown, _) = AddComboBoxAndLabel(bookingForm, "customer", customers, width, "cutomerLabel", "Customer:");
 
-            (s_startDatePicker, _) = AddDatePickerAndLabel(bookingForm, "startDate", DateTime.Now, "startDateLabel", "Start date:");
-            (s_endDatePicker, _) = AddDatePickerAndLabel(bookingForm, "endDate", DateTime.Now, "endDateLabel", "End date:");
+            FlowLayoutPanel dateContainer = new() {
+                FlowDirection = FlowDirection.LeftToRight,
+                WrapContents = false,
+                AutoSize = true,
+                Margin = new Padding(0)
+            };
+            bookingForm.Controls.Add(dateContainer);
+            (s_startDatePicker, _) = AddDatePickerAndLabel(dateContainer, "startDate", DateTime.Now, "startDateLabel", "Start date:");
+            (s_endDatePicker, _) = AddDatePickerAndLabel(dateContainer, "endDate", DateTime.Now, "endDateLabel", "End date:");
+            s_startDatePicker.Margin = new Padding(s_startDatePicker.Margin.Left, s_startDatePicker.Margin.Top, right: MarginSize, s_startDatePicker.Margin.Bottom);
+            s_endDatePicker.Margin = new Padding(left: 0, s_endDatePicker.Margin.Top, s_endDatePicker.Margin.Right, s_endDatePicker.Margin.Bottom);
 
             Room[] rooms = databaseContext.Rooms
                 .OrderBy(room => room.Name)
