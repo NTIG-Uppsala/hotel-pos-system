@@ -79,8 +79,8 @@ namespace HotelPosSystem {
 
             (s_commentTextBox, _) = AddTextBoxAndLabel(bookingForm, "comment", width, "commentLabel", "Comment:");
 
-            (s_paidForCheckBox, _) = AddCheckBoxAndLabel(bookingForm, "paidFor", false, "paidForLabel", "Paid for:");
-            (s_checkedInCheckBox, _) = AddCheckBoxAndLabel(bookingForm, "checkIn", false, "checkedInLabel", "Checked in:");
+            (s_paidForCheckBox, _) = AddCheckBoxAndLabel(bookingForm, "paidFor", checkBoxState: false, checkBoxEnabled: true, "paidForLabel", "Paid for:");
+            (s_checkedInCheckBox, _) = AddCheckBoxAndLabel(bookingForm, "checkIn", checkBoxState: false, checkBoxEnabled: true, "checkedInLabel", "Checked in:");
 
             AddButton(bookingForm, "addBooking", "Add Booking", width, (sender, eventArgs) => CreateBooking());
 
@@ -143,8 +143,8 @@ namespace HotelPosSystem {
             AddLabel(flowLayoutPanel, "dates" + booking.Id,
                                $"Dates: {startDate} to {endDate}");
 
-            AddCheckBoxAndLabel(flowLayoutPanel, "paidFor" + booking.Id, booking.IsPaidFor, "", "Has paid:");
-            AddCheckBoxAndLabel(flowLayoutPanel, "checkedIn" + booking.Id, booking.IsCheckedIn, "", "Has checked in:");
+            AddCheckBoxAndLabel(flowLayoutPanel, "paidFor" + booking.Id, booking.IsPaidFor, checkBoxEnabled: false, "", "Has paid:");
+            AddCheckBoxAndLabel(flowLayoutPanel, "checkedIn" + booking.Id, booking.IsCheckedIn, checkBoxEnabled: false, "", "Has checked in:");
 
             if (booking.Comment is not null) {
                 AddLabel(flowLayoutPanel, "comment" + booking.Id, "Comment: " + booking.Comment);
@@ -153,7 +153,7 @@ namespace HotelPosSystem {
             return flowLayoutPanel;
         }
 
-        private static (CheckBox, Label) AddCheckBoxAndLabel(Panel container, string checkBoxName, bool checkBoxState, string labelName, string labelText) {
+        private static (CheckBox, Label) AddCheckBoxAndLabel(Panel container, string checkBoxName, bool checkBoxState, bool checkBoxEnabled, string labelName, string labelText) {
             FlowLayoutPanel layoutPanel = new() {
                 FlowDirection = FlowDirection.LeftToRight,
                 AutoSize = true,
@@ -161,7 +161,7 @@ namespace HotelPosSystem {
             };
 
             Label label = AddLabel(layoutPanel, labelName, labelText);
-            CheckBox checkBox = AddCheckBox(layoutPanel, checkBoxName, checkBoxState, isEnabled: false);
+            CheckBox checkBox = AddCheckBox(layoutPanel, checkBoxName, checkBoxState, checkBoxEnabled);
 
             container.Controls.Add(layoutPanel);
             return (checkBox, label);
