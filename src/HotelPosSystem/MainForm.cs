@@ -67,7 +67,7 @@ namespace HotelPosSystem {
             Customer[] customers = databaseContext.Customers
                 .OrderBy(customer => customer.FullName)
                 .ToArray();
-            (s_customerDropdown, _) = AddComboBoxAndLabel(bookingForm, "customer", customers, width, "cutomerLabel", "Customer:");
+            (s_customerDropdown, _) = AddComboBoxAndLabel(bookingForm, "customer", customers, width, "customerLabel", "Customer:");
 
             FlowLayoutPanel dateContainer = new() {
                 FlowDirection = FlowDirection.LeftToRight,
