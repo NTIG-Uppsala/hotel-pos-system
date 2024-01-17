@@ -281,7 +281,7 @@ namespace HotelPosSystem {
             return textBox;
         }
 
-        private static void AddButton(Panel container, string name, string text, int width, EventHandler onClick) {
+        private static Button AddButton(Panel container, string name, string text, int width, EventHandler onClick) {
             Button button = new() {
                 Name = name,
                 Text = text,
@@ -291,6 +291,7 @@ namespace HotelPosSystem {
             };
             button.Click += onClick;
             container.Controls.Add(button);
+            return button;
         }
 
         private static void CreateBooking() {
