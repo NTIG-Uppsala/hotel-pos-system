@@ -47,7 +47,6 @@ namespace HotelPosSystem {
             FlowLayoutPanel bookingForm = new() {
                 Name = "bookingForm",
                 FlowDirection = FlowDirection.TopDown,
-                AutoSize = true,
                 WrapContents = false,
                 AutoScroll = true,
                 Dock = DockStyle.Fill
