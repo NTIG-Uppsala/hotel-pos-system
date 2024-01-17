@@ -13,7 +13,7 @@ namespace HotelPosSystem.Tests {
         }
 
         [Fact]
-        public void CustomerNameShouldBePresentInList() {
+        public void CustomerNameShouldBeInList() {
             AutomationElement bookingList = Utilities.GetBookingListElement(_fixture, _automation);
             Label customerName = Utilities.GetElement(_automation, "customerName1", bookingList).AsLabel();
 
@@ -21,7 +21,7 @@ namespace HotelPosSystem.Tests {
         }
 
         [Fact]
-        public void EmailAdressShouldBePresentInList() {
+        public void EmailAdressShouldBeInList() {
             AutomationElement bookingList = Utilities.GetBookingListElement(_fixture, _automation);
             Label emailAddress = Utilities.GetElement(_automation, "emailAddress2", bookingList).AsLabel();
 
@@ -29,7 +29,7 @@ namespace HotelPosSystem.Tests {
         }
 
         [Fact]
-        public void PhoneNumberShouldBePresentInList() {
+        public void PhoneNumberShouldBeInList() {
             AutomationElement bookingList = Utilities.GetBookingListElement(_fixture, _automation);
             Label phoneNumber = Utilities.GetElement(_automation, "phoneNumber3", bookingList).AsLabel();
 
@@ -37,7 +37,7 @@ namespace HotelPosSystem.Tests {
         }
 
         [Fact]
-        public void RoomNameShouldBePresentInList() {
+        public void RoomNameShouldBeInList() {
             AutomationElement bookingList = Utilities.GetBookingListElement(_fixture, _automation);
             Label roomName = Utilities.GetElement(_automation, "roomName1", bookingList).AsLabel();
 
@@ -45,7 +45,7 @@ namespace HotelPosSystem.Tests {
         }
 
         [Fact]
-        public void DatesShouldBePresentInList() {
+        public void DatesShouldBeInList() {
             AutomationElement bookingList = Utilities.GetBookingListElement(_fixture, _automation);
             Label startEndDatesLabel = Utilities.GetElement(_automation, "dates2", bookingList).AsLabel();
 
@@ -74,7 +74,7 @@ namespace HotelPosSystem.Tests {
         }
 
         [Fact]
-        public void CommentShouldBePresentInList() {
+        public void CommentShouldBeInList() {
             AutomationElement bookingList = Utilities.GetBookingListElement(_fixture, _automation);
             Label commentLabel = Utilities.GetElement(_automation, "comment1", bookingList).AsLabel();
 
@@ -82,7 +82,7 @@ namespace HotelPosSystem.Tests {
         }
 
         [Fact]
-        public void CommentShouldNotBePresentInList() {
+        public void CommentShouldNotBeInList() {
             AutomationElement bookingList = Utilities.GetBookingListElement(_fixture, _automation);
             AutomationElement? commentLabel = Utilities.GetElement(_automation, "comment2", bookingList);
 
