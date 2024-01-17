@@ -88,8 +88,19 @@ namespace HotelPosSystem {
 
             (s_commentTextBox, _) = AddTextBoxAndLabel(bookingForm, "comment", width, "commentLabel", "Comment:");
 
-            (s_paidForCheckBox, _) = AddCheckBoxAndLabel(bookingForm, "paidFor", checkBoxState: false, checkBoxEnabled: true, "paidForLabel", "Paid for:");
-            (s_checkedInCheckBox, _) = AddCheckBoxAndLabel(bookingForm, "checkIn", checkBoxState: false, checkBoxEnabled: true, "checkedInLabel", "Checked in:");
+            TableLayoutPanel checkBoxContainer = new() {
+                RowCount = 1,
+                ColumnCount = 2,
+                Width = width,
+                Margin = new Padding(0)
+            };
+            checkBoxContainer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
+            checkBoxContainer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
+            checkBoxContainer.RowStyles.Add(new RowStyle(SizeType.Percent, 100f));
+            bookingForm.Controls.Add(checkBoxContainer);
+            (s_paidForCheckBox, _) = AddCheckBoxAndLabel(checkBoxContainer, "paidFor", checkBoxState: false, checkBoxEnabled: true, "paidForLabel", "Paid for:");
+            (s_checkedInCheckBox, Label checkedInLabel) = AddCheckBoxAndLabel(checkBoxContainer, "checkIn", checkBoxState: false, checkBoxEnabled: true, "checkedInLabel", "Checked in:");
+            checkedInLabel.Margin = new Padding(left: MarginSize / 2, checkedInLabel.Margin.Top, checkedInLabel.Margin.Right, checkedInLabel.Margin.Bottom);
 
             AddButton(bookingForm, "addBooking", "Add Booking", width, (sender, eventArgs) => CreateBooking());
 
