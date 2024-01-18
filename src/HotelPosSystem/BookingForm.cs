@@ -116,6 +116,23 @@ namespace HotelPosSystem {
             databaseContext.SaveChanges();
 
             _bookingList.Update();
+            EmptyForm();
+        }
+
+        private void EmptyForm() {
+            if (_commentTextBox is null || _endDatePicker is null || _endDatePicker is null
+                || _startDatePicker is null || _checkedInCheckBox is null || _paidForCheckBox is null
+                || _roomDropdown is null || _customerDropdown is null) {
+                throw new NullReferenceException();
+            };
+
+            _customerDropdown.SelectedIndex = 0;
+            _endDatePicker.Value = DateTime.Now;
+            _startDatePicker.Value = DateTime.Now;
+            _roomDropdown.SelectedIndex = 0;
+            _commentTextBox.Text = string.Empty;
+            _checkedInCheckBox.Checked = false;
+            _paidForCheckBox.Checked = false;
         }
     }
 }
