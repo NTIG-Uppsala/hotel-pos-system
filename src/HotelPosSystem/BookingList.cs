@@ -9,11 +9,11 @@ namespace HotelPosSystem {
         internal FlowLayoutPanel ContainerPanel;
 
         internal BookingList(HotelDbContext databaseContext) {
-            ContainerPanel = CreateBookingList(databaseContext);
+            ContainerPanel = CreateListControls(databaseContext);
         }
 
-        private static FlowLayoutPanel CreateBookingList(HotelDbContext databaseContext) {
-            FlowLayoutPanel bookingList = new() {
+        private static FlowLayoutPanel CreateListControls(HotelDbContext databaseContext) {
+            FlowLayoutPanel listPanel = new() {
                 Name = "bookingList",
                 FlowDirection = FlowDirection.TopDown,
                 AutoScroll = true,
@@ -21,13 +21,13 @@ namespace HotelPosSystem {
                 Dock = DockStyle.Fill
             };
 
-            Label bookingListHeading = new() {
+            Label heading = new() {
                 Text = "Existing bookings",
-                Font = new Font(bookingList.Font.FontFamily, MainForm.HeadingFontSize),
+                Font = new Font(listPanel.Font.FontFamily, MainForm.HeadingFontSize),
                 AutoSize = true,
                 UseCompatibleTextRendering = true
             };
-            bookingList.Controls.Add(bookingListHeading);
+            listPanel.Controls.Add(heading);
 
             Booking[] bookings = databaseContext.Bookings
                 .Include(booking => booking.Customer)
@@ -36,10 +36,10 @@ namespace HotelPosSystem {
                 .ToArray();
 
             foreach (Booking booking in bookings) {
-                bookingList.Controls.Add(CreateListItem(booking));
+                listPanel.Controls.Add(CreateListItem(booking));
             }
 
-            return bookingList;
+            return listPanel;
         }
 
         private static FlowLayoutPanel CreateListItem(Booking booking) {
@@ -74,7 +74,7 @@ namespace HotelPosSystem {
         internal void Update(HotelDbContext databaseContext) {
             Control? bookingListParent = ContainerPanel?.Parent;
             bookingListParent?.Controls.Remove(ContainerPanel);
-            ContainerPanel = CreateBookingList(databaseContext);
+            ContainerPanel = CreateListControls(databaseContext);
             bookingListParent?.Controls.Add(ContainerPanel);
         }
     }

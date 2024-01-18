@@ -18,11 +18,11 @@ namespace HotelPosSystem {
 
         internal BookingForm(HotelDbContext databaseContext, BookingList bookingList) {
             _bookingList = bookingList;
-            ContainerPanel = CreateBookingForm(databaseContext);
+            ContainerPanel = CreateFormControls(databaseContext);
         }
 
-        internal FlowLayoutPanel CreateBookingForm(HotelDbContext databaseContext) {
-            FlowLayoutPanel bookingForm = new() {
+        internal FlowLayoutPanel CreateFormControls(HotelDbContext databaseContext) {
+            FlowLayoutPanel formPanel = new() {
                 Name = "bookingForm",
                 FlowDirection = FlowDirection.TopDown,
                 WrapContents = false,
@@ -30,21 +30,21 @@ namespace HotelPosSystem {
                 Dock = DockStyle.Fill
             };
 
-            Label bookingFormHeading = new() {
+            Label heading = new() {
                 Text = "Create new booking",
-                Font = new Font(bookingForm.Font.FontFamily, MainForm.HeadingFontSize),
+                Font = new Font(formPanel.Font.FontFamily, MainForm.HeadingFontSize),
                 AutoSize = true,
                 Margin = new Padding(0, 0, 0, bottom: MainForm.MarginSize),
                 UseCompatibleTextRendering = true
             };
-            bookingForm.Controls.Add(bookingFormHeading);
+            formPanel.Controls.Add(heading);
 
             const int width = 400 + MainForm.MarginSize;
 
             Customer[] customers = databaseContext.Customers
                 .OrderBy(customer => customer.FullName)
                 .ToArray();
-            (_customerDropdown, _) = ControlUtilities.AddComboBoxWithLabel(bookingForm, "customer", customers, width, "customerLabel", "Customer:");
+            (_customerDropdown, _) = ControlUtilities.AddComboBoxWithLabel(formPanel, "customer", customers, width, "customerLabel", "Customer:");
 
             FlowLayoutPanel dateContainer = new() {
                 FlowDirection = FlowDirection.LeftToRight,
@@ -52,7 +52,7 @@ namespace HotelPosSystem {
                 AutoSize = true,
                 Margin = new Padding(0)
             };
-            bookingForm.Controls.Add(dateContainer);
+            formPanel.Controls.Add(dateContainer);
             (_startDatePicker, _) = ControlUtilities.AddDatePickerWithLabel(dateContainer, "startDate", DateTime.Now, "startDateLabel", "Start date:");
             (_endDatePicker, _) = ControlUtilities.AddDatePickerWithLabel(dateContainer, "endDate", DateTime.Now, "endDateLabel", "End date:");
             _startDatePicker.Margin = new Padding(_startDatePicker.Margin.Left, _startDatePicker.Margin.Top, right: MainForm.MarginSize, _startDatePicker.Margin.Bottom);
@@ -62,9 +62,9 @@ namespace HotelPosSystem {
                 .Include(room => room.Type)
                 .OrderBy(room => room.Name)
                 .ToArray();
-            (_roomDropdown, _) = ControlUtilities.AddComboBoxWithLabel(bookingForm, "room", rooms, width, "roomLabel", "Room:");
+            (_roomDropdown, _) = ControlUtilities.AddComboBoxWithLabel(formPanel, "room", rooms, width, "roomLabel", "Room:");
 
-            (_commentTextBox, _) = ControlUtilities.AddTextBoxWithLabel(bookingForm, "comment", width, "commentLabel", "Comment:");
+            (_commentTextBox, _) = ControlUtilities.AddTextBoxWithLabel(formPanel, "comment", width, "commentLabel", "Comment:");
 
             TableLayoutPanel checkBoxContainer = new() {
                 RowCount = 1,
@@ -75,14 +75,14 @@ namespace HotelPosSystem {
             checkBoxContainer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
             checkBoxContainer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
             checkBoxContainer.RowStyles.Add(new RowStyle(SizeType.Percent, 100f));
-            bookingForm.Controls.Add(checkBoxContainer);
+            formPanel.Controls.Add(checkBoxContainer);
             (_paidForCheckBox, _) = ControlUtilities.AddCheckBoxWithLabel(checkBoxContainer, "paidFor", checkBoxState: false, checkBoxEnabled: true, "paidForLabel", "Paid for:");
             (_checkedInCheckBox, Label checkedInLabel) = ControlUtilities.AddCheckBoxWithLabel(checkBoxContainer, "checkedIn", checkBoxState: false, checkBoxEnabled: true, "checkedInLabel", "Checked in:");
             checkedInLabel.Margin = new Padding(left: MainForm.MarginSize / 2, checkedInLabel.Margin.Top, checkedInLabel.Margin.Right, checkedInLabel.Margin.Bottom);
 
-            ControlUtilities.AddButton(bookingForm, "addBooking", "Add Booking", width, (sender, eventArgs) => CreateBooking());
+            ControlUtilities.AddButton(formPanel, "addBooking", "Add Booking", width, (sender, eventArgs) => CreateBooking());
 
-            return bookingForm;
+            return formPanel;
         }
 
         private void CreateBooking() {
