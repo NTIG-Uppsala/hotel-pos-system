@@ -82,6 +82,9 @@ namespace HotelPosSystem {
 
             ControlUtilities.AddButton(formPanel, "addBooking", "Add Booking", width, (sender, eventArgs) => CreateBooking());
 
+            // Ensure default values in form
+            EmptyForm();
+
             return formPanel;
         }
 
@@ -129,11 +132,19 @@ namespace HotelPosSystem {
                 throw new NullReferenceException();
             };
 
-            _customerDropdown.SelectedIndex = 0;
-            _startDatePicker.Value = DateTime.Now;
-            _endDatePicker.Value = DateTime.Now;
-            _roomDropdown.SelectedIndex = 0;
+            if (_customerDropdown.Items.Count > 0) {
+                _customerDropdown.SelectedIndex = 0;
+            }
+
+            _startDatePicker.Value = _startDatePicker.MinDate;
+            _endDatePicker.Value = _endDatePicker.MinDate.AddDays(1);
+
+            if (_roomDropdown.Items.Count > 0) {
+                _roomDropdown.SelectedIndex = 0;
+            }
+
             _commentTextBox.Text = string.Empty;
+
             _paidForCheckBox.Checked = false;
             _checkedInCheckBox.Checked = false;
         }
