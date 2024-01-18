@@ -95,7 +95,7 @@ namespace HotelPosSystem {
             DateOnly startDate = DateOnly.FromDateTime(_startDatePicker.Value);
             DateOnly endDate = DateOnly.FromDateTime(_endDatePicker.Value);
             Room? room = _roomDropdown?.SelectedValue as Room;
-            string? comment = _commentTextBox?.Text;
+            string? comment = string.IsNullOrWhiteSpace(_commentTextBox?.Text) ? null : _commentTextBox.Text;
             bool? paidFor = _paidForCheckBox?.Checked;
             bool? checkedIn = _checkedInCheckBox?.Checked;
 
