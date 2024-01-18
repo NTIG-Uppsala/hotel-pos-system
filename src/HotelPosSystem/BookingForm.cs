@@ -127,8 +127,8 @@ namespace HotelPosSystem {
             };
 
             _customerDropdown.SelectedIndex = 0;
-            _endDatePicker.Value = DateTime.Now;
             _startDatePicker.Value = DateTime.Now;
+            _endDatePicker.Value = DateTime.Now;
             _roomDropdown.SelectedIndex = 0;
             _commentTextBox.Text = string.Empty;
             _checkedInCheckBox.Checked = false;
