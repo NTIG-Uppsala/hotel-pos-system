@@ -21,7 +21,7 @@ namespace HotelPosSystem {
             ContainerPanel = CreateFormControls();
         }
 
-        internal FlowLayoutPanel CreateFormControls() {
+        private FlowLayoutPanel CreateFormControls() {
             using HotelDbContext databaseContext = new();
 
             FlowLayoutPanel formPanel = new() {
