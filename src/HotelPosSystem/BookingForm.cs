@@ -16,12 +16,14 @@ namespace HotelPosSystem {
 
         internal FlowLayoutPanel ContainerPanel;
 
-        internal BookingForm(HotelDbContext databaseContext, BookingList bookingList) {
+        internal BookingForm(BookingList bookingList) {
             _bookingList = bookingList;
-            ContainerPanel = CreateFormControls(databaseContext);
+            ContainerPanel = CreateFormControls();
         }
 
-        internal FlowLayoutPanel CreateFormControls(HotelDbContext databaseContext) {
+        internal FlowLayoutPanel CreateFormControls() {
+            using HotelDbContext databaseContext = new();
+
             FlowLayoutPanel formPanel = new() {
                 Name = "bookingForm",
                 FlowDirection = FlowDirection.TopDown,
@@ -115,7 +117,7 @@ namespace HotelPosSystem {
             databaseContext.Bookings.Add(booking);
             databaseContext.SaveChanges();
 
-            _bookingList.Update(databaseContext);
+            _bookingList.Update();
         }
     }
 }

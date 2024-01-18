@@ -8,11 +8,13 @@ namespace HotelPosSystem {
     internal class BookingList {
         internal FlowLayoutPanel ContainerPanel;
 
-        internal BookingList(HotelDbContext databaseContext) {
-            ContainerPanel = CreateListControls(databaseContext);
+        internal BookingList() {
+            ContainerPanel = CreateListControls();
         }
 
-        private static FlowLayoutPanel CreateListControls(HotelDbContext databaseContext) {
+        private static FlowLayoutPanel CreateListControls() {
+            using HotelDbContext databaseContext = new();
+
             FlowLayoutPanel listPanel = new() {
                 Name = "bookingList",
                 FlowDirection = FlowDirection.TopDown,
@@ -32,6 +34,7 @@ namespace HotelPosSystem {
             Booking[] bookings = databaseContext.Bookings
                 .Include(booking => booking.Customer)
                 .Include(booking => booking.Room)
+                .Include(booking => booking.Room.Type)
                 .OrderBy(booking => booking.StartDate)
                 .ToArray();
 
@@ -71,10 +74,10 @@ namespace HotelPosSystem {
             return flowLayoutPanel;
         }
 
-        internal void Update(HotelDbContext databaseContext) {
+        internal void Update() {
             Control? bookingListParent = ContainerPanel?.Parent;
             bookingListParent?.Controls.Remove(ContainerPanel);
-            ContainerPanel = CreateListControls(databaseContext);
+            ContainerPanel = CreateListControls();
             bookingListParent?.Controls.Add(ContainerPanel);
         }
     }

@@ -8,7 +8,9 @@ namespace HotelPosSystem {
         private const string DoubleRoomName = "Double Room";
         private const string TwinRoomName = "Twin Room";
 
-        internal static void SetUpDatabase(HotelDbContext databaseContext) {
+        internal static void SetUpDatabase() {
+            using HotelDbContext databaseContext = new();
+
             databaseContext.Database.Migrate();
 
             // If there is any data in the database, skip adding new data

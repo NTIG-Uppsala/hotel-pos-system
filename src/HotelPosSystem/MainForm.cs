@@ -6,8 +6,7 @@ namespace HotelPosSystem {
         public MainForm() {
             InitializeComponent();
 
-            using HotelDbContext databaseContext = new();
-            DatabaseUtilities.SetUpDatabase(databaseContext);
+            DatabaseUtilities.SetUpDatabase();
 
             TableLayoutPanel mainContainer = new() {
                 RowCount = 1,
@@ -19,8 +18,8 @@ namespace HotelPosSystem {
             mainContainer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
             mainContainer.RowStyles.Add(new RowStyle(SizeType.Percent, 100f));
 
-            BookingList bookingList = new(databaseContext);
-            BookingForm bookingForm = new(databaseContext, bookingList);
+            BookingList bookingList = new();
+            BookingForm bookingForm = new(bookingList);
 
             mainContainer.Controls.Add(bookingForm.ContainerPanel);
             mainContainer.Controls.Add(bookingList.ContainerPanel);
