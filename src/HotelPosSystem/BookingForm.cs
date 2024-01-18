@@ -89,8 +89,11 @@ namespace HotelPosSystem {
             using HotelDbContext databaseContext = new();
 
             Customer? customer = _customerDropdown?.SelectedValue as Customer;
-            DateOnly startDate = DateOnly.FromDateTime(_startDatePicker?.Value ?? new DateTime());
-            DateOnly endDate = DateOnly.FromDateTime(_endDatePicker?.Value ?? new DateTime());
+            if (_startDatePicker is null || _endDatePicker is null) {
+                throw new NullReferenceException();
+            }
+            DateOnly startDate = DateOnly.FromDateTime(_startDatePicker.Value);
+            DateOnly endDate = DateOnly.FromDateTime(_endDatePicker.Value);
             Room? room = _roomDropdown?.SelectedValue as Room;
             string? comment = _commentTextBox?.Text;
             bool? paidFor = _paidForCheckBox?.Checked;
