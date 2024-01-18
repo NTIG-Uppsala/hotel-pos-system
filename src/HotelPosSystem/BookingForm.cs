@@ -131,8 +131,8 @@ namespace HotelPosSystem {
             _endDatePicker.Value = DateTime.Now;
             _roomDropdown.SelectedIndex = 0;
             _commentTextBox.Text = string.Empty;
-            _checkedInCheckBox.Checked = false;
             _paidForCheckBox.Checked = false;
+            _checkedInCheckBox.Checked = false;
         }
     }
 }
