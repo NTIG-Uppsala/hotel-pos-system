@@ -13,10 +13,7 @@ namespace HotelPosSystem {
                 ColumnCount = 2,
                 Dock = DockStyle.Fill
             };
-
-            mainContainer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
-            mainContainer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
-            mainContainer.RowStyles.Add(new RowStyle(SizeType.Percent, 100f));
+            ControlUtilities.CreateRowsAndColumns(mainContainer);
 
             BookingList bookingList = new();
             BookingForm bookingForm = new(bookingList);

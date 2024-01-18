@@ -74,9 +74,7 @@ namespace HotelPosSystem {
                 Width = width,
                 Margin = new Padding(0)
             };
-            checkBoxContainer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
-            checkBoxContainer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
-            checkBoxContainer.RowStyles.Add(new RowStyle(SizeType.Percent, 100f));
+            ControlUtilities.CreateRowsAndColumns(checkBoxContainer);
             formPanel.Controls.Add(checkBoxContainer);
             (_paidForCheckBox, _) = ControlUtilities.AddCheckBoxWithLabel(checkBoxContainer, "paidFor", checkBoxState: false, checkBoxEnabled: true, "paidForLabel", "Paid for:");
             (_checkedInCheckBox, Label checkedInLabel) = ControlUtilities.AddCheckBoxWithLabel(checkBoxContainer, "checkedIn", checkBoxState: false, checkBoxEnabled: true, "checkedInLabel", "Checked in:");

@@ -120,5 +120,17 @@
             container.Controls.Add(button);
             return button;
         }
+
+        internal static void CreateRowsAndColumns(TableLayoutPanel table) {
+            float rowHeight = 100f / table.RowCount;
+            for (int rowIndex = 0; rowIndex < table.RowCount; rowIndex++) {
+                table.RowStyles.Add(new RowStyle(SizeType.Percent, rowHeight));
+            }
+
+            float columnWidth = 100f / table.ColumnCount;
+            for (int columnIndex = 0; columnIndex < table.ColumnCount; columnIndex++) {
+                table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, columnWidth));
+            }
+        }
     }
 }
