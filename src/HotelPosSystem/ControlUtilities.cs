@@ -56,6 +56,8 @@
                 Name = name,
                 DataSource = items,
                 Width = width,
+                AutoCompleteMode = AutoCompleteMode.SuggestAppend,
+                AutoCompleteSource = AutoCompleteSource.ListItems
             };
             container.Controls.Add(comboBox);
             return comboBox;
