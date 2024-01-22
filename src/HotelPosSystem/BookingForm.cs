@@ -66,11 +66,12 @@ namespace HotelPosSystem {
                 .ToArray();
             (_roomDropdown, _) = ControlUtilities.AddComboBoxWithLabel(formPanel, "room", rooms, width, "roomLabel", "Room:");
 
+            const int checkboxMaxHeight = 22;
             TableLayoutPanel checkBoxContainer = new() {
                 RowCount = 1,
                 ColumnCount = 2,
                 MinimumSize = new Size(width, 0),
-                MaximumSize = new Size(width, 22),
+                MaximumSize = new Size(width, checkboxMaxHeight),
                 AutoSize = true,
                 Margin = new Padding(0)
             };
