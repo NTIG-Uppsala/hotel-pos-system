@@ -38,6 +38,19 @@ namespace HotelPosSystem.Tests {
             Assert.Contains("Kalle Kallesson", customerName.Text);
         }
 
+        [Fact(Skip = "Not implemented yet")]
+        public void ShouldDisplayErrorWhenEndDateBeforeStartDate() {
+            AutomationElement bookingForm = GetBookingFormElement();
+            DateTimePicker startDatePicker = Utilities.GetElement(_automation, "startDate", bookingForm).AsDateTimePicker();
+            DateTimePicker endDatePicker = Utilities.GetElement(_automation, "endDate", bookingForm).AsDateTimePicker();
+            Label datePickerErrorLabel = Utilities.GetElement(_automation, "datePickerError", bookingForm).AsLabel();
+
+            startDatePicker.SelectedDate = new DateTime(2024, 2, 5);
+            endDatePicker.SelectedDate = new DateTime(2024, 2, 3);
+
+            Assert.Contains("end date is before start date", datePickerErrorLabel.Text.ToLower());
+        }
+
         private AutomationElement GetBookingFormElement() {
             const string bookingListAutomationId = "bookingForm";
             return Utilities.GetElement(_automation, bookingListAutomationId, Utilities.GetMainWindow(_programWithDatabase, _automation));
