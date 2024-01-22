@@ -27,6 +27,7 @@ namespace HotelPosSystem {
             Label heading = new() {
                 Text = "Existing bookings",
                 Font = new Font(listPanel.Font.FontFamily, MainForm.HeadingFontSize),
+                Margin = new Padding(0, 0, 0, bottom: MainForm.MarginSize),
                 AutoSize = true,
                 UseCompatibleTextRendering = true
             };
@@ -50,7 +51,7 @@ namespace HotelPosSystem {
             FlowLayoutPanel flowLayoutPanel = new() {
                 FlowDirection = FlowDirection.TopDown,
                 AutoSize = true,
-                Margin = new Padding(0, top: MainForm.MarginSize, 0, 0)
+                Margin = Padding.Empty
             };
 
             ControlUtilities.AddLabel(flowLayoutPanel, "customerName" + booking.Id, "Name: " + booking.Customer.FullName);
