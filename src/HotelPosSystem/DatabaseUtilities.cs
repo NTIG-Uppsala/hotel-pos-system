@@ -117,7 +117,7 @@ namespace HotelPosSystem {
         private static Customer CreateCustomer(string name, string mail, string phoneNumber) {
             Customer customer = new() {
                 FullName = name,
-                EmailAdress = mail,
+                EmailAddress = mail,
                 PhoneNumber = phoneNumber
             };
 
