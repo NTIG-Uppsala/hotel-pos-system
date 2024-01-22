@@ -66,8 +66,6 @@ namespace HotelPosSystem {
                 .ToArray();
             (_roomDropdown, _) = ControlUtilities.AddComboBoxWithLabel(formPanel, "room", rooms, width, "roomLabel", "Room:");
 
-            (_commentTextBox, _) = ControlUtilities.AddTextBoxWithLabel(formPanel, "comment", width, "commentLabel", "Comment:");
-
             TableLayoutPanel checkBoxContainer = new() {
                 RowCount = 1,
                 ColumnCount = 2,
@@ -79,6 +77,8 @@ namespace HotelPosSystem {
             (_paidForCheckBox, _) = ControlUtilities.AddCheckBoxWithLabel(checkBoxContainer, "paidFor", checkBoxState: false, checkBoxEnabled: true, "paidForLabel", "Paid for:");
             (_checkedInCheckBox, Label checkedInLabel) = ControlUtilities.AddCheckBoxWithLabel(checkBoxContainer, "checkedIn", checkBoxState: false, checkBoxEnabled: true, "checkedInLabel", "Checked in:");
             checkedInLabel.Margin = new Padding(left: MainForm.MarginSize / 2, checkedInLabel.Margin.Top, checkedInLabel.Margin.Right, checkedInLabel.Margin.Bottom);
+
+            (_commentTextBox, _) = ControlUtilities.AddTextBoxWithLabel(formPanel, "comment", width, "commentLabel", "Comment:");
 
             ControlUtilities.AddButton(formPanel, "addBooking", "Add Booking", width, (sender, eventArgs) => CreateBooking());
 
