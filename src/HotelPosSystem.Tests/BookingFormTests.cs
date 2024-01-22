@@ -44,9 +44,11 @@ namespace HotelPosSystem.Tests {
             DateTimePicker startDatePicker = Utilities.GetElement(_automation, "startDate", bookingForm).AsDateTimePicker();
             DateTimePicker endDatePicker = Utilities.GetElement(_automation, "endDate", bookingForm).AsDateTimePicker();
             Label datePickerErrorLabel = Utilities.GetElement(_automation, "datePickerError", bookingForm).AsLabel();
+            Button addBookingButton = Utilities.GetElement(_automation, "addBooking", bookingForm).AsButton();
 
             startDatePicker.SelectedDate = new DateTime(2024, 2, 5);
             endDatePicker.SelectedDate = new DateTime(2024, 2, 3);
+            addBookingButton.Click();
 
             Assert.Contains("end date is before start date", datePickerErrorLabel.Text.ToLower());
         }
