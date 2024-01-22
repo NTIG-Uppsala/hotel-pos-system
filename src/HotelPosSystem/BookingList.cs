@@ -51,7 +51,7 @@ namespace HotelPosSystem {
             FlowLayoutPanel flowLayoutPanel = new() {
                 FlowDirection = FlowDirection.TopDown,
                 AutoSize = true,
-                Margin = Padding.Empty
+                Margin = new Padding(0, 0, 0, bottom: MainForm.MarginSize)
             };
 
             ControlUtilities.AddLabel(flowLayoutPanel, "customerName" + booking.Id, "Name: " + booking.Customer.FullName);
