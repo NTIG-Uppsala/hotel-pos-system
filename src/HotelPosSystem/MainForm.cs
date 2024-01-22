@@ -5,6 +5,7 @@ namespace HotelPosSystem {
 
         public MainForm() {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
 
             DatabaseUtilities.SetUpDatabase();
 
