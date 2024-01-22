@@ -3,18 +3,18 @@ using FlaUI.UIA3;
 
 namespace HotelPosSystem.Tests {
     [Collection("Requires Database")]
-    public class BookingListTests : IDisposable, IClassFixture<ProgramFixture> {
+    public class BookingListTests : IDisposable {
         private readonly UIA3Automation _automation;
-        private readonly ProgramFixture _fixture;
+        private readonly ProgramWithTestDatabase _programWithDatabase;
 
-        public BookingListTests(ProgramFixture fixture) {
+        public BookingListTests() {
             _automation = new UIA3Automation();
-            _fixture = fixture;
+            _programWithDatabase = new ProgramWithTestDatabase();
         }
 
         [Fact]
         public void CustomerNameShouldBeInList() {
-            AutomationElement bookingList = Utilities.GetBookingListElement(_fixture, _automation);
+            AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
             Label customerName = Utilities.GetElement(_automation, "customerName1", bookingList).AsLabel();
 
             Assert.Contains("Robert Robertsson", customerName.Text);
@@ -22,7 +22,7 @@ namespace HotelPosSystem.Tests {
 
         [Fact]
         public void EmailAdressShouldBeInList() {
-            AutomationElement bookingList = Utilities.GetBookingListElement(_fixture, _automation);
+            AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
             Label emailAddress = Utilities.GetElement(_automation, "emailAddress2", bookingList).AsLabel();
 
             Assert.Contains("robert.robertsson@example.com", emailAddress.Text);
@@ -30,7 +30,7 @@ namespace HotelPosSystem.Tests {
 
         [Fact]
         public void PhoneNumberShouldBeInList() {
-            AutomationElement bookingList = Utilities.GetBookingListElement(_fixture, _automation);
+            AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
             Label phoneNumber = Utilities.GetElement(_automation, "phoneNumber3", bookingList).AsLabel();
 
             Assert.Contains("070-1740640", phoneNumber.Text);
@@ -38,7 +38,7 @@ namespace HotelPosSystem.Tests {
 
         [Fact]
         public void RoomNameShouldBeInList() {
-            AutomationElement bookingList = Utilities.GetBookingListElement(_fixture, _automation);
+            AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
             Label roomName = Utilities.GetElement(_automation, "roomName1", bookingList).AsLabel();
 
             Assert.Contains("202", roomName.Text);
@@ -46,7 +46,7 @@ namespace HotelPosSystem.Tests {
 
         [Fact]
         public void DatesShouldBeInList() {
-            AutomationElement bookingList = Utilities.GetBookingListElement(_fixture, _automation);
+            AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
             Label startEndDatesLabel = Utilities.GetElement(_automation, "dates2", bookingList).AsLabel();
 
             Assert.Contains("2023-12-27", startEndDatesLabel.Text);
@@ -55,7 +55,7 @@ namespace HotelPosSystem.Tests {
 
         [Fact]
         public void CheckedInStatusShouldBeCorrect() {
-            AutomationElement bookingList = Utilities.GetBookingListElement(_fixture, _automation);
+            AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
             CheckBox checkedInCheckBox = Utilities.GetElement(_automation, "checkedIn1", bookingList).AsCheckBox();
             CheckBox notCheckedInCheckBox = Utilities.GetElement(_automation, "checkedIn2", bookingList).AsCheckBox();
 
@@ -65,7 +65,7 @@ namespace HotelPosSystem.Tests {
 
         [Fact]
         public void PaidStatusShouldBeCorrect() {
-            AutomationElement bookingList = Utilities.GetBookingListElement(_fixture, _automation);
+            AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
             CheckBox paidCheckBox = Utilities.GetElement(_automation, "paidFor2", bookingList).AsCheckBox();
             CheckBox notPaidCheckBox = Utilities.GetElement(_automation, "paidFor1", bookingList).AsCheckBox();
 
@@ -75,7 +75,7 @@ namespace HotelPosSystem.Tests {
 
         [Fact]
         public void CommentShouldBeInList() {
-            AutomationElement bookingList = Utilities.GetBookingListElement(_fixture, _automation);
+            AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
             Label commentLabel = Utilities.GetElement(_automation, "comment1", bookingList).AsLabel();
 
             Assert.Contains("Cleaning crew one hour late", commentLabel.Text);
@@ -83,7 +83,7 @@ namespace HotelPosSystem.Tests {
 
         [Fact]
         public void CommentShouldNotBeInList() {
-            AutomationElement bookingList = Utilities.GetBookingListElement(_fixture, _automation);
+            AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
             AutomationElement? commentLabel = Utilities.GetElement(_automation, "comment2", bookingList);
 
             Assert.Null(commentLabel);
@@ -91,6 +91,7 @@ namespace HotelPosSystem.Tests {
 
         public void Dispose() {
             _automation.Dispose();
+            _programWithDatabase.Dispose();
         }
     }
 }

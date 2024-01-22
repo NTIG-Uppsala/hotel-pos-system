@@ -3,18 +3,18 @@ using FlaUI.UIA3;
 
 namespace HotelPosSystem.Tests {
     [Collection("Requires Database")]
-    public class BookingFormTests : IDisposable, IClassFixture<ProgramFixture> {
+    public class BookingFormTests : IDisposable {
         private readonly UIA3Automation _automation;
-        private readonly ProgramFixture _fixture;
+        private readonly ProgramWithTestDatabase _programWithDatabase;
 
-        public BookingFormTests(ProgramFixture fixture) {
+        public BookingFormTests() {
             _automation = new UIA3Automation();
-            _fixture = fixture;
+            _programWithDatabase = new ProgramWithTestDatabase();
         }
 
         [Fact(Skip = "FlaUI error when selecting combobox item")]
         public void ShouldAddBooking() {
-            AutomationElement bookingList = Utilities.GetBookingListElement(_fixture, _automation);
+            AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
             AutomationElement bookingForm = GetBookingFormElement();
             ComboBox customerDropdown = Utilities.GetElement(_automation, "customer", bookingForm).AsComboBox();
             DateTimePicker startDatePicker = Utilities.GetElement(_automation, "startDate", bookingForm).AsDateTimePicker();
@@ -40,11 +40,12 @@ namespace HotelPosSystem.Tests {
 
         private AutomationElement GetBookingFormElement() {
             const string bookingListAutomationId = "bookingForm";
-            return Utilities.GetElement(_automation, bookingListAutomationId, Utilities.GetMainWindow(_fixture, _automation));
+            return Utilities.GetElement(_automation, bookingListAutomationId, Utilities.GetMainWindow(_programWithDatabase, _automation));
         }
 
         public void Dispose() {
             _automation.Dispose();
+            _programWithDatabase.Dispose();
         }
     }
 }
