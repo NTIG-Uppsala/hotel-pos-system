@@ -70,7 +70,7 @@ namespace HotelPosSystem {
                 RowCount = 1,
                 ColumnCount = 2,
                 MinimumSize = new Size(width, 0),
-                MaximumSize = new Size(width, int.MaxValue),
+                MaximumSize = new Size(width, 22),
                 AutoSize = true,
                 Margin = new Padding(0)
             };
