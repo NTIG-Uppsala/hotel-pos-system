@@ -71,7 +71,9 @@ namespace HotelPosSystem {
             TableLayoutPanel checkBoxContainer = new() {
                 RowCount = 1,
                 ColumnCount = 2,
-                Width = width,
+                MinimumSize = new Size(width, 0),
+                MaximumSize = new Size(width, int.MaxValue),
+                AutoSize = true,
                 Margin = new Padding(0)
             };
             ControlUtilities.CreateRowsAndColumns(checkBoxContainer);
