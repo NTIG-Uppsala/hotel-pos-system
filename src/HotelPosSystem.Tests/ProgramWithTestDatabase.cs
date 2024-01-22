@@ -15,7 +15,7 @@ namespace HotelPosSystem.Tests {
             // Run tests on a copy of the database to ensure that the data stays the same
             // The copy is discarded after the tests have finished running
             _temporaryTestDatabasePath = testDatabasePath + ".temp";
-            File.Copy(testDatabasePath, _temporaryTestDatabasePath);
+            File.Copy(testDatabasePath, _temporaryTestDatabasePath, true);
 
             Application = Application.Launch(executablePath, _temporaryTestDatabasePath);
         }
