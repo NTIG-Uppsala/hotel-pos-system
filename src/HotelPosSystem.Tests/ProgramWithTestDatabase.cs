@@ -1,12 +1,12 @@
 ﻿using FlaUI.Core;
 
 namespace HotelPosSystem.Tests {
-    public class ProgramFixture : IDisposable {
+    internal class ProgramWithTestDatabase : IDisposable {
         public readonly Application Application;
 
         private readonly string _temporaryTestDatabasePath = string.Empty;
 
-        public ProgramFixture() {
+        internal ProgramWithTestDatabase() {
             string srcDirectoryPath = "../../../../";
             string executablePathFromSrc = "HotelPosSystem/bin/Release/net8.0-windows/win-x64/HotelPosSystem.exe";
             string executablePath = Path.Combine(srcDirectoryPath, executablePathFromSrc);
