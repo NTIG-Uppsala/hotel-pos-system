@@ -7,10 +7,12 @@ namespace HotelPosSystem {
         private readonly BookingList _bookingList;
 
         private ComboBox? _customerDropdown;
+        private Label? _customerErrorLabel;
         private DateTimePicker? _startDatePicker;
         private DateTimePicker? _endDatePicker;
         private Label? _dateErrorLabel;
         private ComboBox? _roomDropdown;
+        private Label? _roomErrorLabel;
         private TextBox? _commentTextBox;
         private CheckBox? _paidForCheckBox;
         private CheckBox? _checkedInCheckBox;
@@ -49,6 +51,8 @@ namespace HotelPosSystem {
                 .OrderBy(customer => customer.FullName)
                 .ToArray();
             (_customerDropdown, _) = ControlUtilities.AddComboBoxWithLabel(formPanel, "customer", customers, "Select a customer", width, "customerLabel", "Customer:");
+            _customerErrorLabel = ControlUtilities.AddLabel(formPanel, "customerError", string.Empty);
+            _customerErrorLabel.ForeColor = Color.Red;
 
             FlowLayoutPanel dateContainer = new() {
                 FlowDirection = FlowDirection.LeftToRight,
@@ -69,6 +73,8 @@ namespace HotelPosSystem {
                 .OrderBy(room => room.Name)
                 .ToArray();
             (_roomDropdown, _) = ControlUtilities.AddComboBoxWithLabel(formPanel, "room", rooms, "Select a room", width, "roomLabel", "Room:");
+            _roomErrorLabel = ControlUtilities.AddLabel(formPanel, "roomError", string.Empty);
+            _roomErrorLabel.ForeColor = Color.Red;
 
             TableLayoutPanel checkBoxContainer = new() {
                 RowCount = 1,
@@ -98,7 +104,8 @@ namespace HotelPosSystem {
             using HotelDbContext databaseContext = new();
 
             Customer? customer = _customerDropdown?.SelectedValue as Customer;
-            if (_startDatePicker is null || _endDatePicker is null || _dateErrorLabel is null) {
+            if (_startDatePicker is null || _endDatePicker is null
+                || _customerErrorLabel is null || _dateErrorLabel is null || _roomErrorLabel is null) {
                 throw new NullReferenceException();
             }
             DateOnly startDate = DateOnly.FromDateTime(_startDatePicker.Value);
@@ -112,14 +119,30 @@ namespace HotelPosSystem {
                 throw new NullReferenceException();
             }
 
+            bool invalidFormData = false;
+
             if (endDate < startDate) {
                 _dateErrorLabel.Text = "End date is before start date";
-                return;
+                invalidFormData = true;
             } else {
                 _dateErrorLabel.Text = "";
             }
 
-            if (customer is null || room is null) {
+            if (customer is null) {
+                _customerErrorLabel.Text = "Please select a customer";
+                invalidFormData = true;
+            } else {
+                _customerErrorLabel.Text = string.Empty;
+            }
+
+            if (room is null) {
+                _roomErrorLabel.Text = "Please select a room";
+                invalidFormData = true;
+            } else {
+                _roomErrorLabel.Text = string.Empty;
+            }
+
+            if (invalidFormData) {
                 return;
             }
 

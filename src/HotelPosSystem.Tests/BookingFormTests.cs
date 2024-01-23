@@ -68,6 +68,18 @@ namespace HotelPosSystem.Tests {
             Assert.Equal(bookingsBefore, bookingsAfter);
         }
 
+        [Fact]
+        public void ShouldDisplayErrorMessageWhenNoCustomerSelected() {
+            AutomationElement bookingForm = GetBookingFormElement();
+            Button addBookingButton = Utilities.GetElement(_automation, "addBooking", bookingForm).AsButton();
+
+            addBookingButton.Click();
+
+            // Get label when label is not empty, FlaUI probably can not find empty labels
+            Label customerErrorLabel = Utilities.GetElement(_automation, "customerError", bookingForm).AsLabel();
+            Assert.Equal("please select a customer", customerErrorLabel.Text.ToLower());
+        }
+
         private AutomationElement GetBookingFormElement() {
             const string bookingListAutomationId = "bookingForm";
             return Utilities.GetElement(_automation, bookingListAutomationId, Utilities.GetMainWindow(_programWithDatabase, _automation));
