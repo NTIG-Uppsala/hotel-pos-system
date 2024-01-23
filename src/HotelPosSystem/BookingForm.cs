@@ -48,7 +48,7 @@ namespace HotelPosSystem {
             Customer[] customers = databaseContext.Customers
                 .OrderBy(customer => customer.FullName)
                 .ToArray();
-            (_customerDropdown, _) = ControlUtilities.AddComboBoxWithLabel(formPanel, "customer", customers, width, "customerLabel", "Customer:");
+            (_customerDropdown, _) = ControlUtilities.AddComboBoxWithLabel(formPanel, "customer", customers, "Select a customer", width, "customerLabel", "Customer:");
 
             FlowLayoutPanel dateContainer = new() {
                 FlowDirection = FlowDirection.LeftToRight,
@@ -68,7 +68,7 @@ namespace HotelPosSystem {
                 .Include(room => room.Type)
                 .OrderBy(room => room.Name)
                 .ToArray();
-            (_roomDropdown, _) = ControlUtilities.AddComboBoxWithLabel(formPanel, "room", rooms, width, "roomLabel", "Room:");
+            (_roomDropdown, _) = ControlUtilities.AddComboBoxWithLabel(formPanel, "room", rooms, "Select a room", width, "roomLabel", "Room:");
 
             TableLayoutPanel checkBoxContainer = new() {
                 RowCount = 1,
