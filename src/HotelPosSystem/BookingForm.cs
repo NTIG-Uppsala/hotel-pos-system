@@ -70,7 +70,7 @@ namespace HotelPosSystem {
             _endDatePicker.Margin = new Padding(left: 0, _endDatePicker.Margin.Top, _endDatePicker.Margin.Right, _endDatePicker.Margin.Bottom);
             _startDatePicker.Validating += (object? sender, CancelEventArgs eventArgs) => ValidateDates();
             _endDatePicker.Validating += (object? sender, CancelEventArgs eventArgs) => ValidateDates();
-            _dateErrorLabel = ControlUtilities.AddLabel(formPanel, "datePickerError", string.Empty);
+            _dateErrorLabel = ControlUtilities.AddLabel(formPanel, "dateError", string.Empty);
             _dateErrorLabel.ForeColor = Color.Red;
 
             Room[] rooms = databaseContext.Rooms
