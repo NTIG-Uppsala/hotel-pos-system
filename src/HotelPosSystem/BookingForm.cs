@@ -1,4 +1,6 @@
-﻿using HotelPosSystem.Entities;
+﻿using System.ComponentModel;
+
+using HotelPosSystem.Entities;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -51,6 +53,7 @@ namespace HotelPosSystem {
                 .OrderBy(customer => customer.FullName)
                 .ToArray();
             (_customerDropdown, _) = ControlUtilities.AddComboBoxWithLabel(formPanel, "customer", customers, "Select a customer", width, "customerLabel", "Customer:");
+            _customerDropdown.Validating += (object? sender, CancelEventArgs eventArgs) => ValidateCustomer();
             _customerErrorLabel = ControlUtilities.AddLabel(formPanel, "customerError", string.Empty);
             _customerErrorLabel.ForeColor = Color.Red;
 
@@ -65,6 +68,8 @@ namespace HotelPosSystem {
             (_endDatePicker, _) = ControlUtilities.AddDatePickerWithLabel(dateContainer, "endDate", DateTime.Now, "endDateLabel", "End date:");
             _startDatePicker.Margin = new Padding(_startDatePicker.Margin.Left, _startDatePicker.Margin.Top, right: MainForm.MarginSize, _startDatePicker.Margin.Bottom);
             _endDatePicker.Margin = new Padding(left: 0, _endDatePicker.Margin.Top, _endDatePicker.Margin.Right, _endDatePicker.Margin.Bottom);
+            _startDatePicker.Validating += (object? sender, CancelEventArgs eventArgs) => ValidateDates();
+            _endDatePicker.Validating += (object? sender, CancelEventArgs eventArgs) => ValidateDates();
             _dateErrorLabel = ControlUtilities.AddLabel(formPanel, "datePickerError", string.Empty);
             _dateErrorLabel.ForeColor = Color.Red;
 
@@ -73,6 +78,7 @@ namespace HotelPosSystem {
                 .OrderBy(room => room.Name)
                 .ToArray();
             (_roomDropdown, _) = ControlUtilities.AddComboBoxWithLabel(formPanel, "room", rooms, "Select a room", width, "roomLabel", "Room:");
+            _roomDropdown.Validating += (object? sender, CancelEventArgs eventArgs) => ValidateRoom();
             _roomErrorLabel = ControlUtilities.AddLabel(formPanel, "roomError", string.Empty);
             _roomErrorLabel.ForeColor = Color.Red;
 
@@ -119,30 +125,7 @@ namespace HotelPosSystem {
                 throw new NullReferenceException();
             }
 
-            bool invalidFormData = false;
-
-            if (endDate < startDate) {
-                _dateErrorLabel.Text = "End date is before start date";
-                invalidFormData = true;
-            } else {
-                _dateErrorLabel.Text = string.Empty;
-            }
-
-            if (customer is null) {
-                _customerErrorLabel.Text = "Please select a customer";
-                invalidFormData = true;
-            } else {
-                _customerErrorLabel.Text = string.Empty;
-            }
-
-            if (room is null) {
-                _roomErrorLabel.Text = "Please select a room";
-                invalidFormData = true;
-            } else {
-                _roomErrorLabel.Text = string.Empty;
-            }
-
-            if (invalidFormData) {
+            if (!ValidateFormData()) {
                 return;
             }
 
@@ -187,6 +170,45 @@ namespace HotelPosSystem {
 
             _paidForCheckBox.Checked = false;
             _checkedInCheckBox.Checked = false;
+        }
+
+        private bool ValidateFormData() {
+            return ValidateCustomer() & ValidateDates() & ValidateRoom();
+        }
+
+        private bool ValidateCustomer() {
+            Customer? customer = _customerDropdown?.SelectedValue as Customer;
+            if (customer is null) {
+                _customerErrorLabel.Text = "Please select a customer";
+                return false;
+            }
+
+            _customerErrorLabel.Text = string.Empty;
+            return true;
+        }
+
+        private bool ValidateDates() {
+            DateOnly startDate = DateOnly.FromDateTime(_startDatePicker.Value);
+            DateOnly endDate = DateOnly.FromDateTime(_endDatePicker.Value);
+
+            if (endDate < startDate) {
+                _dateErrorLabel.Text = "End date is before start date";
+                return false;
+            }
+
+            _dateErrorLabel.Text = string.Empty;
+            return true;
+        }
+
+        private bool ValidateRoom() {
+            Room? room = _roomDropdown?.SelectedValue as Room;
+            if (room is null) {
+                _roomErrorLabel.Text = "Please select a room";
+                return false;
+            }
+
+            _roomErrorLabel.Text = string.Empty;
+            return true;
         }
     }
 }
