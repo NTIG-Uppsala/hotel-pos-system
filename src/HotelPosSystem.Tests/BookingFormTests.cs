@@ -54,7 +54,7 @@ namespace HotelPosSystem.Tests {
             Assert.Contains("end date is before start date", datePickerErrorLabel.Text.ToLower());
         }
 
-        [Fact(Skip = "Not implemented yet")]
+        [Fact]
         public void ShouldNotAddBookingWhenNothingSelected() {
             AutomationElement bookingForm = GetBookingFormElement();
             Button addBookingButton = Utilities.GetElement(_automation, "addBooking", bookingForm).AsButton();

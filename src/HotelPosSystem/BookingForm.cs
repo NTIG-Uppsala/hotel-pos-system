@@ -108,7 +108,7 @@ namespace HotelPosSystem {
             bool? paidFor = _paidForCheckBox?.Checked;
             bool? checkedIn = _checkedInCheckBox?.Checked;
 
-            if (customer is null || room is null || paidFor is null || checkedIn is null) {
+            if (paidFor is null || checkedIn is null) {
                 throw new NullReferenceException();
             }
 
@@ -117,6 +117,10 @@ namespace HotelPosSystem {
                 return;
             } else {
                 _dateErrorLabel.Text = "";
+            }
+
+            if (customer is null || room is null) {
+                return;
             }
 
             Booking booking = new() {
