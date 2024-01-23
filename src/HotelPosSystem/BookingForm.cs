@@ -65,7 +65,7 @@ namespace HotelPosSystem {
             (_endDatePicker, _) = ControlUtilities.AddDatePickerWithLabel(dateContainer, "endDate", DateTime.Now, "endDateLabel", "End date:");
             _startDatePicker.Margin = new Padding(_startDatePicker.Margin.Left, _startDatePicker.Margin.Top, right: MainForm.MarginSize, _startDatePicker.Margin.Bottom);
             _endDatePicker.Margin = new Padding(left: 0, _endDatePicker.Margin.Top, _endDatePicker.Margin.Right, _endDatePicker.Margin.Bottom);
-            _dateErrorLabel = ControlUtilities.AddLabel(formPanel, "datePickerError", "");
+            _dateErrorLabel = ControlUtilities.AddLabel(formPanel, "datePickerError", string.Empty);
             _dateErrorLabel.ForeColor = Color.Red;
 
             Room[] rooms = databaseContext.Rooms
@@ -125,7 +125,7 @@ namespace HotelPosSystem {
                 _dateErrorLabel.Text = "End date is before start date";
                 invalidFormData = true;
             } else {
-                _dateErrorLabel.Text = "";
+                _dateErrorLabel.Text = string.Empty;
             }
 
             if (customer is null) {
