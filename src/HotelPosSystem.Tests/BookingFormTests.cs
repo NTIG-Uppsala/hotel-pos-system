@@ -54,6 +54,20 @@ namespace HotelPosSystem.Tests {
             Assert.Contains("end date is before start date", datePickerErrorLabel.Text.ToLower());
         }
 
+        [Fact(Skip = "Not implemented yet")]
+        public void ShouldNotAddBookingWhenNothingSelected() {
+            AutomationElement bookingForm = GetBookingFormElement();
+            Button addBookingButton = Utilities.GetElement(_automation, "addBooking", bookingForm).AsButton();
+            AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
+
+            int bookingsBefore = bookingList.FindAllChildren().Count();
+            addBookingButton.Click();
+
+            bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
+            int bookingsAfter = bookingList.FindAllChildren().Count();
+            Assert.Equal(bookingsBefore, bookingsAfter);
+        }
+
         private AutomationElement GetBookingFormElement() {
             const string bookingListAutomationId = "bookingForm";
             return Utilities.GetElement(_automation, bookingListAutomationId, Utilities.GetMainWindow(_programWithDatabase, _automation));
