@@ -50,8 +50,8 @@ namespace HotelPosSystem.Tests {
             addBookingButton.Click();
 
             // Get label when label is not empty, FlaUI probably can not find empty labels
-            Label datePickerErrorLabel = Utilities.GetElement(_automation, "datePickerError", bookingForm).AsLabel();
-            Assert.Contains("end date is before start date", datePickerErrorLabel.Text.ToLower());
+            Label dateErrorLabel = Utilities.GetElement(_automation, "dateError", bookingForm).AsLabel();
+            Assert.Contains("end date is before start date", dateErrorLabel.Text.ToLower());
         }
 
         [Fact]
