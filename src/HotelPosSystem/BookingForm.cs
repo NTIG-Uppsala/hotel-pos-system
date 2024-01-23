@@ -9,6 +9,7 @@ namespace HotelPosSystem {
         private ComboBox? _customerDropdown;
         private DateTimePicker? _startDatePicker;
         private DateTimePicker? _endDatePicker;
+        private Label? _dateErrorLabel;
         private ComboBox? _roomDropdown;
         private TextBox? _commentTextBox;
         private CheckBox? _paidForCheckBox;
@@ -60,6 +61,8 @@ namespace HotelPosSystem {
             (_endDatePicker, _) = ControlUtilities.AddDatePickerWithLabel(dateContainer, "endDate", DateTime.Now, "endDateLabel", "End date:");
             _startDatePicker.Margin = new Padding(_startDatePicker.Margin.Left, _startDatePicker.Margin.Top, right: MainForm.MarginSize, _startDatePicker.Margin.Bottom);
             _endDatePicker.Margin = new Padding(left: 0, _endDatePicker.Margin.Top, _endDatePicker.Margin.Right, _endDatePicker.Margin.Bottom);
+            _dateErrorLabel = ControlUtilities.AddLabel(formPanel, "datePickerError", "");
+            _dateErrorLabel.ForeColor = Color.Red;
 
             Room[] rooms = databaseContext.Rooms
                 .Include(room => room.Type)
@@ -95,7 +98,7 @@ namespace HotelPosSystem {
             using HotelDbContext databaseContext = new();
 
             Customer? customer = _customerDropdown?.SelectedValue as Customer;
-            if (_startDatePicker is null || _endDatePicker is null) {
+            if (_startDatePicker is null || _endDatePicker is null || _dateErrorLabel is null) {
                 throw new NullReferenceException();
             }
             DateOnly startDate = DateOnly.FromDateTime(_startDatePicker.Value);
@@ -107,6 +110,13 @@ namespace HotelPosSystem {
 
             if (customer is null || room is null || paidFor is null || checkedIn is null) {
                 throw new NullReferenceException();
+            }
+
+            if (endDate < startDate) {
+                _dateErrorLabel.Text = "End date is before start date";
+                return;
+            } else {
+                _dateErrorLabel.Text = "";
             }
 
             Booking booking = new() {

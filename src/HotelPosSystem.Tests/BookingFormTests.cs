@@ -38,7 +38,7 @@ namespace HotelPosSystem.Tests {
             Assert.Contains("Kalle Kallesson", customerName.Text);
         }
 
-        [Fact(Skip = "Not implemented yet")]
+        [Fact]
         public void ShouldDisplayErrorWhenEndDateBeforeStartDate() {
             AutomationElement bookingForm = GetBookingFormElement();
             DateTimePicker startDatePicker = Utilities.GetElement(_automation, "startDate", bookingForm).AsDateTimePicker();
