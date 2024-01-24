@@ -74,9 +74,16 @@ namespace HotelPosSystem {
             }
 
             const int removeButtonWidth = 150;
-            ControlUtilities.AddButton(flowLayoutPanel, "removeButton" + booking.Id, "Remove", removeButtonWidth, (object? sender, EventArgs eventArgs) => RemoveBooking(booking.Id));
+            ControlUtilities.AddButton(flowLayoutPanel, "removeButton" + booking.Id, "Remove", removeButtonWidth, (object? sender, EventArgs eventArgs) => ShowRemoveBookingModal(booking.Id));
 
             return flowLayoutPanel;
+        }
+
+        private void ShowRemoveBookingModal(int bookingId) {
+            DialogResult result = MessageBox.Show("Are you sure you want to delete this booking?", "Remove booking", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes) {
+                RemoveBooking(bookingId);
+            }
         }
 
         private void RemoveBooking(int id) {

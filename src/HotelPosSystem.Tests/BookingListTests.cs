@@ -95,9 +95,26 @@ namespace HotelPosSystem.Tests {
             Button removeButton = Utilities.GetElement(_automation, "removeButton2", bookingList).AsButton();
 
             removeButton.Click();
+            Window modalWindow = _programWithDatabase.Application.GetAllTopLevelWindows(_automation)[0];
+            Button yesButton = modalWindow.FindFirstDescendant(descendant => descendant.ByName("Yes")).AsButton();
+            yesButton.Click();
 
             Label? customerName = Utilities.GetElement(_automation, "customerName2", bookingList).AsLabel();
             Assert.Null(customerName);
+        }
+
+        [Fact]
+        public void BookingShouldNotBeRemoved() {
+            AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
+            Button removeButton = Utilities.GetElement(_automation, "removeButton2", bookingList).AsButton();
+
+            removeButton.Click();
+            Window modalWindow = _programWithDatabase.Application.GetAllTopLevelWindows(_automation)[0];
+            Button noButton = modalWindow.FindFirstDescendant(descendant => descendant.ByName("No")).AsButton();
+            noButton.Click();
+
+            Label? customerName = Utilities.GetElement(_automation, "customerName2", bookingList).AsLabel();
+            Assert.NotNull(customerName);
         }
 
         public void Dispose() {
