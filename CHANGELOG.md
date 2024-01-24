@@ -9,6 +9,7 @@
 
 ### Changed
 
+- Rename label "Paid for" to "Has paid"
 - Layout improvements
 - No customer/room is selected by default in booking form
 
