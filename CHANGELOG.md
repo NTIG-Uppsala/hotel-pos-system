@@ -4,6 +4,7 @@
 
 ### Added
 
+- Buttons for removing bookings
 - Booking form validation
 
 ### Changed
