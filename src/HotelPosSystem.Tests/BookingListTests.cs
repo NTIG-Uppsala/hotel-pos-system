@@ -15,7 +15,7 @@ namespace HotelPosSystem.Tests {
         [Fact]
         public void CustomerNameShouldBeInList() {
             AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
-            Label customerName = Utilities.GetElement(_automation, "customerName1", bookingList).AsLabel();
+            TextBox customerName = Utilities.GetElement(_automation, "customerName1", bookingList).AsTextBox();
 
             Assert.Contains("Robert Robertsson", customerName.Text);
         }
@@ -23,7 +23,7 @@ namespace HotelPosSystem.Tests {
         [Fact]
         public void EmailAdressShouldBeInList() {
             AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
-            Label emailAddress = Utilities.GetElement(_automation, "emailAddress2", bookingList).AsLabel();
+            TextBox emailAddress = Utilities.GetElement(_automation, "emailAddress2", bookingList).AsTextBox();
 
             Assert.Contains("robert.robertsson@example.com", emailAddress.Text);
         }
@@ -31,7 +31,7 @@ namespace HotelPosSystem.Tests {
         [Fact]
         public void PhoneNumberShouldBeInList() {
             AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
-            Label phoneNumber = Utilities.GetElement(_automation, "phoneNumber3", bookingList).AsLabel();
+            TextBox phoneNumber = Utilities.GetElement(_automation, "phoneNumber3", bookingList).AsTextBox();
 
             Assert.Contains("070-1740640", phoneNumber.Text);
         }
@@ -39,7 +39,7 @@ namespace HotelPosSystem.Tests {
         [Fact]
         public void RoomNameShouldBeInList() {
             AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
-            Label roomName = Utilities.GetElement(_automation, "roomName1", bookingList).AsLabel();
+            TextBox roomName = Utilities.GetElement(_automation, "roomName1", bookingList).AsTextBox();
 
             Assert.Contains("202", roomName.Text);
         }
@@ -47,7 +47,7 @@ namespace HotelPosSystem.Tests {
         [Fact]
         public void DatesShouldBeInList() {
             AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
-            Label startEndDatesLabel = Utilities.GetElement(_automation, "dates2", bookingList).AsLabel();
+            TextBox startEndDatesLabel = Utilities.GetElement(_automation, "dates2", bookingList).AsTextBox();
 
             Assert.Contains("2023-12-27", startEndDatesLabel.Text);
             Assert.Contains("2024-01-03", startEndDatesLabel.Text);
@@ -76,7 +76,7 @@ namespace HotelPosSystem.Tests {
         [Fact]
         public void CommentShouldBeInList() {
             AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
-            Label commentLabel = Utilities.GetElement(_automation, "comment1", bookingList).AsLabel();
+            TextBox commentLabel = Utilities.GetElement(_automation, "comment1", bookingList).AsTextBox();
 
             Assert.Contains("Cleaning crew one hour late", commentLabel.Text);
         }
@@ -99,7 +99,7 @@ namespace HotelPosSystem.Tests {
             Button yesButton = modalWindow.FindFirstDescendant(descendant => descendant.ByName("Yes")).AsButton();
             yesButton.Click();
 
-            Label? customerName = Utilities.GetElement(_automation, "customerName2", bookingList).AsLabel();
+            TextBox? customerName = Utilities.GetElement(_automation, "customerName2", bookingList).AsTextBox();
             Assert.Null(customerName);
         }
 
@@ -113,7 +113,7 @@ namespace HotelPosSystem.Tests {
             Button noButton = modalWindow.FindFirstDescendant(descendant => descendant.ByName("No")).AsButton();
             noButton.Click();
 
-            Label? customerName = Utilities.GetElement(_automation, "customerName2", bookingList).AsLabel();
+            TextBox? customerName = Utilities.GetElement(_automation, "customerName2", bookingList).AsTextBox();
             Assert.NotNull(customerName);
         }
 

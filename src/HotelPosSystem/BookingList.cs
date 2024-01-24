@@ -54,23 +54,23 @@ namespace HotelPosSystem {
                 Margin = new Padding(0, 0, 0, bottom: MainForm.MarginSize)
             };
 
-            ControlUtilities.AddLabel(flowLayoutPanel, "customerName" + booking.Id, "Name: " + booking.Customer.FullName);
-            ControlUtilities.AddLabel(flowLayoutPanel, "emailAddress" + booking.Id, "Email address: " + booking.Customer.EmailAddress);
-            ControlUtilities.AddLabel(flowLayoutPanel, "phoneNumber" + booking.Id, "Phone number: " + booking.Customer.PhoneNumber);
-            ControlUtilities.AddLabel(flowLayoutPanel, "roomName" + booking.Id, "Room: " + booking.Room);
+            ControlUtilities.AddReadOnlyTextBox(flowLayoutPanel, "customerName" + booking.Id, "Name: " + booking.Customer.FullName);
+            ControlUtilities.AddReadOnlyTextBox(flowLayoutPanel, "emailAddress" + booking.Id, "Email address: " + booking.Customer.EmailAddress);
+            ControlUtilities.AddReadOnlyTextBox(flowLayoutPanel, "phoneNumber" + booking.Id, "Phone number: " + booking.Customer.PhoneNumber);
+            ControlUtilities.AddReadOnlyTextBox(flowLayoutPanel, "roomName" + booking.Id, "Room: " + booking.Room);
 
             // "o" date format corresponds to the ISO 8601 standard
             // https://learn.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings
             string startDate = booking.StartDate.ToString("o", CultureInfo.InvariantCulture);
             string endDate = booking.EndDate.ToString("o", CultureInfo.InvariantCulture);
-            ControlUtilities.AddLabel(flowLayoutPanel, "dates" + booking.Id,
+            ControlUtilities.AddReadOnlyTextBox(flowLayoutPanel, "dates" + booking.Id,
                                $"Dates: {startDate} to {endDate}");
 
             ControlUtilities.AddCheckBoxWithLabel(flowLayoutPanel, "paidFor" + booking.Id, booking.IsPaidFor, checkBoxEnabled: false, "", "Has paid:");
             ControlUtilities.AddCheckBoxWithLabel(flowLayoutPanel, "checkedIn" + booking.Id, booking.IsCheckedIn, checkBoxEnabled: false, "", "Has checked in:");
 
             if (booking.Comment is not null) {
-                ControlUtilities.AddLabel(flowLayoutPanel, "comment" + booking.Id, "Comment: " + booking.Comment);
+                ControlUtilities.AddReadOnlyTextBox(flowLayoutPanel, "comment" + booking.Id, "Comment: " + booking.Comment);
             }
 
             const int removeButtonWidth = 150;

@@ -32,8 +32,8 @@ namespace HotelPosSystem.Tests {
             paidCheckBox.Click();
             addBookingButton.Click();
 
-            Label startEndDatesLabel = Utilities.GetElement(_automation, "dates4", bookingList).AsLabel();
-            Label customerName = Utilities.GetElement(_automation, "customerName4", bookingList).AsLabel();
+            TextBox startEndDatesLabel = Utilities.GetElement(_automation, "dates4", bookingList).AsTextBox();
+            TextBox customerName = Utilities.GetElement(_automation, "customerName4", bookingList).AsTextBox();
             Assert.Contains("2024-01-25", startEndDatesLabel.Text);
             Assert.Contains("Kalle Kallesson", customerName.Text);
         }
@@ -50,7 +50,7 @@ namespace HotelPosSystem.Tests {
             addBookingButton.Click();
 
             // Get label when label is not empty, FlaUI probably can not find empty labels
-            Label dateErrorLabel = Utilities.GetElement(_automation, "dateError", bookingForm).AsLabel();
+            TextBox dateErrorLabel = Utilities.GetElement(_automation, "dateError", bookingForm).AsTextBox();
             Assert.Contains("end date is before start date", dateErrorLabel.Text.ToLower());
         }
 
@@ -76,7 +76,7 @@ namespace HotelPosSystem.Tests {
             addBookingButton.Click();
 
             // Get label when label is not empty, FlaUI probably can not find empty labels
-            Label customerErrorLabel = Utilities.GetElement(_automation, "customerError", bookingForm).AsLabel();
+            TextBox customerErrorLabel = Utilities.GetElement(_automation, "customerError", bookingForm).AsTextBox();
             Assert.Equal("please select a customer", customerErrorLabel.Text.ToLower());
         }
 

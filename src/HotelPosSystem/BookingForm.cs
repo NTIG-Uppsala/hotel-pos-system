@@ -9,12 +9,12 @@ namespace HotelPosSystem {
         private readonly BookingList _bookingList;
 
         private ComboBox? _customerDropdown;
-        private Label? _customerErrorLabel;
+        private TextBox? _customerErrorLabel;
         private DateTimePicker? _startDatePicker;
         private DateTimePicker? _endDatePicker;
-        private Label? _dateErrorLabel;
+        private TextBox? _dateErrorLabel;
         private ComboBox? _roomDropdown;
-        private Label? _roomErrorLabel;
+        private TextBox? _roomErrorLabel;
         private TextBox? _commentTextBox;
         private CheckBox? _paidForCheckBox;
         private CheckBox? _checkedInCheckBox;
@@ -54,7 +54,9 @@ namespace HotelPosSystem {
                 .ToArray();
             (_customerDropdown, _) = ControlUtilities.AddComboBoxWithLabel(formPanel, "customer", customers, "Select a customer", width, "customerLabel", "Customer:");
             _customerDropdown.Validating += (object? sender, CancelEventArgs eventArgs) => ValidateCustomer();
-            _customerErrorLabel = ControlUtilities.AddLabel(formPanel, "customerError", string.Empty);
+            _customerErrorLabel = ControlUtilities.AddReadOnlyTextBox(formPanel, "customerError", string.Empty);
+            // needed to update forecolor
+            _customerErrorLabel.BackColor = _customerErrorLabel.BackColor;
             _customerErrorLabel.ForeColor = Color.Red;
 
             FlowLayoutPanel dateContainer = new() {
@@ -70,7 +72,9 @@ namespace HotelPosSystem {
             _endDatePicker.Margin = new Padding(left: 0, _endDatePicker.Margin.Top, _endDatePicker.Margin.Right, _endDatePicker.Margin.Bottom);
             _startDatePicker.Validating += (object? sender, CancelEventArgs eventArgs) => ValidateDates();
             _endDatePicker.Validating += (object? sender, CancelEventArgs eventArgs) => ValidateDates();
-            _dateErrorLabel = ControlUtilities.AddLabel(formPanel, "dateError", string.Empty);
+            _dateErrorLabel = ControlUtilities.AddReadOnlyTextBox(formPanel, "dateError", string.Empty);
+            // needed to update forecolor
+            _dateErrorLabel.BackColor = _dateErrorLabel.BackColor;
             _dateErrorLabel.ForeColor = Color.Red;
 
             Room[] rooms = databaseContext.Rooms
@@ -79,7 +83,9 @@ namespace HotelPosSystem {
                 .ToArray();
             (_roomDropdown, _) = ControlUtilities.AddComboBoxWithLabel(formPanel, "room", rooms, "Select a room", width, "roomLabel", "Room:");
             _roomDropdown.Validating += (object? sender, CancelEventArgs eventArgs) => ValidateRoom();
-            _roomErrorLabel = ControlUtilities.AddLabel(formPanel, "roomError", string.Empty);
+            _roomErrorLabel = ControlUtilities.AddReadOnlyTextBox(formPanel, "roomError", string.Empty);
+            // needed to update forecolor
+            _roomErrorLabel.BackColor = _roomErrorLabel.BackColor;
             _roomErrorLabel.ForeColor = Color.Red;
 
             const int checkboxContainerMaxHeight = 22;
@@ -94,7 +100,7 @@ namespace HotelPosSystem {
             ControlUtilities.CreateRowsAndColumns(checkBoxContainer);
             formPanel.Controls.Add(checkBoxContainer);
             (_paidForCheckBox, _) = ControlUtilities.AddCheckBoxWithLabel(checkBoxContainer, "paidFor", checkBoxState: false, checkBoxEnabled: true, "paidForLabel", "Paid for:");
-            (_checkedInCheckBox, Label checkedInLabel) = ControlUtilities.AddCheckBoxWithLabel(checkBoxContainer, "checkedIn", checkBoxState: false, checkBoxEnabled: true, "checkedInLabel", "Checked in:");
+            (_checkedInCheckBox, TextBox checkedInLabel) = ControlUtilities.AddCheckBoxWithLabel(checkBoxContainer, "checkedIn", checkBoxState: false, checkBoxEnabled: true, "checkedInLabel", "Checked in:");
             checkedInLabel.Margin = new Padding(left: MainForm.MarginSize / 2, checkedInLabel.Margin.Top, checkedInLabel.Margin.Right, checkedInLabel.Margin.Bottom);
 
             (_commentTextBox, _) = ControlUtilities.AddTextBoxWithLabel(formPanel, "comment", width, "commentLabel", "Comment:");

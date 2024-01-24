@@ -1,30 +1,44 @@
 ﻿namespace HotelPosSystem {
     internal static class ControlUtilities {
-        internal static (CheckBox, Label) AddCheckBoxWithLabel(Panel container, string checkBoxName, bool checkBoxState, bool checkBoxEnabled, string labelName, string labelText) {
+        internal static (CheckBox, TextBox) AddCheckBoxWithLabel(Panel container, string checkBoxName, bool checkBoxState, bool checkBoxEnabled, string labelName, string labelText) {
             FlowLayoutPanel layoutPanel = new() {
                 FlowDirection = FlowDirection.LeftToRight,
                 AutoSize = true,
                 Margin = Padding.Empty
             };
 
-            Label label = AddLabel(layoutPanel, labelName, labelText);
+            TextBox textBox = AddReadOnlyTextBox(layoutPanel, labelName, labelText);
             CheckBox checkBox = AddCheckBox(layoutPanel, checkBoxName, checkBoxState, checkBoxEnabled);
 
             container.Controls.Add(layoutPanel);
-            return (checkBox, label);
+            return (checkBox, textBox);
         }
 
-        internal static Label AddLabel(Panel container, string name, string text) {
-            Label label = new() {
+        internal static TextBox AddReadOnlyTextBox(Panel container, string name, string text) {
+            TextBox textBox = new() {
                 Name = name,
                 Text = text,
-                UseCompatibleTextRendering = true,
-                AutoSize = true
+                ReadOnly = true,
+                AutoSize = true,
+                BorderStyle = 0,
+                TabStop = false,
+                BackColor = Color.Empty,
             };
-            container.Controls.Add(label);
-            return label;
-        }
 
+            AutoSizeTextBox(textBox);
+
+            textBox.TextChanged += (object sender, EventArgs e) => {
+                AutoSizeTextBox(sender as TextBox);
+            };
+
+            container.Controls.Add(textBox);
+            return textBox;
+        }
+        internal static void AutoSizeTextBox(TextBox text) {
+            Size size = TextRenderer.MeasureText(text.Text, text.Font);
+            text.ClientSize =
+                new Size(size.Width, size.Height);
+        }
         internal static CheckBox AddCheckBox(Panel container, string name, bool isChecked, bool isEnabled) {
             CheckBox checkBox = new() {
                 Name = name,
@@ -37,18 +51,18 @@
             return checkBox;
         }
 
-        internal static (ComboBox, Label) AddComboBoxWithLabel(Panel container, string comboBoxName, object[] comboBoxItems, string comboBoxPlaceholder, int comboBoxWidth, string labelName, string labelText) {
+        internal static (ComboBox, TextBox) AddComboBoxWithLabel(Panel container, string comboBoxName, object[] comboBoxItems, string comboBoxPlaceholder, int comboBoxWidth, string labelName, string labelText) {
             FlowLayoutPanel layoutPanel = new() {
                 FlowDirection = FlowDirection.TopDown,
                 AutoSize = true,
                 Margin = Padding.Empty
             };
 
-            Label label = AddLabel(layoutPanel, labelName, labelText);
+            TextBox textBox = AddReadOnlyTextBox(layoutPanel, labelName, labelText);
             ComboBox comboBox = AddComboBox(layoutPanel, comboBoxName, comboBoxItems, comboBoxWidth, comboBoxPlaceholder);
 
             container.Controls.Add(layoutPanel);
-            return (comboBox, label);
+            return (comboBox, textBox);
         }
 
         internal static ComboBox AddComboBox(Panel container, string name, object[] items, int width, string placeholder) {
@@ -65,18 +79,18 @@
             return comboBox;
         }
 
-        internal static (DateTimePicker, Label) AddDatePickerWithLabel(Panel container, string datePickerName, DateTime earliestDate, string labelName, string labelText) {
+        internal static (DateTimePicker, TextBox) AddDatePickerWithLabel(Panel container, string datePickerName, DateTime earliestDate, string labelName, string labelText) {
             FlowLayoutPanel layoutPanel = new() {
                 FlowDirection = FlowDirection.TopDown,
                 AutoSize = true,
                 Margin = Padding.Empty
             };
 
-            Label label = AddLabel(layoutPanel, labelName, labelText);
+            TextBox textBox = AddReadOnlyTextBox(layoutPanel, labelName, labelText);
             DateTimePicker dateTimePicker = AddDatePicker(layoutPanel, datePickerName, earliestDate);
 
             container.Controls.Add(layoutPanel);
-            return (dateTimePicker, label);
+            return (dateTimePicker, textBox);
         }
 
         internal static DateTimePicker AddDatePicker(Panel container, string name, DateTime earliestDate) {
@@ -89,18 +103,18 @@
             return datePicker;
         }
 
-        internal static (TextBox, Label) AddTextBoxWithLabel(Panel container, string textBoxName, int textBoxWidth, string labelName, string labelText) {
+        internal static (TextBox, TextBox) AddTextBoxWithLabel(Panel container, string textBoxName, int textBoxWidth, string labelName, string labelText) {
             FlowLayoutPanel layoutPanel = new() {
                 FlowDirection = FlowDirection.TopDown,
                 AutoSize = true,
                 Margin = Padding.Empty
             };
 
-            Label label = AddLabel(layoutPanel, labelName, labelText);
+            TextBox textReadOnlyBox = AddReadOnlyTextBox(layoutPanel, labelName, labelText);
             TextBox textBox = AddTextBox(layoutPanel, textBoxName, textBoxWidth);
 
             container.Controls.Add(layoutPanel);
-            return (textBox, label);
+            return (textBox, textReadOnlyBox);
         }
 
         internal static TextBox AddTextBox(Panel container, string name, int width) {
