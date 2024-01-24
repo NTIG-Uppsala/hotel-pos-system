@@ -21,7 +21,7 @@ namespace HotelPosSystem.Tests {
         }
 
         [Fact]
-        public void EmailAdressShouldBeInList() {
+        public void EmailAddressShouldBeInList() {
             AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
             Label emailAddress = Utilities.GetElement(_automation, "emailAddress2", bookingList).AsLabel();
 
