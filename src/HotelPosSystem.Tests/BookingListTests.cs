@@ -90,7 +90,7 @@ namespace HotelPosSystem.Tests {
         }
 
         [Fact]
-        public void ItemShouldBeRemoved() {
+        public void BookingShouldBeRemoved() {
             AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
             Button removeButton = Utilities.GetElement(_automation, "removeButton2", bookingList).AsButton();
 
