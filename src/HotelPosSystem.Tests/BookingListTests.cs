@@ -89,6 +89,17 @@ namespace HotelPosSystem.Tests {
             Assert.Null(commentLabel);
         }
 
+        [Fact]
+        public void ItemShouldBeRemoved() {
+            AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
+            Button removeButton = Utilities.GetElement(_automation, "removeButton2", bookingList).AsButton();
+
+            removeButton.Click();
+
+            Label? customerName = Utilities.GetElement(_automation, "customerName2", bookingList).AsLabel();
+            Assert.Null(customerName);
+        }
+
         public void Dispose() {
             _automation.Dispose();
             _programWithDatabase.Dispose();

@@ -12,7 +12,7 @@ namespace HotelPosSystem {
             ContainerPanel = CreateListControls();
         }
 
-        private static FlowLayoutPanel CreateListControls() {
+        private FlowLayoutPanel CreateListControls() {
             using HotelDbContext databaseContext = new();
 
             FlowLayoutPanel listPanel = new() {
@@ -47,7 +47,7 @@ namespace HotelPosSystem {
             return listPanel;
         }
 
-        private static FlowLayoutPanel CreateListItem(Booking booking) {
+        private FlowLayoutPanel CreateListItem(Booking booking) {
             FlowLayoutPanel flowLayoutPanel = new() {
                 FlowDirection = FlowDirection.TopDown,
                 AutoSize = true,
@@ -73,7 +73,17 @@ namespace HotelPosSystem {
                 ControlUtilities.AddLabel(flowLayoutPanel, "comment" + booking.Id, "Comment: " + booking.Comment);
             }
 
+            const int removeButtonWidth = 150;
+            ControlUtilities.AddButton(flowLayoutPanel, "removeButton" + booking.Id, "Remove", removeButtonWidth, (object? sender, EventArgs eventArgs) => RemoveBooking(booking.Id));
+
             return flowLayoutPanel;
+        }
+
+        private void RemoveBooking(int id) {
+            using HotelDbContext databaseContext = new();
+            databaseContext.Bookings.Remove(databaseContext.Bookings.First(booking => booking.Id == id));
+            databaseContext.SaveChanges();
+            Update();
         }
 
         internal void Update() {
