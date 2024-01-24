@@ -37,7 +37,7 @@
             return checkBox;
         }
 
-        internal static (ComboBox, Label) AddComboBoxWithLabel(Panel container, string comboBoxName, object[] comboBoxItems, int comboBoxWidth, string labelName, string labelText) {
+        internal static (ComboBox, Label) AddComboBoxWithLabel(Panel container, string comboBoxName, object[] comboBoxItems, string comboBoxPlaceholder, int comboBoxWidth, string labelName, string labelText) {
             FlowLayoutPanel layoutPanel = new() {
                 FlowDirection = FlowDirection.TopDown,
                 AutoSize = true,
@@ -45,16 +45,18 @@
             };
 
             Label label = AddLabel(layoutPanel, labelName, labelText);
-            ComboBox comboBox = AddComboBox(layoutPanel, comboBoxName, comboBoxItems, comboBoxWidth);
+            ComboBox comboBox = AddComboBox(layoutPanel, comboBoxName, comboBoxItems, comboBoxWidth, comboBoxPlaceholder);
 
             container.Controls.Add(layoutPanel);
             return (comboBox, label);
         }
 
-        internal static ComboBox AddComboBox(Panel container, string name, object[] items, int width) {
+        internal static ComboBox AddComboBox(Panel container, string name, object[] items, int width, string placeholder) {
+            List<object> itemsWithPlaceholder = items.ToList();
+            itemsWithPlaceholder.Insert(0, placeholder);
             ComboBox comboBox = new() {
                 Name = name,
-                DataSource = items,
+                DataSource = itemsWithPlaceholder,
                 Width = width,
                 AutoCompleteMode = AutoCompleteMode.SuggestAppend,
                 AutoCompleteSource = AutoCompleteSource.ListItems
