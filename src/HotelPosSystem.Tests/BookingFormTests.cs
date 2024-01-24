@@ -38,6 +38,48 @@ namespace HotelPosSystem.Tests {
             Assert.Contains("Kalle Kallesson", customerName.Text);
         }
 
+        [Fact]
+        public void ShouldDisplayErrorWhenEndDateBeforeStartDate() {
+            AutomationElement bookingForm = GetBookingFormElement();
+            DateTimePicker startDatePicker = Utilities.GetElement(_automation, "startDate", bookingForm).AsDateTimePicker();
+            DateTimePicker endDatePicker = Utilities.GetElement(_automation, "endDate", bookingForm).AsDateTimePicker();
+            Button addBookingButton = Utilities.GetElement(_automation, "addBooking", bookingForm).AsButton();
+
+            startDatePicker.SelectedDate = new DateTime(2024, 2, 5);
+            endDatePicker.SelectedDate = new DateTime(2024, 2, 3);
+            addBookingButton.Click();
+
+            // Get label when label is not empty, FlaUI probably can not find empty labels
+            Label dateErrorLabel = Utilities.GetElement(_automation, "dateError", bookingForm).AsLabel();
+            Assert.Contains("end date is before start date", dateErrorLabel.Text.ToLower());
+        }
+
+        [Fact]
+        public void ShouldNotAddBookingWhenNothingSelected() {
+            AutomationElement bookingForm = GetBookingFormElement();
+            Button addBookingButton = Utilities.GetElement(_automation, "addBooking", bookingForm).AsButton();
+            AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
+
+            int bookingsBefore = bookingList.FindAllChildren().Count();
+            addBookingButton.Click();
+
+            bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
+            int bookingsAfter = bookingList.FindAllChildren().Count();
+            Assert.Equal(bookingsBefore, bookingsAfter);
+        }
+
+        [Fact]
+        public void ShouldDisplayErrorMessageWhenNoCustomerSelected() {
+            AutomationElement bookingForm = GetBookingFormElement();
+            Button addBookingButton = Utilities.GetElement(_automation, "addBooking", bookingForm).AsButton();
+
+            addBookingButton.Click();
+
+            // Get label when label is not empty, FlaUI probably can not find empty labels
+            Label customerErrorLabel = Utilities.GetElement(_automation, "customerError", bookingForm).AsLabel();
+            Assert.Equal("please select a customer", customerErrorLabel.Text.ToLower());
+        }
+
         private AutomationElement GetBookingFormElement() {
             const string bookingListAutomationId = "bookingForm";
             return Utilities.GetElement(_automation, bookingListAutomationId, Utilities.GetMainWindow(_programWithDatabase, _automation));

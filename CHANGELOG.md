@@ -5,10 +5,12 @@
 ### Added
 
 - Buttons for removing bookings
+- Booking form validation
 
 ### Changed
 
 - Layout improvements
+- No customer/room is selected by default in booking form
 
 ## 0.3.0 - 2024-01-18
 
