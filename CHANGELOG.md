@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- Buttons for removing bookings
+
 ### Changed
 
 - Layout improvements
