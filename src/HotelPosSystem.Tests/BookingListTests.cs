@@ -97,6 +97,7 @@ namespace HotelPosSystem.Tests {
             removeButton.Click();
             Window modalWindow = _programWithDatabase.Application.GetAllTopLevelWindows(_automation)[0];
             Button yesButton = modalWindow.FindFirstDescendant(descendant => descendant.ByAutomationId("6")).AsButton();
+            // AutomationId explanation: https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.dialogresult?view=windowsdesktop-8.0#fields
             yesButton.Click();
 
             Label? customerName = Utilities.GetElement(_automation, "customerName2", bookingList).AsLabel();
@@ -111,6 +112,7 @@ namespace HotelPosSystem.Tests {
             removeButton.Click();
             Window modalWindow = _programWithDatabase.Application.GetAllTopLevelWindows(_automation)[0];
             Button noButton = modalWindow.FindFirstDescendant(descendant => descendant.ByAutomationId("7")).AsButton();
+            // AutomationId explanation: https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.dialogresult?view=windowsdesktop-8.0#fields
             noButton.Click();
 
             Label? customerName = Utilities.GetElement(_automation, "customerName2", bookingList).AsLabel();
