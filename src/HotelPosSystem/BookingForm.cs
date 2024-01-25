@@ -35,7 +35,7 @@ namespace HotelPosSystem {
                 WrapContents = false,
                 AutoScroll = true,
                 Dock = DockStyle.Fill,
-                Margin = new Padding(MainForm.EdgeMarginSize)
+                Margin = new Padding(MainForm.MarginSize)
             };
 
             Label heading = new() {
