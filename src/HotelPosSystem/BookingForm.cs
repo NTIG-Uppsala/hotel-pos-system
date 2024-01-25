@@ -82,12 +82,10 @@ namespace HotelPosSystem {
             _roomErrorLabel = ControlUtilities.AddLabel(formPanel, "roomError", string.Empty);
             _roomErrorLabel.ForeColor = Color.Red;
 
-            const int checkboxContainerMaxHeight = 22;
             TableLayoutPanel checkBoxContainer = new() {
                 RowCount = 1,
                 ColumnCount = 2,
                 MinimumSize = new Size(width, 0),
-                MaximumSize = new Size(width, checkboxContainerMaxHeight),
                 AutoSize = true,
                 Margin = new Padding(0)
             };
