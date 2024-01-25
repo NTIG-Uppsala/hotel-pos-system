@@ -6,7 +6,7 @@ namespace HotelPosSystem {
 
         public MainForm() {
             InitializeComponent();
-            this.WindowState = FormWindowState.Maximized;
+            WindowState = FormWindowState.Maximized;
 
             DatabaseUtilities.SetUpDatabase();
 
@@ -23,6 +23,8 @@ namespace HotelPosSystem {
             mainContainer.Controls.Add(bookingForm.ContainerPanel);
             mainContainer.Controls.Add(bookingList.ContainerPanel);
             Controls.Add(mainContainer);
+
+            ActiveControl = mainContainer;
         }
     }
 }
