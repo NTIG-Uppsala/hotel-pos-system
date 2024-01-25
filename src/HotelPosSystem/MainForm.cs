@@ -2,7 +2,6 @@ namespace HotelPosSystem {
     public partial class MainForm : Form {
         internal const int HeadingFontSize = 18;
         internal const int MarginSize = 30;
-        internal const int EdgeMarginSize = 15;
 
         public MainForm() {
             InitializeComponent();
