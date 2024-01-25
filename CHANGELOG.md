@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.4.0 - 2024-01-25
+
 ### Added
 
 - Buttons for removing bookings
