@@ -9,6 +9,7 @@
 
 ### Changed
 
+- "Has paid" and "Checked in" checkboxes editable in booking list
 - Layout improvements
 - No customer/room is selected by default in booking form
 
