@@ -4,6 +4,7 @@
             FlowLayoutPanel layoutPanel = new() {
                 FlowDirection = FlowDirection.LeftToRight,
                 AutoSize = true,
+                WrapContents = false,
                 Margin = Padding.Empty
             };
 
