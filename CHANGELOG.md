@@ -12,6 +12,7 @@
 - Label for checkbox "Paid for" in booking form renamed to "Has paid"
 - Layout improvements
 - No customer/room is selected by default in booking form
+- Customer dropdown is no longer focused when program is started
 
 ## 0.3.0 - 2024-01-18
 
