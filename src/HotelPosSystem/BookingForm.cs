@@ -52,10 +52,12 @@ namespace HotelPosSystem {
             Customer[] customers = databaseContext.Customers
                 .OrderBy(customer => customer.FullName)
                 .ToArray();
-            (_customerDropdown, _) = ControlUtilities.AddComboBoxWithLabel(formPanel, "customer", customers, "Select a customer", width, "customerLabel", "Customer:");
+            (_customerDropdown, Label customerErrorLabel) = ControlUtilities.AddComboBoxWithLabel(formPanel, "customer", customers, "Select a customer", width, "customerLabel", "Customer:");
             _customerDropdown.Validating += (object? sender, CancelEventArgs eventArgs) => ValidateCustomer();
             _customerErrorLabel = ControlUtilities.AddLabel(formPanel, "customerError", string.Empty);
             _customerErrorLabel.ForeColor = Color.Red;
+
+            int controlsSpacing = customerErrorLabel.Height;
 
             FlowLayoutPanel dateContainer = new() {
                 FlowDirection = FlowDirection.LeftToRight,
@@ -89,6 +91,7 @@ namespace HotelPosSystem {
                 AutoSize = true,
                 Margin = new Padding(0)
             };
+            checkBoxContainer.Margin = new Padding(0, 0, 0, controlsSpacing);
             ControlUtilities.CreateRowsAndColumns(checkBoxContainer);
             formPanel.Controls.Add(checkBoxContainer);
             (_paidForCheckBox, _) = ControlUtilities.AddCheckBoxWithLabel(checkBoxContainer, "paidFor", checkBoxState: false, onCheckBoxClick: null, "paidForLabel", "Has paid:");
@@ -96,6 +99,7 @@ namespace HotelPosSystem {
             checkedInLabel.Margin = new Padding(left: MainForm.MarginSize / 2, checkedInLabel.Margin.Top, checkedInLabel.Margin.Right, checkedInLabel.Margin.Bottom);
 
             (_commentTextBox, _) = ControlUtilities.AddTextBoxWithLabel(formPanel, "comment", width, "commentLabel", "Comment:");
+            _commentTextBox.Margin = new Padding(_commentTextBox.Margin.Left, _commentTextBox.Margin.Top, _commentTextBox.Margin.Right, controlsSpacing);
 
             ControlUtilities.AddButton(formPanel, "addBooking", "Add Booking", width, (sender, eventArgs) => CreateBooking());
 
