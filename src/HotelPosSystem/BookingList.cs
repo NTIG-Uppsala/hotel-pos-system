@@ -66,8 +66,8 @@ namespace HotelPosSystem {
             ControlUtilities.AddLabel(flowLayoutPanel, "dates" + booking.Id,
                                $"Dates: {startDate} to {endDate}");
 
-            ControlUtilities.AddCheckBoxWithLabel(flowLayoutPanel, "paidFor" + booking.Id, booking.IsPaidFor, checkBoxEnabled: false, "", "Has paid:");
-            ControlUtilities.AddCheckBoxWithLabel(flowLayoutPanel, "checkedIn" + booking.Id, booking.IsCheckedIn, checkBoxEnabled: false, "", "Has checked in:");
+            ControlUtilities.AddCheckBoxWithLabel(flowLayoutPanel, "paidFor" + booking.Id, booking.IsPaidFor, (object? _, EventArgs _) => HandlePaidForClick(booking.Id), "", "Has paid:");
+            ControlUtilities.AddCheckBoxWithLabel(flowLayoutPanel, "checkedIn" + booking.Id, booking.IsCheckedIn, (object? _, EventArgs _) => HandleCheckedInClick(booking.Id), "", "Has checked in:");
 
             if (booking.Comment is not null) {
                 ControlUtilities.AddLabel(flowLayoutPanel, "comment" + booking.Id, "Comment: " + booking.Comment);
@@ -77,6 +77,20 @@ namespace HotelPosSystem {
             ControlUtilities.AddButton(flowLayoutPanel, "removeButton" + booking.Id, "Remove", removeButtonWidth, (object? sender, EventArgs eventArgs) => ShowRemoveBookingModal(booking.Id));
 
             return flowLayoutPanel;
+        }
+
+        private void HandlePaidForClick(int bookingId) {
+            using HotelDbContext databaseContext = new();
+            Booking booking = databaseContext.Bookings.First(booking => booking.Id == bookingId);
+            booking.IsPaidFor = !booking.IsPaidFor;
+            databaseContext.SaveChanges();
+        }
+
+        private void HandleCheckedInClick(int bookingId) {
+            using HotelDbContext databaseContext = new();
+            Booking booking = databaseContext.Bookings.First(booking => booking.Id == bookingId);
+            booking.IsCheckedIn = !booking.IsCheckedIn;
+            databaseContext.SaveChanges();
         }
 
         private void ShowRemoveBookingModal(int bookingId) {

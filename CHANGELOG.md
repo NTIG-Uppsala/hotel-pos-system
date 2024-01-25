@@ -10,6 +10,7 @@
 ### Changed
 
 - Label for checkbox "Paid for" in booking form renamed to "Has paid"
+- "Has paid" and "Checked in" checkboxes editable in booking list
 - Layout improvements
 - No customer/room is selected by default in booking form
 - Customer dropdown is no longer focused when program is started

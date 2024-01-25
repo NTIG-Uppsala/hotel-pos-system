@@ -91,8 +91,8 @@ namespace HotelPosSystem {
             };
             ControlUtilities.CreateRowsAndColumns(checkBoxContainer);
             formPanel.Controls.Add(checkBoxContainer);
-            (_paidForCheckBox, _) = ControlUtilities.AddCheckBoxWithLabel(checkBoxContainer, "paidFor", checkBoxState: false, checkBoxEnabled: true, "paidForLabel", "Has paid:");
-            (_checkedInCheckBox, Label checkedInLabel) = ControlUtilities.AddCheckBoxWithLabel(checkBoxContainer, "checkedIn", checkBoxState: false, checkBoxEnabled: true, "checkedInLabel", "Checked in:");
+            (_paidForCheckBox, _) = ControlUtilities.AddCheckBoxWithLabel(checkBoxContainer, "paidFor", checkBoxState: false, onCheckBoxClick: null, "paidForLabel", "Has paid:");
+            (_checkedInCheckBox, Label checkedInLabel) = ControlUtilities.AddCheckBoxWithLabel(checkBoxContainer, "checkedIn", checkBoxState: false, onCheckBoxClick: null, "checkedInLabel", "Checked in:");
             checkedInLabel.Margin = new Padding(left: MainForm.MarginSize / 2, checkedInLabel.Margin.Top, checkedInLabel.Margin.Right, checkedInLabel.Margin.Bottom);
 
             (_commentTextBox, _) = ControlUtilities.AddTextBoxWithLabel(formPanel, "comment", width, "commentLabel", "Comment:");
