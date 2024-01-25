@@ -1,6 +1,6 @@
 ﻿namespace HotelPosSystem {
     internal static class ControlUtilities {
-        internal static (CheckBox, Label) AddCheckBoxWithLabel(Panel container, string checkBoxName, bool checkBoxState, bool checkBoxEnabled, string labelName, string labelText) {
+        internal static (CheckBox, Label) AddCheckBoxWithLabel(Panel container, string checkBoxName, bool checkBoxState, EventHandler? onCheckBoxClick, string labelName, string labelText) {
             FlowLayoutPanel layoutPanel = new() {
                 FlowDirection = FlowDirection.LeftToRight,
                 AutoSize = true,
@@ -8,7 +8,7 @@
             };
 
             Label label = AddLabel(layoutPanel, labelName, labelText);
-            CheckBox checkBox = AddCheckBox(layoutPanel, checkBoxName, checkBoxState, checkBoxEnabled);
+            CheckBox checkBox = AddCheckBox(layoutPanel, checkBoxName, checkBoxState, onCheckBoxClick);
 
             container.Controls.Add(layoutPanel);
             return (checkBox, label);
@@ -25,14 +25,16 @@
             return label;
         }
 
-        internal static CheckBox AddCheckBox(Panel container, string name, bool isChecked, bool isEnabled) {
+        internal static CheckBox AddCheckBox(Panel container, string name, bool isChecked, EventHandler? onClick) {
             CheckBox checkBox = new() {
                 Name = name,
                 Checked = isChecked,
-                Enabled = isEnabled,
                 UseCompatibleTextRendering = true,
                 AutoSize = true
             };
+            if (onClick is not null) {
+                checkBox.Click += onClick;
+            }
             container.Controls.Add(checkBox);
             return checkBox;
         }

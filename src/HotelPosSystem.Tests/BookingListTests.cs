@@ -74,6 +74,20 @@ namespace HotelPosSystem.Tests {
         }
 
         [Fact]
+        public void ClickedCheckBoxShouldRememberValue() {
+            AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
+            CheckBox checkBox = Utilities.GetElement(_automation, "checkedIn2", bookingList).AsCheckBox();
+
+            checkBox.Click();
+
+            _programWithDatabase.RestartProgram();
+            bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
+            checkBox = Utilities.GetElement(_automation, "checkedIn2", bookingList).AsCheckBox();
+
+            Assert.True(checkBox.IsChecked);
+        }
+
+        [Fact]
         public void CommentShouldBeInList() {
             AutomationElement bookingList = Utilities.GetBookingListElement(_programWithDatabase, _automation);
             Label commentLabel = Utilities.GetElement(_automation, "comment1", bookingList).AsLabel();
