@@ -82,18 +82,16 @@ namespace HotelPosSystem {
             _roomErrorLabel = ControlUtilities.AddLabel(formPanel, "roomError", string.Empty);
             _roomErrorLabel.ForeColor = Color.Red;
 
-            const int checkboxContainerMaxHeight = 22;
             TableLayoutPanel checkBoxContainer = new() {
                 RowCount = 1,
                 ColumnCount = 2,
                 MinimumSize = new Size(width, 0),
-                MaximumSize = new Size(width, checkboxContainerMaxHeight),
                 AutoSize = true,
                 Margin = new Padding(0)
             };
             ControlUtilities.CreateRowsAndColumns(checkBoxContainer);
             formPanel.Controls.Add(checkBoxContainer);
-            (_paidForCheckBox, _) = ControlUtilities.AddCheckBoxWithLabel(checkBoxContainer, "paidFor", checkBoxState: false, onCheckBoxClick: null, "paidForLabel", "Paid for:");
+            (_paidForCheckBox, _) = ControlUtilities.AddCheckBoxWithLabel(checkBoxContainer, "paidFor", checkBoxState: false, onCheckBoxClick: null, "paidForLabel", "Has paid:");
             (_checkedInCheckBox, Label checkedInLabel) = ControlUtilities.AddCheckBoxWithLabel(checkBoxContainer, "checkedIn", checkBoxState: false, onCheckBoxClick: null, "checkedInLabel", "Checked in:");
             checkedInLabel.Margin = new Padding(left: MainForm.MarginSize / 2, checkedInLabel.Margin.Top, checkedInLabel.Margin.Right, checkedInLabel.Margin.Bottom);
 
