@@ -7,8 +7,6 @@ namespace HotelPosSystem {
             InitializeComponent();
             WindowState = FormWindowState.Maximized;
 
-            DatabaseUtilities.SetUpDatabase();
-
             TableLayoutPanel mainContainer = new() {
                 RowCount = 1,
                 ColumnCount = 2,
