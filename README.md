@@ -32,7 +32,7 @@ git clone https://github.com/NTIG-Uppsala/hotel-pos-system
 
 Make sure you have the .NET 8 SDK installed. You can get it from [here](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
 
-### Entity Framework Core installation
+### Install Entity Framework Core
 
 ```shell
 dotnet tool install --global dotnet-ef
