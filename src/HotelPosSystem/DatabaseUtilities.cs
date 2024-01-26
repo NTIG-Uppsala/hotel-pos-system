@@ -10,14 +10,11 @@ namespace HotelPosSystem {
 
         internal static void SetUpDatabase() {
             using HotelDbContext databaseContext = new();
-
             databaseContext.Database.Migrate();
+        }
 
-            // If there is any data in the database, skip adding new data
-            if (!AreAllTablesEmpty(databaseContext)) {
-                return;
-            }
-
+        internal static void SeedDatabase() {
+            using HotelDbContext databaseContext = new();
             RoomType[] roomTypes = CreateRoomTypes();
             databaseContext.RoomTypes.AddRange(roomTypes);
             RoomType singleRoom = roomTypes.First(roomType => roomType.Name == SingleRoomName);
@@ -50,7 +47,8 @@ namespace HotelPosSystem {
             databaseContext.SaveChanges();
         }
 
-        public static bool AreAllTablesEmpty(HotelDbContext databaseContext) {
+        public static bool AreAllTablesEmpty() {
+            using HotelDbContext databaseContext = new();
             return !(databaseContext.Rooms.Any()
                      || databaseContext.RoomTypes.Any()
                      || databaseContext.Customers.Any()
